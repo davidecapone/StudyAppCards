@@ -13,5 +13,14 @@ One of the core features of this app is the concept of "Question Sets" (also ref
 - **Practice Mode**: Test your knowledge by answering questions from different sets.
 - **Pomodoro Mode**: Balance study sessions with breaks using the Pomodoro technique.
 
+## Installation
+1. Clone the repository:
+```
+git clone [https://github.com/yourusername/study-buddy.git](https://github.com/davidecapone/SDMProject.git)
+```
+3. Open the project in Android Studio.
+4. Build and run the application on an emulator or physical device.
+
+
 ## Contributing
 We welcome contributions from the community! Please fork the repository and submit pull requests for any features, bug fixes, or enhancements.
