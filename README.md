@@ -15,8 +15,8 @@ One of the core features of this app is the concept of "Question Sets" (also ref
 
 ## Installation
 1. Clone the repository:
-```
-git clone [https://github.com/yourusername/study-buddy.git](https://github.com/davidecapone/SDMProject.git)
+```bash
+    git clone https://github.com/davidecapone/SDMProject.git
 ```
 3. Open the project in Android Studio.
 4. Build and run the application on an emulator or physical device.
