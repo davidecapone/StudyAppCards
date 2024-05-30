@@ -1,8 +1,16 @@
 language: android
-sudo: required  # this is deprecated
+#sudo: required  # this is deprecated
 dist: trusty
 os: linux
 jdk: oraclejdk8
+
+notifications:
+  email:
+    recipients:
+      - davide.capone@studenti.units.it
+      - sandrojunior.dellarovere@studenti.units.it
+    on_success: always # default: never
+    on_failure: always # default: always
 
 env:
   global:
