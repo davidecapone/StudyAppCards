@@ -14,4 +14,7 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(5, 2 + 2);
     }
+
+    @Test
+    public void string_isCorrect() { assertEquals("Hello", "Hello"); }
 }
