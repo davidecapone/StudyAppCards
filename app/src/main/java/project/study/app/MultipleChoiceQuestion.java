@@ -2,20 +2,29 @@ package project.study.app;
 
 public class MultipleChoiceQuestion {
     private String question;
-    private String answer1;
 
-    private String answer2;
+    private Answer[] answers;
 
-    private String correctAnswer;
-
-    public MultipleChoiceQuestion(String question, String answer1, String answer2, String correctAnswer) {
+    public MultipleChoiceQuestion(String question, Answer[] answers) {
         this.question = question;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.correctAnswer = correctAnswer;
+        this.answers = answers;
     }
 
-    public String getCorrectAnswer() {
-        return this.correctAnswer;
+    public Boolean checkAnswerCorrectness(Answer answer) {
+        return answer.isCorrect();
+    }
+
+    public static class Answer{
+        private String answerText;
+        private Boolean correctness;
+
+        public Answer(String answerText, Boolean correctness){
+            this.answerText = answerText;
+            this.correctness = correctness;
+        }
+
+        public Boolean isCorrect(){
+            return this.correctness;
+        }
     }
 }
