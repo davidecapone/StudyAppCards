@@ -2,7 +2,6 @@ package project.study.app;
 
 public class MultipleChoiceQuestion {
     private String question;
-
     private Answer[] answers;
 
     public MultipleChoiceQuestion(String question, Answer[] answers) {
@@ -10,8 +9,13 @@ public class MultipleChoiceQuestion {
         this.answers = answers;
     }
 
-    public Boolean checkAnswerCorrectness(Answer answer) {
-        return answer.isCorrect();
+    /**
+     * Checks if the answer is correct.
+     *
+     * @return true if the answer is correct, false otherwise.
+     */
+    public Boolean isCorrect(Answer answer) {
+        return answer.getCorrectAnswer();
     }
 
     public static class Answer{
@@ -23,7 +27,11 @@ public class MultipleChoiceQuestion {
             this.correctness = correctness;
         }
 
-        public Boolean isCorrect(){
+        /**
+         * Returns the answer text.
+         * @return
+         */
+        public Boolean getCorrectAnswer(){
             return this.correctness;
         }
     }
