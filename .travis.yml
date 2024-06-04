@@ -1,7 +1,7 @@
 language: android
 dist: trusty
 os: linux
-jdk: openjdk11
+jdk: openjdk17
 
 notifications:
   email:
