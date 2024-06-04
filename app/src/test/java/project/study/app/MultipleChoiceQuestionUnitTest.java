@@ -17,7 +17,7 @@ public class MultipleChoiceQuestionUnitTest {
         MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion(question, answers);
 
         // check if passing the correct answer the method returns isCorrect true
-        assertEquals(multipleChoiceQuestion.isCorrect(answer1), true);
+        assertEquals(multipleChoiceQuestion.checkAnswer(answer1), true);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class MultipleChoiceQuestionUnitTest {
         MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(question, answers);
 
         // the answer2 should be incorrect:
-        assertEquals(mcq.isCorrect(answer2), false);
+        assertEquals(mcq.checkAnswer(answer2), false);
     }
 
     @Test

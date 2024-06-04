@@ -1,20 +1,32 @@
 package project.study.app;
-
+/**
+ * Represents a free-text question.
+ */
 public class FreeTextQuestion {
-    private String question;
+    private String questionText;
     private String correctAnswer;
 
-    public FreeTextQuestion(String question, String correctAnswer) {
-        this.question = question;
+    /**
+     * Constructor for a free-text question.
+     * @param questionText The question text.
+     * @param correctAnswer The correct answer.
+     */
+    public FreeTextQuestion(String questionText, String correctAnswer) {
+        this.questionText = questionText;
         this.correctAnswer = correctAnswer;
     }
 
+    /**
+     * Checks if the given answer is correct.
+     * @param inputAnswer The input answer.
+     * @return true if the answer is correct, false otherwise
+     */
     public boolean checkAnswer(String inputAnswer) {
         return this.correctAnswer.equals(inputAnswer);
     }
 
-    public String getQuestion() {
-        return this.question;
+    public String getQuestionText() {
+        return this.questionText;
     }
 
     public String getCorrectAnswer() {
@@ -22,7 +34,7 @@ public class FreeTextQuestion {
     }
 
     public String setQuestion(String question) {
-        return this.question = question;
+        return this.questionText = question;
     }
 
     public String setCorrectAnswer(String correctAnswer) {
