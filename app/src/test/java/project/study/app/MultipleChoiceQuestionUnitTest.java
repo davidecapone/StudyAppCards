@@ -1,11 +1,9 @@
 package project.study.app;
-
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 import static project.study.app.MultipleChoiceQuestion.Answer;
 
-public class QuestionUnitTest {
+public class MultipleChoiceQuestionUnitTest {
     @Test
     public void check_the_correct_answer_is_correct() {
         // question text:
