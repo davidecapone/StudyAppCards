@@ -1,8 +1,7 @@
 language: android
-#sudo: required  # this is deprecated
 dist: trusty
 os: linux
-jdk: oraclejdk8
+jdk: openjdk11
 
 notifications:
   email:
