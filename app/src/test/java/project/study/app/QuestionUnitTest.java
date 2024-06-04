@@ -66,6 +66,29 @@ public class QuestionUnitTest {
         Answer answer3 = new Answer("No", false);
 
         assertEquals(answer1, answer2);
-        //assertNotEquals(answer1, answer3);
+        assertNotEquals(answer1, answer3);
+    }
+
+    @Test
+    public void check_getAnswerText() {
+        Answer answer1 = new Answer("Yes", true);
+
+        assertEquals(answer1.getAnswerText(), "Yes");
+    }
+
+    @Test
+    public void check_setAnswerText() {
+        Answer answer1 = new Answer("Yes", true);
+        answer1.setAnswerText("No");
+
+        assertEquals(answer1.getAnswerText(), "No");
+    }
+
+    @Test
+    public void check_setCorrectness() {
+        Answer answer1 = new Answer("Yes", true);
+        answer1.setCorrectness(false);
+
+        assertEquals(answer1.getCorrectness(), false);
     }
 }

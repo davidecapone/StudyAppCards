@@ -23,7 +23,7 @@ public class MultipleChoiceQuestion {
      * @return true if the answer is correct, false otherwise.
      */
     public Boolean isCorrect(Answer answer) {
-        return answer.getCorrectAnswer();
+        return answer.getCorrectness();
     }
 
     public static class Answer{
@@ -35,7 +35,7 @@ public class MultipleChoiceQuestion {
             this.correctness = correctness;
         }
 
-        public Boolean getCorrectAnswer(){
+        public Boolean getCorrectness(){
             return this.correctness;
         }
 
@@ -49,6 +49,18 @@ public class MultipleChoiceQuestion {
             }
             Answer answer = (Answer) obj;
             return answerText.equals(answer.answerText) && correctness.equals(answer.correctness);
+        }
+
+        public String getAnswerText(){
+            return this.answerText;
+        }
+
+        public void setAnswerText(String answerText){
+            this.answerText = answerText;
+        }
+
+        public void setCorrectness(Boolean correctness){
+            this.correctness = correctness;
         }
     }
 }
