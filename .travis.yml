@@ -30,6 +30,8 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
+install:
+  sdkmanager.bat --licenses
 
 before_install:
   - touch $HOME/.android/repositories.cfg
