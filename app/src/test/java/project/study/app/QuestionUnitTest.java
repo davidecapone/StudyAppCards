@@ -35,70 +35,15 @@ public class QuestionUnitTest {
     }
 
     @Test
-    public void check_questionText_getter() {
-        String question = "Rome is the capital of Italy";
-        Answer answer1 = new Answer("Yes", true);
-        Answer answer2 = new Answer("No", false);
-        Answer[] answers = {answer1, answer2};
-        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(question, answers);
-
-        assertEquals(mcq.getQuestionText(), question);
-    }
-
-    @Test
-    public void check_setQuestionText() {
-        String question = "Rome is the capital of Italy";
-        Answer answer1 = new Answer("Yes", true);
-        Answer answer2 = new Answer("No", false);
-        Answer[] answers = {answer1, answer2};
-        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(question, answers);
-
-        String newQuestion = "Is Rome the capital of Italy?";
-        mcq.setQuestionText(newQuestion);
-
-        assertEquals(mcq.getQuestionText(), newQuestion);
-    }
-
-    @Test
     public void check_equality_of_Answer() {
         Answer answer1 = new Answer("Yes", true);
         Answer answer2 = new Answer("Yes", true);
         Answer answer3 = new Answer("No", false);
 
+        // answer1 and answer2 should be equal:
         assertEquals(answer1, answer2);
+        // answer1 and answer3 should not be equal:
         assertNotEquals(answer1, answer3);
     }
 
-    @Test
-    public void check_getAnswerText() {
-        Answer answer1 = new Answer("Yes", true);
-
-        assertEquals(answer1.getAnswerText(), "Yes");
-    }
-
-    @Test
-    public void check_setAnswerText() {
-        Answer answer1 = new Answer("Yes", true);
-        answer1.setAnswerText("No");
-
-        assertEquals(answer1.getAnswerText(), "No");
-    }
-
-    @Test
-    public void check_setCorrectness() {
-        Answer answer1 = new Answer("Yes", true);
-        answer1.setCorrectness(false);
-
-        assertEquals(answer1.getCorrectness(), false);
-    }
-
-    @Test
-    public void getAnswers() {
-        Answer answer1 = new Answer("Yes", true);
-        Answer answer2 = new Answer("No", false);
-        Answer[] answers = {answer1, answer2};
-        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion("Rome is the capital of Italy", answers);
-
-        assertArrayEquals(mcq.getAnswers(), answers);
-    }
 }

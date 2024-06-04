@@ -5,10 +5,7 @@ package project.study.app;
  */
 public class MultipleChoiceQuestion {
 
-    // The question text.
     private String questionText;
-
-    // The possible answers.
     private Answer[] answers;
 
     /**
@@ -50,6 +47,15 @@ public class MultipleChoiceQuestion {
     }
 
     /**
+     * Sets the possible answers.
+     *
+     * @param answers The possible answers.
+     */
+    public void setAnswers(Answer[] answers){
+        this.answers = answers;
+    }
+
+    /**
      * Checks if the input answer is the correct one.
      *
      * @return true if the answer is correct, false otherwise.
@@ -63,10 +69,7 @@ public class MultipleChoiceQuestion {
      */
     public static class Answer{
 
-        // The answer text.
         private String answerText;
-
-        // The correctness of the answer.
         private Boolean correctness;
 
         /**
