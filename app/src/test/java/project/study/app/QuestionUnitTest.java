@@ -91,4 +91,14 @@ public class QuestionUnitTest {
 
         assertEquals(answer1.getCorrectness(), false);
     }
+
+    @Test
+    public void getAnswers() {
+        Answer answer1 = new Answer("Yes", true);
+        Answer answer2 = new Answer("No", false);
+        Answer[] answers = {answer1, answer2};
+        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion("Rome is the capital of Italy", answers);
+
+        assertArrayEquals(mcq.getAnswers(), answers);
+    }
 }

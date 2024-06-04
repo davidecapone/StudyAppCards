@@ -26,6 +26,10 @@ public class MultipleChoiceQuestion {
         return answer.getCorrectness();
     }
 
+    public Answer[] getAnswers(){
+        return this.answers;
+    }
+
     public static class Answer{
         private String answerText;
         private Boolean correctness;
