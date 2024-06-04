@@ -1,12 +1,20 @@
 package project.study.app;
 
 public class MultipleChoiceQuestion {
-    private String question;
+    private String questionText;
     private Answer[] answers;
 
-    public MultipleChoiceQuestion(String question, Answer[] answers) {
-        this.question = question;
+    public MultipleChoiceQuestion(String questionText, Answer[] answers) {
+        this.questionText = questionText;
         this.answers = answers;
+    }
+
+    public String getQuestionText() {
+        return this.questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
     /**
@@ -29,6 +37,18 @@ public class MultipleChoiceQuestion {
 
         public Boolean getCorrectAnswer(){
             return this.correctness;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            Answer answer = (Answer) obj;
+            return answerText.equals(answer.answerText) && correctness.equals(answer.correctness);
         }
     }
 }

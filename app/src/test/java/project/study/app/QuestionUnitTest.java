@@ -33,4 +33,39 @@ public class QuestionUnitTest {
         // the answer2 should be incorrect:
         assertEquals(mcq.isCorrect(answer2), false);
     }
+
+    @Test
+    public void check_questionText_getter() {
+        String question = "Rome is the capital of Italy";
+        Answer answer1 = new Answer("Yes", true);
+        Answer answer2 = new Answer("No", false);
+        Answer[] answers = {answer1, answer2};
+        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(question, answers);
+
+        assertEquals(mcq.getQuestionText(), question);
+    }
+
+    @Test
+    public void check_setQuestionText() {
+        String question = "Rome is the capital of Italy";
+        Answer answer1 = new Answer("Yes", true);
+        Answer answer2 = new Answer("No", false);
+        Answer[] answers = {answer1, answer2};
+        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(question, answers);
+
+        String newQuestion = "Is Rome the capital of Italy?";
+        mcq.setQuestionText(newQuestion);
+
+        assertEquals(mcq.getQuestionText(), newQuestion);
+    }
+
+    @Test
+    public void check_equality_of_Answer() {
+        Answer answer1 = new Answer("Yes", true);
+        Answer answer2 = new Answer("Yes", true);
+        Answer answer3 = new Answer("No", false);
+
+        assertEquals(answer1, answer2);
+        //assertNotEquals(answer1, answer3);
+    }
 }
