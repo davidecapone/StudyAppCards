@@ -31,6 +31,10 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
+install:
+  # accept licenses for all available packages that have not already been accepted
+  - yes | sdkmanager --licenses >/dev/null
+
 before_install:
   - touch $HOME/.android/repositories.cfg
 
