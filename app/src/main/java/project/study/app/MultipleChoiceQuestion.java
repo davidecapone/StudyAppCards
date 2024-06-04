@@ -10,7 +10,7 @@ public class MultipleChoiceQuestion {
     }
 
     /**
-     * Checks if the answer is correct.
+     * Checks if the input answer is correct.
      *
      * @return true if the answer is correct, false otherwise.
      */
@@ -27,10 +27,6 @@ public class MultipleChoiceQuestion {
             this.correctness = correctness;
         }
 
-        /**
-         * Returns the answer text.
-         * @return
-         */
         public Boolean getCorrectAnswer(){
             return this.correctness;
         }
