@@ -1,8 +1,8 @@
 package project.study.app.model;
 
-public interface Question<AnswerType> {
+public interface Question<A> {
 
     String getQuestionText();
     void setQuestionText(String newText);
-    Boolean checkAnswer(AnswerType answer);
+    Boolean checkAnswer(A answer);
 }
