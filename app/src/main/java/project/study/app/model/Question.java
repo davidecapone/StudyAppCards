@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.model;
 
 public interface Question<AnswerType> {
 

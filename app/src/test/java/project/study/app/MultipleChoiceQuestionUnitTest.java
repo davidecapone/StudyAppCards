@@ -1,7 +1,9 @@
 package project.study.app;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static project.study.app.MultipleChoiceQuestion.Answer;
+import static project.study.app.model.MultipleChoiceQuestion.Answer;
+
+import project.study.app.model.MultipleChoiceQuestion;
 
 public class MultipleChoiceQuestionUnitTest {
     @Test

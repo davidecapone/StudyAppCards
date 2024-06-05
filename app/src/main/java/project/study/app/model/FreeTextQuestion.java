@@ -1,8 +1,11 @@
-package project.study.app;
+package project.study.app.model;
+
+import project.study.app.model.Question;
+
 /**
  * Represents a free-text question.
  */
-public class FreeTextQuestion implements Question<String>{
+public class FreeTextQuestion implements Question<String> {
     private String questionText;
     private String correctAnswer;
 

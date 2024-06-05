@@ -1,8 +1,9 @@
-package project.study.app;
+package project.study.app.model;
+
 /**
  * Represents a multiple choice question.
  */
-public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.Answer>{
+public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.Answer> {
     private String questionText;
     private Answer[] answers;
 

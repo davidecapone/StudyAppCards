@@ -2,6 +2,8 @@ package project.study.app;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import project.study.app.model.FreeTextQuestion;
+
 public class FreeTextQuestionUnitTest {
 
     @Test
