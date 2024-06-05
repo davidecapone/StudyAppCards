@@ -19,7 +19,6 @@ public class MultipleChoiceQuestionUnitTest {
         // check if passing the correct answer the method returns isCorrect true
         assertEquals(multipleChoiceQuestion.checkAnswer(answer1), true);
     }
-
     @Test
     public void check_the_wrong_answer_is_incorrect() {
         String question = "Rome is the capital of Italy";
@@ -31,7 +30,6 @@ public class MultipleChoiceQuestionUnitTest {
         // the answer2 should be incorrect:
         assertEquals(mcq.checkAnswer(answer2), false);
     }
-
     @Test
     public void check_equality_of_Answer() {
         Answer answer1 = new Answer("Yes", true);
@@ -43,5 +41,4 @@ public class MultipleChoiceQuestionUnitTest {
         // answer1 and answer3 should not be equal:
         assertNotEquals(answer1, answer3);
     }
-
 }

@@ -2,7 +2,7 @@ package project.study.app;
 /**
  * Represents a free-text question.
  */
-public class FreeTextQuestion {
+public class FreeTextQuestion implements Question<String>{
     private String questionText;
     private String correctAnswer;
 
@@ -21,7 +21,7 @@ public class FreeTextQuestion {
      * @param inputAnswer The input answer.
      * @return true if the answer is correct, false otherwise
      */
-    public boolean checkAnswer(String inputAnswer) {
+    public Boolean checkAnswer(String inputAnswer) {
         return this.correctAnswer.equals(inputAnswer);
     }
 
@@ -29,12 +29,13 @@ public class FreeTextQuestion {
         return this.questionText;
     }
 
-    public String getCorrectAnswer() {
-        return this.correctAnswer;
+    @Override
+    public void setQuestionText(String newText) {
+        this.questionText = newText;
     }
 
-    public String setQuestion(String question) {
-        return this.questionText = question;
+    public String getCorrectAnswer() {
+        return this.correctAnswer;
     }
 
     public String setCorrectAnswer(String correctAnswer) {

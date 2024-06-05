@@ -2,7 +2,7 @@ package project.study.app;
 /**
  * Represents a multiple choice question.
  */
-public class MultipleChoiceQuestion {
+public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.Answer>{
     private String questionText;
     private Answer[] answers;
 
@@ -33,8 +33,8 @@ public class MultipleChoiceQuestion {
         return this.answers;
     }
 
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+    public void setQuestionText(String newText) {
+        this.questionText = newText;
     }
 
     public void setAnswers(Answer[] answers){
