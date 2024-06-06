@@ -1,36 +1,53 @@
 package project.study.app;
 import org.junit.Test;
+import org.junit.Before;
 import static org.junit.Assert.*;
 import static project.study.app.model.MultipleChoiceQuestion.Answer;
 import project.study.app.model.MultipleChoiceQuestion;
 
+/**
+ * Unit tests for the MultipleChoiceQuestion class.
+ */
 public class MultipleChoiceQuestionUnitTest {
-    
+
+    private String questionText;
+
+    private Answer[] answers;
+
+    MultipleChoiceQuestion multipleChoiceQuestion;
+
+    @Before
+    public void set_up() {
+
+        // set the question text
+        questionText = "Paris is the capital of France";
+
+        // set the possible answers for the multiple choice question
+        Answer answer1 = new Answer("Yes", true);
+        Answer answer2 = new Answer("No", false);
+        answers = new Answer[]{answer1, answer2};
+
+        // create a new MultipleChoiceQuestion object
+        multipleChoiceQuestion = new MultipleChoiceQuestion(questionText, answers);
+    }
+
     @Test
     public void check_the_correct_answer_is_correct() {
-        // question text:
-        String question = "Paris is the capital of France";
-        // possible answer 1 (the correct one):
-        Answer answer1 = new Answer("Yes", true);
-        // possible answer 2:
-        Answer answer2 = new Answer("No", false);
 
-        Answer[] answers = {answer1, answer2};
-        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion(question, answers);
+        // set the correct answer
+        Answer correctAnswer = answers[0];
 
-        // check if passing the correct answer the method returns isCorrect true
-        assertEquals(multipleChoiceQuestion.checkAnswer(answer1), true);
+        // check if passing the correct answer to the method returns isCorrect true
+        assertEquals(multipleChoiceQuestion.checkAnswer(correctAnswer), true);
     }
 
     @Test
     public void check_the_wrong_answer_is_incorrect() {
-        String question = "Rome is the capital of Italy";
-        Answer answer1 = new Answer("Yes", true);
-        Answer answer2 = new Answer("No", false);
-        Answer[] answers = {answer1, answer2};
-        MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(question, answers);
 
-        // the answer2 should be incorrect:
-        assertEquals(mcq.checkAnswer(answer2), false);
+        // set the incorrect answer
+        Answer incorrectAnswer = answers[1];
+
+        // check if passing the wrong answer the method returns isCorrect false
+        assertEquals(multipleChoiceQuestion.checkAnswer(incorrectAnswer), false);
     }
 }
