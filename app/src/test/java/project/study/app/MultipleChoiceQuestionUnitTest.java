@@ -5,6 +5,7 @@ import static project.study.app.model.MultipleChoiceQuestion.Answer;
 import project.study.app.model.MultipleChoiceQuestion;
 
 public class MultipleChoiceQuestionUnitTest {
+    
     @Test
     public void check_the_correct_answer_is_correct() {
         // question text:
@@ -20,6 +21,7 @@ public class MultipleChoiceQuestionUnitTest {
         // check if passing the correct answer the method returns isCorrect true
         assertEquals(multipleChoiceQuestion.checkAnswer(answer1), true);
     }
+
     @Test
     public void check_the_wrong_answer_is_incorrect() {
         String question = "Rome is the capital of Italy";
@@ -30,16 +32,5 @@ public class MultipleChoiceQuestionUnitTest {
 
         // the answer2 should be incorrect:
         assertEquals(mcq.checkAnswer(answer2), false);
-    }
-    @Test
-    public void check_equality_of_Answer() {
-        Answer answer1 = new Answer("Yes", true);
-        Answer answer2 = new Answer("Yes", true);
-        Answer answer3 = new Answer("No", false);
-
-        // answer1 and answer2 should be equal:
-        assertEquals(answer1, answer2);
-        // answer1 and answer3 should not be equal:
-        assertNotEquals(answer1, answer3);
     }
 }

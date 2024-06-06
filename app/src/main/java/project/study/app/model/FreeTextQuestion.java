@@ -6,14 +6,10 @@ import project.study.app.model.Question;
  * Represents a free-text question.
  */
 public class FreeTextQuestion implements Question<String> {
+
     private String questionText;
     private String correctAnswer;
 
-    /**
-     * Constructor for a free-text question.
-     * @param questionText The question text.
-     * @param correctAnswer The correct answer.
-     */
     public FreeTextQuestion(String questionText, String correctAnswer) {
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
@@ -32,7 +28,6 @@ public class FreeTextQuestion implements Question<String> {
         return this.questionText;
     }
 
-    @Override
     public void setQuestionText(String newText) {
         this.questionText = newText;
     }

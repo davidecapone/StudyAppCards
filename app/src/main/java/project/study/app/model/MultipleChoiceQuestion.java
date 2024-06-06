@@ -4,14 +4,10 @@ package project.study.app.model;
  * Represents a multiple choice question.
  */
 public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.Answer> {
+
     private String questionText;
     private Answer[] answers;
 
-    /**
-     * Constructor for a multiple choice question.
-     * @param questionText The question text.
-     * @param answers The possible answers.
-     */
     public MultipleChoiceQuestion(String questionText, Answer[] answers) {
         this.questionText = questionText;
         this.answers = answers;
@@ -42,23 +38,18 @@ public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.A
         this.answers = answers;
     }
 
+    /**
+     * Represents an answer to a multiple choice question.
+     */
     public static class Answer{
-        /**
-         * Represents an answer to a multiple choice question.
-         */
+
         private String answerText;
         private Boolean correctness;
 
-        /**
-         * Constructor for an answer.
-         * @param answerText The text of the answer.
-         * @param correctness The correctness of the answer.
-         */
         public Answer(String answerText, Boolean correctness){
             this.answerText = answerText;
             this.correctness = correctness;
         }
-
 
         public String getAnswerText(){
             return this.answerText;
@@ -74,18 +65,6 @@ public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.A
 
         public void setCorrectness(Boolean correctness){
             this.correctness = correctness;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-            Answer answer = (Answer) obj;
-            return answerText.equals(answer.answerText) && correctness.equals(answer.correctness);
         }
     }
 }
