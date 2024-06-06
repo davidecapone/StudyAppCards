@@ -91,4 +91,20 @@ public class QuestionSetUnitTest {
         // assert that the first question is the multiple choice question that was added:
         assertEquals(multipleChoiceQuestion, questions.get(0));
     }
+
+    @Test
+    public void test_getRandomQuestion() {
+        // add both questions to the question set:
+        questionSet.addQuestion(freeTextQuestion);
+        questionSet.addQuestion(multipleChoiceQuestion);
+
+        // retrieve the questions from the question set:
+        List<Question<?>> questions = questionSet.getQuestions();
+
+        // retrieve a random question from the question set:
+        Question<?> randomQuestion = questionSet.getRandomQuestion();
+
+        // assert that the random question is one of the questions in the question set:
+        assertTrue(questions.contains(randomQuestion));
+    }
 }

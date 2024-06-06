@@ -32,6 +32,18 @@ public class QuestionSet {
         questions.remove(question);
     }
 
+    /**
+     * Retrieve a random question from the question set
+     * @return a random question
+     */
+    public Question<?> getRandomQuestion() {
+
+        // generate a random index to select a question from the list
+        int randomIndex = (int) (Math.random() * questions.size());
+
+        return questions.get(randomIndex);
+    }
+
     public List<Question<?>> getQuestions() {
         return questions;
     }
