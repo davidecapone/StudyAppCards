@@ -44,6 +44,34 @@ public class QuestionSet {
         return questions.get(randomIndex);
     }
 
+    /**
+     * Generate a list of all questions in randomized order
+     * @return a list of all questions in randomized order
+     */
+    public List<Question<?>> getRandomizedQuestionList() {
+
+        // create a new list to store the randomized questions
+        List<Question<?>> randomizedQuestions = new ArrayList<>();
+
+        // create a copy of the original list of questions
+        List<Question<?>> copyOfQuestions = new ArrayList<>(questions);
+
+        // iterate through the original list of questions
+        while (!copyOfQuestions.isEmpty()) {
+
+            // generate a random index to select a question from the list
+            int randomIndex = (int) (Math.random() * copyOfQuestions.size());
+
+            // add the randomly selected question to the list of randomized questions
+            randomizedQuestions.add(copyOfQuestions.get(randomIndex));
+
+            // remove the randomly selected question from the copy of the original list of questions
+            copyOfQuestions.remove(randomIndex);
+        }
+
+        return randomizedQuestions;
+    }
+
     public List<Question<?>> getQuestions() {
         return questions;
     }

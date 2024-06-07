@@ -107,4 +107,29 @@ public class QuestionSetUnitTest {
         // assert that the random question is one of the questions in the question set:
         assertTrue(questions.contains(randomQuestion));
     }
+
+    @Test
+    public void test_getRandomizedQuestionList() {
+
+        // add both questions to the question set:
+        questionSet.addQuestion(freeTextQuestion);
+        questionSet.addQuestion(multipleChoiceQuestion);
+
+        // add more questions to the question set:
+        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 2", "Sample Answer 2"));
+        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 3", "Sample Answer 3"));
+        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 4", "Sample Answer 4"));
+        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 5", "Sample Answer 5"));
+
+        // retrieve a randomized list of questions from the question set:
+        List<Question<?>> randomizedQuestions = questionSet.getRandomizedQuestionList();
+
+        // assert that the number of questions in the randomized list is the same as the number of questions in the question set:
+        assertEquals(questionSet.getQuestions().size(), randomizedQuestions.size());
+
+        // assert that the questions in the randomized list are the same as the questions in the question set:
+        for (int i = 0; i < questionSet.getQuestions().size(); i++) {
+            assertTrue(randomizedQuestions.contains(questionSet.getQuestions().get(i)));
+        }
+    }
 }
