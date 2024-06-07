@@ -41,4 +41,46 @@ public class FreeTextQuestionUnitTest {
         // check if passing the incorrect answer the method returns false
         assertFalse(freeTextQuestion.checkAnswer(inCorrectAnswer));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_answer_is_null() throws Exception{
+
+        // check if passing a null answer the method throws an exception
+        freeTextQuestion.checkAnswer(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_answer_is_empty() throws Exception{
+
+        // check if passing an empty answer the method throws an exception
+        freeTextQuestion.checkAnswer("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_question_text_is_null() throws Exception{
+
+        // create a new FreeTextQuestion object with a null text
+        new FreeTextQuestion(null, "7");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_question_text_is_empty() throws Exception{
+
+        // create a new FreeTextQuestion object with an empty text
+        new FreeTextQuestion("", "7");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_correct_answer_is_null() throws Exception{
+
+        // create a new FreeTextQuestion object with a null correct answer
+        new FreeTextQuestion("How many days are there in a week?", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_correct_answer_is_empty() throws Exception{
+
+        // create a new FreeTextQuestion object with an empty correct answer
+        new FreeTextQuestion("How many days are there in a week?", "");
+    }
 }

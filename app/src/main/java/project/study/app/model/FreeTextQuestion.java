@@ -11,6 +11,14 @@ public class FreeTextQuestion implements Question<String> {
     private String correctAnswer;
 
     public FreeTextQuestion(String questionText, String correctAnswer) {
+
+        if (questionText == null || questionText.isEmpty()) {
+            throw new IllegalArgumentException("Question text cannot be empty.");
+        }
+        if (correctAnswer == null || correctAnswer.isEmpty()) {
+            throw new IllegalArgumentException("Correct answer cannot be empty.");
+        }
+
         this.questionText = questionText;
         this.correctAnswer = correctAnswer;
     }
@@ -21,6 +29,10 @@ public class FreeTextQuestion implements Question<String> {
      * @return true if the answer is correct, false otherwise
      */
     public Boolean checkAnswer(String inputAnswer) {
+
+        if (inputAnswer == null || inputAnswer.isEmpty())
+            throw new IllegalArgumentException("Input answer cannot be empty.");
+
         return this.correctAnswer.equals(inputAnswer);
     }
 
