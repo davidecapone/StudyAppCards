@@ -11,9 +11,7 @@ import project.study.app.model.MultipleChoiceQuestion;
 public class MultipleChoiceQuestionUnitTest {
 
     private String questionText;
-
     private Answer[] answers;
-
     MultipleChoiceQuestion multipleChoiceQuestion;
 
     @Before
@@ -49,5 +47,46 @@ public class MultipleChoiceQuestionUnitTest {
 
         // check if passing the wrong answer the method returns isCorrect false
         assertEquals(multipleChoiceQuestion.checkAnswer(incorrectAnswer), false);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_answers_array_is_null() throws Exception {
+
+        // create a new MultipleChoiceQuestion object with a null answer
+        multipleChoiceQuestion = new MultipleChoiceQuestion(questionText, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_given_answer_not_in_answers_array() throws Exception {
+
+        multipleChoiceQuestion.checkAnswer(new Answer("Bla bla bla", false));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_given_answer_is_null() throws Exception {
+
+        // create a new MultipleChoiceQuestion object with a null answer
+        multipleChoiceQuestion.checkAnswer(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_answers_array_is_0_length() throws Exception {
+
+        // create a new MultipleChoiceQuestion object with a 0 length answer
+        multipleChoiceQuestion = new MultipleChoiceQuestion(questionText, new Answer[0]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_question_text_is_null() throws Exception {
+
+        // create a new MultipleChoiceQuestion object with a null question text
+        multipleChoiceQuestion = new MultipleChoiceQuestion(null, answers);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void check_question_text_is_empty() throws Exception {
+
+        // create a new MultipleChoiceQuestion object with a empty question text
+        multipleChoiceQuestion = new MultipleChoiceQuestion("", answers);
     }
 }

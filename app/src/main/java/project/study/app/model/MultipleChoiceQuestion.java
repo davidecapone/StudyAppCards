@@ -9,6 +9,14 @@ public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.A
     private Answer[] answers;
 
     public MultipleChoiceQuestion(String questionText, Answer[] answers) {
+
+        if (questionText == null || questionText.isEmpty()) {
+            throw new IllegalArgumentException("Question text cannot be empty.");
+        }
+        if (answers == null || answers.length == 0) {
+            throw new IllegalArgumentException("Answers cannot be empty.");
+        }
+
         this.questionText = questionText;
         this.answers = answers;
     }
@@ -18,8 +26,20 @@ public class MultipleChoiceQuestion implements Question<MultipleChoiceQuestion.A
      * @param answer The answer to check.
      * @return true if the answer is correct, false otherwise.
      */
-    public Boolean checkAnswer(Answer answer) {
-        return answer.getCorrectness();
+    public Boolean checkAnswer(Answer givenAnswer) {
+
+        if (givenAnswer == null) {
+            throw new IllegalArgumentException("Answer cannot be null.");
+        }
+
+        for (Answer answer : answers) {
+            if (answer.getAnswerText().equals(givenAnswer.getAnswerText())) {
+                return answer.getCorrectness();
+            }
+        }
+
+        // if the answer is not found in the answers array, throw an exception:
+        throw new IllegalArgumentException("Answer not found in answers array.");
     }
 
     public String getQuestionText() {
