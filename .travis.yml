@@ -1,4 +1,6 @@
+
 language: android
+install: skip
 dist: trusty
 os: linux
 jdk: openjdk17
@@ -33,6 +35,7 @@ android:
 
 before_install:
   - touch $HOME/.android/repositories.cfg
+  - gradle wrapper
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -49,4 +52,5 @@ before_script:
 
 script:
   - chmod +x ./gradlew
+  - ./gradlew build --scan -s
   #- ./gradlew test
