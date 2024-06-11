@@ -2,14 +2,14 @@ package project.study.app;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static project.study.app.model.MultipleChoiceQuestion.Answer;
+import static project.study.app.model.domain.MultipleChoiceQuestion.Answer;
 
 import java.util.List;
 
-import project.study.app.model.FreeTextQuestion;
-import project.study.app.model.MultipleChoiceQuestion;
-import project.study.app.model.Question;
-import project.study.app.model.QuestionSet;
+import project.study.app.model.domain.FreeTextQuestion;
+import project.study.app.model.domain.MultipleChoiceQuestion;
+import project.study.app.model.domain.Question;
+import project.study.app.model.domain.QuestionSet;
 
 public class QuestionSetUnitTest {
 

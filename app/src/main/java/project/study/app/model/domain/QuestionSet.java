@@ -1,4 +1,4 @@
-package project.study.app.model;
+package project.study.app.model.domain;
 
 import java.util.ArrayList;
 import java.util.List;

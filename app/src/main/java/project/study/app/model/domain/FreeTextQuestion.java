@@ -1,6 +1,4 @@
-package project.study.app.model;
-
-import project.study.app.model.Question;
+package project.study.app.model.domain;
 
 /**
  * Represents a free-text question.

@@ -1,4 +1,4 @@
-package project.study.app.model;
+package project.study.app.model.domain;
 
 /**
  * Represents a multiple choice question.
