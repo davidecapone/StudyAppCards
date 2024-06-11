@@ -9,7 +9,7 @@ import java.util.List;
 public class QuestionSet {
 
     private String questionSetName;
-    List<Question<?>> questions;
+    private final List<Question<?>> questions;
 
     public QuestionSet(String questionSetName) {
         this.questionSetName = questionSetName;
@@ -18,10 +18,14 @@ public class QuestionSet {
 
     /**
      * Add a question to the question set
-     * @param question the question to be added
+     * @param newQuestion the question to be added
      */
-    public void addQuestion(Question<?> question) {
-        questions.add(question);
+    public void addQuestion(Question<?> newQuestion) {
+
+        if (newQuestion == null)
+            throw new IllegalArgumentException("New question cannot be empty.");
+
+        questions.add(newQuestion);
     }
 
     /**
@@ -32,47 +36,15 @@ public class QuestionSet {
         questions.remove(question);
     }
 
-    /**
-     * Retrieve a random question from the question set
-     * @return a random question
-     */
-    public Question<?> getRandomQuestion() {
-
-        // generate a random index to select a question from the list
-        int randomIndex = (int) (Math.random() * questions.size());
-
-        return questions.get(randomIndex);
-    }
-
-    /**
-     * Generate a list of all questions in randomized order
-     * @return a list of all questions in randomized order
-     */
-    public List<Question<?>> getRandomizedQuestionList() {
-
-        // create a new list to store the randomized questions
-        List<Question<?>> randomizedQuestions = new ArrayList<>();
-
-        // create a copy of the original list of questions
-        List<Question<?>> copyOfQuestions = new ArrayList<>(questions);
-
-        // iterate through the original list of questions
-        while (!copyOfQuestions.isEmpty()) {
-
-            // generate a random index to select a question from the list
-            int randomIndex = (int) (Math.random() * copyOfQuestions.size());
-
-            // add the randomly selected question to the list of randomized questions
-            randomizedQuestions.add(copyOfQuestions.get(randomIndex));
-
-            // remove the randomly selected question from the copy of the original list of questions
-            copyOfQuestions.remove(randomIndex);
-        }
-
-        return randomizedQuestions;
-    }
-
-    public List<Question<?>> getQuestions() {
+    public List<Question<?>> getAllQuestions() {
         return questions;
+    }
+
+    public String getQuestionSetName() {
+        return this.questionSetName;
+    }
+
+    public void setQuestionSetName(String newName) {
+        this.questionSetName = newName;
     }
 }

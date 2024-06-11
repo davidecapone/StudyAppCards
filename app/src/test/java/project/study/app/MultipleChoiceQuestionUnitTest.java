@@ -95,8 +95,4 @@ public class MultipleChoiceQuestionUnitTest implements QuestionUnitTest{
         // create a new MultipleChoiceQuestion object with a null answer
         multipleChoiceQuestion.checkAnswer(null);
     }
-
-
-
-
 }

@@ -27,7 +27,7 @@ public class QuestionSetUnitTest {
         freeTextQuestion = new FreeTextQuestion("Sample Free Text Question", "Sample Answer");
 
         // create a multiple choice question and its answers:
-        Answer answers[] = {
+        Answer[] answers = {
                 new Answer("A", true),
                 new Answer("B", false),
                 new Answer("C", false),
@@ -36,33 +36,33 @@ public class QuestionSetUnitTest {
     }
 
     @Test
-    public void test_add_question() {
+    public void add_new_question_works() {
 
         // add the free text question to the question set:
         questionSet.addQuestion(freeTextQuestion);
 
         // retrieve the questions from the question set:
-        List<Question<?>> questions = questionSet.getQuestions();
+        List<Question<?>> questions = questionSet.getAllQuestions();
 
         // assert that the number of questions is 1:
-        assertEquals(1, questionSet.getQuestions().size());
+        assertEquals(1, questionSet.getAllQuestions().size());
 
         // assert that the first question is the free text question that was added:
         assertEquals(freeTextQuestion, questions.get(0));
     }
 
     @Test
-    public void test_add_multiple_questions() {
+    public void add_multiple_questions_works() {
 
         // add both questions to the question set:
         questionSet.addQuestion(freeTextQuestion);
         questionSet.addQuestion(multipleChoiceQuestion);
 
         // retrieve the questions from the question set:
-        List<Question<?>> questions = questionSet.getQuestions();
+        List<Question<?>> questions = questionSet.getAllQuestions();
 
         // assert that the number of questions is 2:
-        assertEquals(2, questionSet.getQuestions().size());
+        assertEquals(2, questionSet.getAllQuestions().size());
 
         // assert that the first question is the free text question that was added:
         assertEquals(freeTextQuestion, questions.get(0));
@@ -73,7 +73,7 @@ public class QuestionSetUnitTest {
     }
 
     @Test
-    public void test_remove_question() {
+    public void remove_question_works() {
 
         // add both questions to the question set:
         questionSet.addQuestion(freeTextQuestion);
@@ -83,7 +83,7 @@ public class QuestionSetUnitTest {
         questionSet.removeQuestion(freeTextQuestion);
 
         // retrieve the questions from the question set:
-        List<Question<?>> questions = questionSet.getQuestions();
+        List<Question<?>> questions = questionSet.getAllQuestions();
 
         // assert that the number of questions is 1:
         assertEquals(1, questions.size());
@@ -92,44 +92,8 @@ public class QuestionSetUnitTest {
         assertEquals(multipleChoiceQuestion, questions.get(0));
     }
 
-    @Test
-    public void test_getRandomQuestion() {
-        // add both questions to the question set:
-        questionSet.addQuestion(freeTextQuestion);
-        questionSet.addQuestion(multipleChoiceQuestion);
-
-        // retrieve the questions from the question set:
-        List<Question<?>> questions = questionSet.getQuestions();
-
-        // retrieve a random question from the question set:
-        Question<?> randomQuestion = questionSet.getRandomQuestion();
-
-        // assert that the random question is one of the questions in the question set:
-        assertTrue(questions.contains(randomQuestion));
-    }
-
-    @Test
-    public void test_getRandomizedQuestionList() {
-
-        // add both questions to the question set:
-        questionSet.addQuestion(freeTextQuestion);
-        questionSet.addQuestion(multipleChoiceQuestion);
-
-        // add more questions to the question set:
-        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 2", "Sample Answer 2"));
-        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 3", "Sample Answer 3"));
-        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 4", "Sample Answer 4"));
-        questionSet.addQuestion(new FreeTextQuestion("Sample Free Text Question 5", "Sample Answer 5"));
-
-        // retrieve a randomized list of questions from the question set:
-        List<Question<?>> randomizedQuestions = questionSet.getRandomizedQuestionList();
-
-        // assert that the number of questions in the randomized list is the same as the number of questions in the question set:
-        assertEquals(questionSet.getQuestions().size(), randomizedQuestions.size());
-
-        // assert that the questions in the randomized list are the same as the questions in the question set:
-        for (int i = 0; i < questionSet.getQuestions().size(); i++) {
-            assertTrue(randomizedQuestions.contains(questionSet.getQuestions().get(i)));
-        }
+    @Test(expected = IllegalArgumentException.class)
+    public void add_null_question_throws_exception() throws IllegalArgumentException {
+        questionSet.addQuestion(null);
     }
 }
