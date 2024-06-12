@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.domain;
 import org.junit.Test;
 
 /**

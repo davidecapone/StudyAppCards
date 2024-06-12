@@ -1,17 +1,28 @@
 package project.study.app.model.domain;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import project.study.app.model.dao.QuestionListConverter;
 
 /**
  * A class to represent a set of questions
  */
+@Entity(tableName = "question_sets")
+@TypeConverters({QuestionListConverter.class})
 public class QuestionSet {
 
+    @PrimaryKey
+    @NonNull
     private String questionSetName;
-    private final List<Question<?>> questions;
+    private List<Question<?>> questions;
 
-    public QuestionSet(String questionSetName) {
+    public QuestionSet(@NonNull String questionSetName) {
         this.questionSetName = questionSetName;
         this.questions = new ArrayList<>();
     }
@@ -40,11 +51,20 @@ public class QuestionSet {
         return questions;
     }
 
+    @NonNull
     public String getQuestionSetName() {
         return this.questionSetName;
     }
 
-    public void setQuestionSetName(String newName) {
+    public void setQuestionSetName(@NonNull String newName) {
         this.questionSetName = newName;
+    }
+
+    public List<Question<?>> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question<?>> questions) {
+        this.questions = questions;
     }
 }
