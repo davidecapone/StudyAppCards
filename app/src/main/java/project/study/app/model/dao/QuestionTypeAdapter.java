@@ -1,19 +1,30 @@
 package project.study.app.model.dao;
-
-import com.google.gson.*;
-
-import org.junit.Test;
-
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import project.study.app.model.domain.FreeTextQuestion;
 import project.study.app.model.domain.MultipleChoiceQuestion;
 import project.study.app.model.domain.Question;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * This class provides custom serialization and deserialization logic for Question objects to and from JSON format.
+ * It implements the JsonSerializer and JsonDeserializer interfaces from the Gson library.
+ */
 public class QuestionTypeAdapter implements JsonSerializer<Question<?>>, JsonDeserializer<Question<?>> {
 
+    /**
+     * Serializes a Question object into a JSON element.
+     * @param src the object that needs to be converted to Json.
+     * @param typeOfSrc (Type) The type of the source object.
+     * @param context (JsonSerializationContext): Context for serialization.
+     * @return JsonElement: The JSON representation of the Question object.
+     */
     @Override
     public JsonElement serialize(Question<?> src, Type typeOfSrc, JsonSerializationContext context) {
 
@@ -43,6 +54,14 @@ public class QuestionTypeAdapter implements JsonSerializer<Question<?>>, JsonDes
         return jsonObject;
     }
 
+    /**
+     * Deserializes a JSON element into a Question object.
+     * @param json The Json data being deserialized
+     * @param typeOfT (Type): The type of the Object to deserialize to
+     * @param context (JsonDeserializationContext): Context for deserialization.
+     * @return Question<?>: The deserialized Question object.
+     * @throws JsonParseException: Thrown if the JSON element cannot be deserialized into a Question object.
+     */
     @Override
     public Question<?> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
