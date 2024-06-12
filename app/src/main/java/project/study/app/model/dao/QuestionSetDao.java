@@ -1,6 +1,7 @@
 package project.study.app.model.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -13,4 +14,7 @@ public interface QuestionSetDao {
 
     @Query("SELECT * FROM question_sets WHERE questionSetName = :questionSetName")
     QuestionSet getQuestionSet(String questionSetName);
+
+    @Delete
+    void delete(QuestionSet questionSet);
 }

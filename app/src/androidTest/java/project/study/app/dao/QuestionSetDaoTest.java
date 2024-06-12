@@ -2,6 +2,7 @@ package project.study.app.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import android.content.Context;
 
@@ -80,6 +81,22 @@ public class QuestionSetDaoTest {
         assertEquals(questionSet.getAllQuestions().size(), retrievedQuestionSet.getAllQuestions().size());
     }
 
+    @Test
+    public void delete_question_set() {
+        QuestionSet questionSet = new QuestionSet("New Question set");
+        questionSet.addQuestion(new FreeTextQuestion("What's my name?", "Davide"));
 
+        // insert the new question set
+        questionSetDao.insert(questionSet);
+
+        // ... then remove it:
+        questionSetDao.delete(questionSet);
+
+        // retrieve the question set that we have removed:
+        QuestionSet retrievedQuestionSet = questionSetDao.getQuestionSet("New Question set");
+
+        // Assert the retrieved QuestionSet is null
+        assertNull(retrievedQuestionSet);
+    }
 
 }
