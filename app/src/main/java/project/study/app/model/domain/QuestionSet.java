@@ -9,7 +9,7 @@ import java.util.List;
 public class QuestionSet {
 
     private String questionSetName;
-    private final List<Question<?>> questions;
+    private final List<Question> questions;
 
     public QuestionSet(String questionSetName) {
         this.questionSetName = questionSetName;
@@ -20,7 +20,7 @@ public class QuestionSet {
      * Add a question to the question set
      * @param newQuestion the question to be added
      */
-    public void addQuestion(Question<?> newQuestion) {
+    public void addQuestion(Question newQuestion) {
 
         if (newQuestion == null)
             throw new IllegalArgumentException("New question cannot be empty.");
@@ -32,11 +32,11 @@ public class QuestionSet {
      * Remove a question from the question set
      * @param question the question to be removed
      */
-    public void removeQuestion(Question<?> question) {
+    public void removeQuestion(Question question) {
         questions.remove(question);
     }
 
-    public List<Question<?>> getAllQuestions() {
+    public List<Question> getAllQuestions() {
         return questions;
     }
 

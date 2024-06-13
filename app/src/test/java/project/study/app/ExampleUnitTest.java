@@ -16,5 +16,8 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void string_isCorrect() { assertEquals("Hello", "Hello"); }
+    public void string_isCorrect() {
+        assertEquals("Hello", "Hello");
+    }
+
 }
