@@ -1,8 +1,29 @@
 package project.study.app.model.domain;
 
-public interface Question<A> {
+public class Question {
 
-    String getQuestionText();
-    void setQuestionText(String newText);
-    Boolean checkAnswer(A answer);
+    private String questionText;
+    private Answer<?> answer;
+
+    public Question(String questionText, Answer<?> answer) {
+        this.questionText = questionText;
+        this.answer = answer;
+    }
+
+    public String getText() {
+        return this.questionText;
+    }
+
+    public void setText(String newText) {
+        this.questionText = newText;
+    }
+
+    public Answer<?> getAnswer() {
+        return this.answer;
+    }
+
+    public void setAnswer(Answer<?> newAnswer) {
+        this.answer = newAnswer;
+    }
+
 }

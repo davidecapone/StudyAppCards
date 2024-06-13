@@ -20,7 +20,7 @@ public class QuestionSet {
     @PrimaryKey
     @NonNull
     private String questionSetName;
-    private List<Question<?>> questions;
+    private final List<Question> questions;
 
     public QuestionSet(@NonNull String questionSetName) {
         this.questionSetName = questionSetName;
@@ -31,7 +31,7 @@ public class QuestionSet {
      * Add a question to the question set
      * @param newQuestion the question to be added
      */
-    public void addQuestion(Question<?> newQuestion) {
+    public void addQuestion(Question newQuestion) {
 
         if (newQuestion == null)
             throw new IllegalArgumentException("New question cannot be empty.");
@@ -43,11 +43,11 @@ public class QuestionSet {
      * Remove a question from the question set
      * @param question the question to be removed
      */
-    public void removeQuestion(Question<?> question) {
+    public void removeQuestion(Question question) {
         questions.remove(question);
     }
 
-    public List<Question<?>> getAllQuestions() {
+    public List<Question> getAllQuestions() {
         return questions;
     }
 
@@ -58,13 +58,5 @@ public class QuestionSet {
 
     public void setQuestionSetName(@NonNull String newName) {
         this.questionSetName = newName;
-    }
-
-    public List<Question<?>> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question<?>> questions) {
-        this.questions = questions;
     }
 }

@@ -1,32 +1,69 @@
-package project.study.app.domain;
+package project.study.app;
+
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-/**
- * This interface defines all the methods needed to perform the common tests
- * for different types of questions (FreeText, MultipleChoice)
- */
+import java.util.ArrayList;
+import java.util.List;
 
-public interface QuestionUnitTest {
+import project.study.app.model.domain.FreeTextAnswer;
+import project.study.app.model.domain.MultipleChoiceTextAnswer;
+import project.study.app.model.domain.Question;
+
+public class QuestionUnitTest {
+
+    private Question question;
 
     @Test
-    void correct_answer_is_correct();
+    public void questionText_can_be_set() {
+        question = new Question("The capital of Italy?", null);
+        assertEquals("The capital of Italy?", question.getText());
+    }
 
     @Test
-    void incorrect_answer_is_incorrect();
+    public void answer_can_be_modified() {
+        question = new Question("The capital of Italy?", null);
+        question.setText("What is the Facebook first name?");
+        assertEquals("What is the Facebook first name?", question.getText());
+    }
 
-    @Test(expected = IllegalArgumentException.class)
-    void correct_answer_is_null() throws IllegalArgumentException;
+    @Test
+    public void answer_can_be_set() {
+        FreeTextAnswer freeTxtAnswer = new FreeTextAnswer("Rome");
+        question = new Question(
+                "The capital of Italy?",
+                freeTxtAnswer
+        );
 
-    @Test(expected = IllegalArgumentException.class)
-    void correct_answer_is_empty() throws IllegalArgumentException;
+        assertEquals(question.getAnswer(), freeTxtAnswer);
+    }
 
-    @Test(expected = IllegalArgumentException.class)
-    void questionText_is_null() throws IllegalArgumentException;
+    @Test
+    public void answer_mode_can_be_modify() {
+        FreeTextAnswer freeTxtAnswer = new FreeTextAnswer("Rome");
+        question = new Question(
+                "The capital of Italy?",
+                freeTxtAnswer
+        );
 
-    @Test(expected = IllegalArgumentException.class)
-    void questionText_is_empty() throws IllegalArgumentException;
+        List<String> possibleAnswers = new ArrayList<>();
+        possibleAnswers.add("Rome");
+        possibleAnswers.add("New York");
+        MultipleChoiceTextAnswer newAnswer = new MultipleChoiceTextAnswer(
+                possibleAnswers,
+                "Rome"
+        );
 
-    @Test(expected = IllegalArgumentException.class)
-    void given_answer_is_null() throws IllegalArgumentException;
+        // set a different answer for the question:
+        question.setAnswer(newAnswer);
 
+        assertEquals(question.getAnswer(), newAnswer);
+    }
+
+   @Test
+   public void check_correct_answer_for_question() {
+       question = new Question("The capital of Italy?", new FreeTextAnswer("Rome"));
+       assertEquals(question.getAnswer().getCorrectAnswer(), "Rome");
+   }
 }
