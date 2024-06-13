@@ -8,13 +8,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
 import project.study.app.model.domain.Answer;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class provides custom serialization and deserialization logic for Question objects to and from JSON format.
@@ -37,16 +38,11 @@ public class QuestionTypeAdapter implements JsonSerializer<Question>, JsonDeseri
 
         Answer<?> answer = src.getAnswer();
 
-
         if (answer instanceof FreeTextAnswer) {
-
             jsonObject.addProperty("answerType", "FreeTextAnswer");
             jsonObject.addProperty("correctAnswer", ((FreeTextAnswer) answer).getCorrectAnswer());
-
         }
-
-        if (answer instanceof MultipleChoiceTextAnswer) {
-
+        else if (answer instanceof MultipleChoiceTextAnswer) {
             jsonObject.addProperty("answerType", "MultipleChoiceAnswer");
             JsonArray answersArray = new JsonArray();
 
@@ -76,6 +72,35 @@ public class QuestionTypeAdapter implements JsonSerializer<Question>, JsonDeseri
     @Override
     public Question deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-        return null;
+        JsonObject jsonObject = json.getAsJsonObject();
+
+        String questionText = jsonObject.get("questionText").getAsString();
+        String correctAnswer = jsonObject.get("correctAnswer").getAsString();
+        String answerType = jsonObject.get("answerType").getAsString();
+
+
+
+        if (answerType.equals("FreeTextAnswer")) {
+
+            return new Question(questionText, new FreeTextAnswer(correctAnswer));
+
+        } else if (answerType.equals("MultipleChoiceAnswer")){
+
+
+            JsonArray answersArray = jsonObject.get("possibleAnswers").getAsJsonArray();
+
+            List<String> possibleAnswers = new ArrayList<>();
+            // Iterate through the JsonArray
+            for (int i = 0; i < answersArray.size(); i++) {
+                JsonElement answerElement = answersArray.get(i);
+                String answerText = answerElement.getAsJsonObject().get("answer_"+i).getAsString();
+                possibleAnswers.add(answerText);
+            }
+
+            return new Question(questionText, new MultipleChoiceTextAnswer(possibleAnswers, correctAnswer));
+
+        }
+
+        throw new JsonParseException("Unknown answer type: " + answerType);
     }
 }

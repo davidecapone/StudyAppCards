@@ -16,7 +16,7 @@ import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 
-public class JsonSerializationTest {
+public class QuestionListToJsonTest {
 
     private List<Question> questions;
 
@@ -52,11 +52,8 @@ public class JsonSerializationTest {
                 this.questions
         );
 
-        System.out.println(jsonString);
-
         // the expected JSON String:
         String expectedJsonString = "[{\"questionText\":\"What is my first name?\",\"answerType\":\"FreeTextAnswer\",\"correctAnswer\":\"Davide\"},{\"questionText\":\"What is my second name?\",\"answerType\":\"MultipleChoiceAnswer\",\"possibleAnswers\":[{\"answer_0\":\"Nessuno\"},{\"answer_1\":\"Non so\"}],\"correctAnswer\":\"Nessuno\"}]";
-
 
         // jsonString should not be null:
         assertNotNull(jsonString);
@@ -66,6 +63,25 @@ public class JsonSerializationTest {
 
     @Test
     public void from_json_string_to_question_list() {
+        String jsonString = "[{\"questionText\":\"What is my first name?\",\"answerType\":\"FreeTextAnswer\",\"correctAnswer\":\"Davide\"},{\"questionText\":\"Which is my second name?\",\"answerType\":\"MultipleChoiceAnswer\",\"possibleAnswers\":[{\"answer_0\":\"Nessuno\"},{\"answer_1\":\"Non so\"}],\"correctAnswer\":\"Nessuno\"}]";
+
+
+        // de-serialize the JSON --> question list:
+        this.questions = QuestionListConverter.toList(jsonString);
+
+        System.out.println();
+
+        // list should not be null:
+        assertNotNull(questions);
+        // Assert the size of the list
+        assertEquals(2, questions.size());
+
+        assertTrue(questions.get(0).getAnswer() instanceof FreeTextAnswer);
+        assertTrue(questions.get(1).getAnswer() instanceof MultipleChoiceTextAnswer);
+
+
+        assertEquals(questions.get(0).getText(), "What is my first name?");
+        assertEquals(questions.get(1).getText(), "Which is my second name?");
 
     }
 }
