@@ -20,7 +20,7 @@ public class QuestionSet {
     @PrimaryKey
     @NonNull
     private String questionSetName;
-    private final List<Question> questions;
+    private List<Question> questions;
 
     public QuestionSet(@NonNull String questionSetName) {
         this.questionSetName = questionSetName;
@@ -58,5 +58,13 @@ public class QuestionSet {
 
     public void setQuestionSetName(@NonNull String newName) {
         this.questionSetName = newName;
+    }
+
+    public void setQuestions(List<Question> newQuestions) {
+        this.questions = newQuestions;
+    }
+
+    public List<Question> getQuestions() {
+        return this.questions;
     }
 }
