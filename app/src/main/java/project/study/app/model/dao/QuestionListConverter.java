@@ -24,7 +24,7 @@ public class QuestionListConverter {
      * @return String: A JSON representation of the list of Question objects.
      */
     @TypeConverter
-    public static String fromList(List<Question<?>> questions) {
+    public static String fromList(List<Question> questions) {
         return gson.toJson(questions);
     }
 
@@ -34,7 +34,7 @@ public class QuestionListConverter {
      * @return List<Question<?>>: A list of Question objects represented by the JSON string.
      */
     @TypeConverter
-    public static List<Question<?>> toList(String json) {
-        return gson.fromJson(json, new com.google.gson.reflect.TypeToken<List<Question<?>>>() {}.getType());
+    public static List<Question> toList(String json) {
+        return gson.fromJson(json, new com.google.gson.reflect.TypeToken<List<Question>>() {}.getType());
     }
 }

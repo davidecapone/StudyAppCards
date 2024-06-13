@@ -1,14 +1,18 @@
 package project.study.app.model.dao;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.JsonDeserializer;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import project.study.app.model.domain.FreeTextQuestion;
-import project.study.app.model.domain.MultipleChoiceQuestion;
+
+import project.study.app.model.domain.Answer;
+import project.study.app.model.domain.FreeTextAnswer;
+import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import java.lang.reflect.Type;
 
@@ -16,7 +20,7 @@ import java.lang.reflect.Type;
  * This class provides custom serialization and deserialization logic for Question objects to and from JSON format.
  * It implements the JsonSerializer and JsonDeserializer interfaces from the Gson library.
  */
-public class QuestionTypeAdapter implements JsonSerializer<Question<?>>, JsonDeserializer<Question<?>> {
+public class QuestionTypeAdapter implements JsonSerializer<Question>, JsonDeserializer<Question> {
 
     /**
      * Serializes a Question object into a JSON element.
@@ -26,31 +30,38 @@ public class QuestionTypeAdapter implements JsonSerializer<Question<?>>, JsonDes
      * @return JsonElement: The JSON representation of the Question object.
      */
     @Override
-    public JsonElement serialize(Question<?> src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Question src, Type typeOfSrc, JsonSerializationContext context) {
 
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("questionText", src.getText());
 
-        if (src instanceof FreeTextQuestion) {
+        Answer<?> answer = src.getAnswer();
 
-            jsonObject.addProperty("type", "FreeText");
-            jsonObject.addProperty("questionText", src.getQuestionText());
-            jsonObject.addProperty("correctAnswer", ((FreeTextQuestion) src).getCorrectAnswer());
 
-        } else if (src instanceof MultipleChoiceQuestion) {
-            jsonObject.addProperty("type", "MultipleChoice");
-            jsonObject.addProperty("questionText", src.getQuestionText());
+        if (answer instanceof FreeTextAnswer) {
 
-            JsonArray answersArray = new JsonArray();
-            for (MultipleChoiceQuestion.Answer answer : ((MultipleChoiceQuestion) src).getAnswers()) {
-
-                JsonObject answerObject = new JsonObject();
-                answerObject.addProperty("answerText", answer.getAnswerText());
-                answerObject.addProperty("correctness", answer.getCorrectness());
-                answersArray.add(answerObject);
-            }
-            jsonObject.add("answers", answersArray);
+            jsonObject.addProperty("answerType", "FreeTextAnswer");
+            jsonObject.addProperty("correctAnswer", ((FreeTextAnswer) answer).getCorrectAnswer());
 
         }
+
+        if (answer instanceof MultipleChoiceTextAnswer) {
+
+            jsonObject.addProperty("answerType", "MultipleChoiceAnswer");
+            JsonArray answersArray = new JsonArray();
+
+            int i = 0;
+            for (String answerText : ((MultipleChoiceTextAnswer) answer).getPossibleAnswers()) {
+                JsonObject answerObject = new JsonObject();
+                answerObject.addProperty("answer_"+i, answerText);
+                answersArray.add(answerObject);
+                i++;
+            }
+
+            jsonObject.add("possibleAnswers", answersArray);
+            jsonObject.addProperty("correctAnswer", ((MultipleChoiceTextAnswer) answer).getCorrectAnswer());
+        }
+
         return jsonObject;
     }
 
@@ -63,37 +74,8 @@ public class QuestionTypeAdapter implements JsonSerializer<Question<?>>, JsonDes
      * @throws JsonParseException: Thrown if the JSON element cannot be deserialized into a Question object.
      */
     @Override
-    public Question<?> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Question deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-        JsonObject jsonObject = json.getAsJsonObject();
-
-        // extract the type of the Question (MultipleChoice / FreeText):
-        String type = jsonObject.get("type").getAsString();
-        // extract the questionText:
-        String questionText = jsonObject.get("questionText").getAsString();
-
-        if ("FreeText".equals(type)) {
-            // extract the correctAnswer:
-            String correctAnswer = jsonObject.get("correctAnswer").getAsString();
-            // create and return new FreeText object:
-            return new FreeTextQuestion(questionText, correctAnswer);
-
-        } else if ("MultipleChoice".equals(type)) {
-            // the answer will be represented as another json object:
-            JsonArray answersArray = jsonObject.getAsJsonArray("answers");
-            MultipleChoiceQuestion.Answer[] answers = new MultipleChoiceQuestion.Answer[answersArray.size()];
-
-            for (int i = 0; i < answersArray.size(); i++) {
-
-                JsonObject answerObject = answersArray.get(i).getAsJsonObject();
-                String answerText = answerObject.get("answerText").getAsString();
-                boolean correct = answerObject.get("correctness").getAsBoolean();
-                answers[i] = new MultipleChoiceQuestion.Answer(answerText, correct);
-            }
-
-            return new MultipleChoiceQuestion(questionText, answers);
-        }
-
-        throw new JsonParseException("Unknown question type: " + type);
+        return null;
     }
 }
