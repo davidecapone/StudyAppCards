@@ -2,9 +2,9 @@ name: SDMProject Gradle Test
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "persistency" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "persistency" ]
 
 jobs:
   test:
