@@ -2,6 +2,9 @@ package project.study.app.model.domain;
 
 import java.util.List;
 
+/**
+ * A class to represent a multiple choice answer composed of just text answers
+ */
 public class MultipleChoiceTextAnswer extends Answer<String> {
 
     private List<String> possibleAnswers;

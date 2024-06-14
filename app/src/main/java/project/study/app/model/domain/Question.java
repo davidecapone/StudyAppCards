@@ -1,5 +1,8 @@
 package project.study.app.model.domain;
 
+/**
+ * A class to represent a question
+ */
 public class Question {
 
     private String questionText;
