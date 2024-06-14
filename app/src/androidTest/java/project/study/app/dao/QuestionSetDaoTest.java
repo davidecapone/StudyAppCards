@@ -1,3 +1,4 @@
+
 package project.study.app.dao;
 
 import static org.junit.Assert.assertEquals;
@@ -19,12 +20,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import project.study.app.model.dao.QuestionSetDao;
-import project.study.app.model.dao.StudyAppDatabase;
-import project.study.app.model.domain.FreeTextQuestion;
+import project.study.app.model.database.StudyAppDatabase;
+import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 
@@ -41,12 +41,15 @@ public class QuestionSetDaoTest {
 
     @Before
     public void createDb() {
+        // Get the application context to be used for building the database.
         Context context = ApplicationProvider.getApplicationContext();
 
+        // Build an in-memory database instance for testing purposes (not persisted to disk).
         db = Room.inMemoryDatabaseBuilder(context, StudyAppDatabase.class)
-                .allowMainThreadQueries()
+                .allowMainThreadQueries() // Allow database operations to run on the main thread for the sake of testing.
                 .build();
 
+        // Retrieve the DAO for accessing QuestionSet data in the database.
         questionSetDao = db.questionSetDao();
     }
 
@@ -58,45 +61,75 @@ public class QuestionSetDaoTest {
 
 
     @Test
-    public void insert_and_then_retrieve_questionSet() {
+    public void insert_new_questionSet() {
 
-        // create a sample question set:
-        FreeTextQuestion ftq1 = new FreeTextQuestion("What is your name?", "Davide");
-        FreeTextQuestion ftq2 = new FreeTextQuestion("What is your name?", "Sandro");
-        QuestionSet questionSet = new QuestionSet("Sample question set 1");
-        questionSet.addQuestion(ftq1);
-        questionSet.addQuestion(ftq2);
+        QuestionSet newQuestionSet = new QuestionSet("Sample");
 
-        // insert the new question set:
-        questionSetDao.insert(questionSet);
+        // INSERT DAO:
+        questionSetDao.insert(newQuestionSet);
 
-        // get the question set by its name:
-        QuestionSet retrievedQuestionSet = questionSetDao.getQuestionSet("Sample question set 1");
+        // retrieve the question set by its name:
+        QuestionSet retrievedQuestionSet = questionSetDao.getQuestionSet("Sample");
 
-        // (retrieved) question set should be not null:
         assertNotNull(retrievedQuestionSet);
-        // the (retrieved) question set name should be equal to the question set created above:
-        assertEquals(questionSet.getQuestionSetName(), retrievedQuestionSet.getQuestionSetName());
-        // the size should be the same:
-        assertEquals(questionSet.getAllQuestions().size(), retrievedQuestionSet.getAllQuestions().size());
+        assertEquals(newQuestionSet.getQuestionSetName(), retrievedQuestionSet.getQuestionSetName());
+        assertEquals(newQuestionSet.getAllQuestions().size(), retrievedQuestionSet.getAllQuestions().size());
     }
 
     @Test
-    public void delete_question_set() {
-        QuestionSet questionSet = new QuestionSet("New Question set");
-        questionSet.addQuestion(new FreeTextQuestion("What's my name?", "Davide"));
+    public void retrieve_all_questionSets() {
+        QuestionSet newQuestionSet1 = new QuestionSet("Sample1");
+        QuestionSet newQuestionSet2 = new QuestionSet("Sample2");
+        QuestionSet newQuestionSet3 = new QuestionSet("Sample3");
 
-        // insert the new question set
-        questionSetDao.insert(questionSet);
+        questionSetDao.insert(newQuestionSet1);
+        questionSetDao.insert(newQuestionSet2);
+        questionSetDao.insert(newQuestionSet3);
 
-        // ... then remove it:
-        questionSetDao.delete(questionSet);
+        List<QuestionSet> allQuestionSets = questionSetDao.getAllQuestionSets();
 
-        // retrieve the question set that we have removed:
-        QuestionSet retrievedQuestionSet = questionSetDao.getQuestionSet("New Question set");
-
-        // Assert the retrieved QuestionSet is null
-        assertNull(retrievedQuestionSet);
+        assertNotNull(allQuestionSets);
+        assertEquals(3, allQuestionSets.size());
+        assertEquals("Sample1", allQuestionSets.get(0).getQuestionSetName());
+        assertEquals("Sample2", allQuestionSets.get(1).getQuestionSetName());
+        assertEquals("Sample3", allQuestionSets.get(2).getQuestionSetName());
     }
 
+    @Test
+    public void delete_questionSet() {
+        QuestionSet questionSet1 = new QuestionSet("Sample1");
+        QuestionSet questionSet2 = new QuestionSet("Sample2");
+
+        // INSERT DAO:
+        questionSetDao.insert(questionSet1);
+        questionSetDao.insert(questionSet2);
+
+        questionSetDao.delete(questionSet2);
+
+        List<QuestionSet> allQuestionSets = questionSetDao.getAllQuestionSets();
+
+        assertEquals(1, allQuestionSets.size());
+        assertEquals("Sample1", allQuestionSets.get(0).getQuestionSetName());
+    }
+
+    @Test
+    public void add_question_to_questionSet() {
+        QuestionSet questionSet = new QuestionSet("Sample");
+        questionSet.addQuestion(new Question("What is the capital of Italy?", new FreeTextAnswer("Rome")));
+        questionSetDao.insert(questionSet);
+
+        QuestionSet sampleQuestionSet = questionSetDao.getQuestionSet("Sample");
+        // update the sample question set with new questions:
+        sampleQuestionSet.addQuestion(new Question("This second question should be added?", new FreeTextAnswer("Yes")));
+
+        // UPDATE DAO
+        questionSetDao.update(sampleQuestionSet);
+
+        questionSet = questionSetDao.getQuestionSet("Sample");
+
+        assertNotNull(questionSet);
+        assertEquals(2, questionSet.getQuestions().size());
+        assertEquals("This second question should be added?", questionSet.getQuestions().get(1).getText());
+    }
 }
+

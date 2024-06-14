@@ -1,4 +1,4 @@
-package project.study.app.model.dao;
+package project.study.app.model.database;
 
 import android.content.Context;
 
@@ -7,6 +7,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import project.study.app.model.converters.QuestionListConverter;
+import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.domain.QuestionSet;
 
 @Database(entities = {QuestionSet.class}, version = 1, exportSchema = false)

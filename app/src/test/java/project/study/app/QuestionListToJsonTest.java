@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.study.app.model.dao.QuestionListConverter;
+import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;

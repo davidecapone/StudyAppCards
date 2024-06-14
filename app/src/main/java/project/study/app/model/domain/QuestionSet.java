@@ -8,7 +8,7 @@ import androidx.room.TypeConverters;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.study.app.model.dao.QuestionListConverter;
+import project.study.app.model.converters.QuestionListConverter;
 
 /**
  * A class to represent a set of questions

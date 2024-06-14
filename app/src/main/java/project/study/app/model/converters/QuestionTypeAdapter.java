@@ -1,4 +1,4 @@
-package project.study.app.model.dao;
+package project.study.app.model.converters;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonSerializer;

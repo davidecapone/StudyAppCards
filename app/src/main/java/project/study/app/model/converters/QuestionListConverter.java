@@ -1,9 +1,10 @@
-package project.study.app.model.dao;
+package project.study.app.model.converters;
 
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import project.study.app.model.domain.Question;
 
 import java.util.List;
