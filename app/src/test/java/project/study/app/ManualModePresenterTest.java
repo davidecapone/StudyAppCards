@@ -11,12 +11,18 @@ import project.study.app.presenter.ManualModePresenter;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Test class for ManualModePresenter
+ */
 public class ManualModePresenterTest {
 
+    // (fake) repository
     private FakeRepository repository;
 
+    // presenter
     private ManualModePresenter presenter;
 
+    // list of question sets
     List<QuestionSet> questionSets;
 
     @Before
@@ -26,6 +32,9 @@ public class ManualModePresenterTest {
         presenter = new ManualModePresenter();
     }
 
+    /**
+     * Test the getAllQuestionSets method
+     */
     @Test
     public void testGetAllQuestionSets() {
         questionSets = presenter.getAllQuestionSets();
@@ -39,6 +48,4 @@ public class ManualModePresenterTest {
             assertEquals(expectedQuestionSets.get(i).getQuestionSetName(), questionSets.get(i).getQuestionSetName());
         }
     }
-
-
 }
