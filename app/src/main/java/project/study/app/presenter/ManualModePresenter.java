@@ -39,7 +39,11 @@ public class ManualModePresenter {
      * @return the question set if found, null otherwise
      */
     public QuestionSet searchQuestionSet(String questionSetName) {
-        return repository.searchQuestionSet(questionSetName);
+        try{
+            return repository.searchQuestionSet(questionSetName);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void setRepository(FakeRepository repository) {

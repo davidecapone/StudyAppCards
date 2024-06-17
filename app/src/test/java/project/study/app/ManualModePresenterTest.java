@@ -95,5 +95,11 @@ public class ManualModePresenterTest {
 
         // assert the correct question set is found
         assertEquals("Question Set 1", questionSet.getQuestionSetName());
+
+        // search for a question set that does not exist
+        questionSet = presenter.searchQuestionSet("Question Set 4");
+
+        // assert the correct question set is not found
+        assertEquals(null, questionSet);
     }
 }

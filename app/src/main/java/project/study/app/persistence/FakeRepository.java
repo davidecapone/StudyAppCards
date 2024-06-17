@@ -4,7 +4,7 @@ import project.study.app.model.domain.QuestionSet;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.*;
+import java.lang.Exception;
 
 /**
  * Fake repository for testing purposes
@@ -29,10 +29,18 @@ public class FakeRepository {
         questionSets.add(newQuestionSet);
     }
 
-    public QuestionSet searchQuestionSet(String questionSetName) {
+    public QuestionSet searchQuestionSet(String questionSetName) throws QuestionSetNotFoundException {
         return questionSets.stream()
                 .filter(questionSet -> questionSet.getQuestionSetName().equals(questionSetName))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new QuestionSetNotFoundException("Question set " + questionSetName + " not found"));
+    }
+
+    public class QuestionSetNotFoundException extends RuntimeException {
+
+        public QuestionSetNotFoundException(String message) {
+            super(message);
+        }
+
     }
 }
