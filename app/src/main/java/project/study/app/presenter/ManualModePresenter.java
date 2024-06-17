@@ -33,6 +33,15 @@ public class ManualModePresenter {
         repository.addQuestionSet(newQuestionSet);
     }
 
+    /**
+     * Search for a question set by name in the repository
+     * @param questionSetName name of the question set
+     * @return the question set if found, null otherwise
+     */
+    public QuestionSet searchQuestionSet(String questionSetName) {
+        return repository.searchQuestionSet(questionSetName);
+    }
+
     public void setRepository(FakeRepository repository) {
         this.repository = repository;
     }

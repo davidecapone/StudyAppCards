@@ -4,6 +4,7 @@ import project.study.app.model.domain.QuestionSet;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.*;
 
 /**
  * Fake repository for testing purposes
@@ -26,5 +27,12 @@ public class FakeRepository {
 
     public void addQuestionSet(QuestionSet newQuestionSet) {
         questionSets.add(newQuestionSet);
+    }
+
+    public QuestionSet searchQuestionSet(String questionSetName) {
+        return questionSets.stream()
+                .filter(questionSet -> questionSet.getQuestionSetName().equals(questionSetName))
+                .findFirst()
+                .orElse(null);
     }
 }

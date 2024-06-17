@@ -37,8 +37,11 @@ public class ManualModePresenterTest {
      */
     @Test
     public void testGetAllQuestionSets() {
+
+        // get all question sets in the presenter
         questionSets = presenter.getAllQuestionSets();
 
+        // get the expected question sets from the repository
         List<QuestionSet> expectedQuestionSets = repository.getAllQuestionSets();
 
         // assert the size is the same
@@ -53,6 +56,7 @@ public class ManualModePresenterTest {
     @Test
     public void testAddQuestionSet() {
 
+        // create a new question set
         QuestionSet newQuestionSet = new QuestionSet("New Question Set");
 
         // add the new question set to the repository
@@ -80,4 +84,16 @@ public class ManualModePresenterTest {
 
     }
 
+    /**
+     * Test the searchQuestionSet method
+     */
+    @Test
+    public void testSearchQuestionSet(){
+
+        // search for a question set by name
+        QuestionSet questionSet = presenter.searchQuestionSet("Question Set 1");
+
+        // assert the correct question set is found
+        assertEquals("Question Set 1", questionSet.getQuestionSetName());
+    }
 }
