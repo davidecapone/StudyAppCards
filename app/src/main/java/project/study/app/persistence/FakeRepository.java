@@ -24,7 +24,7 @@ public class FakeRepository {
         return questionSets;
     }
 
-    public void addQuestionSet(String questionSetName) {
-        questionSets.add(new QuestionSet(questionSetName));
+    public void addQuestionSet(QuestionSet newQuestionSet) {
+        questionSets.add(newQuestionSet);
     }
 }

@@ -27,10 +27,10 @@ public class ManualModePresenter {
 
     /**
      * Add a new question set to the repository
-     * @param questionSetName name of the question set
+     * @param newQuestionSet name of the question set
      */
-    public void addQuestionSet(String questionSetName) {
-        repository.addQuestionSet(questionSetName);
+    public void addQuestionSet(QuestionSet newQuestionSet) {
+        repository.addQuestionSet(newQuestionSet);
     }
 
     public void setRepository(FakeRepository repository) {

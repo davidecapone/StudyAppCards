@@ -53,14 +53,16 @@ public class ManualModePresenterTest {
     @Test
     public void testAddQuestionSet() {
 
+        QuestionSet newQuestionSet = new QuestionSet("New Question Set");
+
         // add the new question set to the repository
-        repository.addQuestionSet("New Question Set");
+        repository.addQuestionSet(newQuestionSet);
 
         // set the repository in the presenter
         presenter.setRepository(repository);
 
         // add a new question set via the presenter
-        presenter.addQuestionSet("New Question Set");
+        presenter.addQuestionSet(newQuestionSet);
 
         // get all question sets in the presenter
         questionSets = presenter.getAllQuestionSets();
