@@ -24,4 +24,16 @@ public class ManualModePresenter {
     public List<QuestionSet> getAllQuestionSets() {
         return repository.getAllQuestionSets();
     }
+
+    /**
+     * Add a new question set to the repository
+     * @param questionSetName name of the question set
+     */
+    public void addQuestionSet(String questionSetName) {
+        repository.addQuestionSet(questionSetName);
+    }
+
+    public void setRepository(FakeRepository repository) {
+        this.repository = repository;
+    }
 }

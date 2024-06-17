@@ -23,4 +23,8 @@ public class FakeRepository {
     public List<QuestionSet> getAllQuestionSets() {
         return questionSets;
     }
+
+    public void addQuestionSet(String questionSetName) {
+        questionSets.add(new QuestionSet(questionSetName));
+    }
 }

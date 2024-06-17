@@ -43,9 +43,39 @@ public class ManualModePresenterTest {
 
         // assert the size is the same
         assertEquals(expectedQuestionSets.size(), questionSets.size());
+
         // assert all elements are the same
         for (int i = 0; i < expectedQuestionSets.size(); i++) {
             assertEquals(expectedQuestionSets.get(i).getQuestionSetName(), questionSets.get(i).getQuestionSetName());
         }
     }
+
+    @Test
+    public void testAddQuestionSet() {
+
+        // add the new question set to the repository
+        repository.addQuestionSet("New Question Set");
+
+        // set the repository in the presenter
+        presenter.setRepository(repository);
+
+        // add a new question set via the presenter
+        presenter.addQuestionSet("New Question Set");
+
+        // get all question sets in the presenter
+        questionSets = presenter.getAllQuestionSets();
+
+        // get the expected question sets from the repository
+        List<QuestionSet> expectedQuestionSets = repository.getAllQuestionSets();
+
+        // assert the size is the same
+        assertEquals(expectedQuestionSets.size(), questionSets.size());
+
+        // assert all elements are the same
+        for (int i = 0; i < expectedQuestionSets.size(); i++) {
+            assertEquals(expectedQuestionSets.get(i).getQuestionSetName(), questionSets.get(i).getQuestionSetName());
+        }
+
+    }
+
 }
