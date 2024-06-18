@@ -38,7 +38,6 @@ public class QuestionSetDaoTest {
     private StudyAppDatabase db;
     private QuestionSetDao questionSetDao;
 
-
     @Before
     public void createDb() {
         // Get the application context to be used for building the database.
@@ -57,8 +56,6 @@ public class QuestionSetDaoTest {
     public void closeDb() throws IOException {
         db.close();
     }
-
-
 
     @Test
     public void insert_new_questionSet() {
