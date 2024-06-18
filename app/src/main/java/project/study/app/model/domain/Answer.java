@@ -6,7 +6,7 @@ package project.study.app.model.domain;
  */
 public abstract class Answer<T> {
 
-    T correctAnswer;
+    private T correctAnswer;
 
     public T getCorrectAnswer() {
         return this.correctAnswer;

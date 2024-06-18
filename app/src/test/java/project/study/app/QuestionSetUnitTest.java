@@ -26,10 +26,10 @@ public class QuestionSetUnitTest {
         Question question = new Question("The capital of Italy", new FreeTextAnswer("Rome"));
         questionSet.addQuestion(question);
 
-        List<Question> questions = questionSet.getAllQuestions(); // retrieve the questions
+        List<Question> questions = questionSet.getQuestions(); // retrieve the questions
 
         // assert that the number of questions is 1
-        assertEquals(1, questionSet.getAllQuestions().size());
+        assertEquals(1, questionSet.getQuestions().size());
         // assert that the first question is the free text question that was added:
         assertEquals(question, questions.get(0));
     }
@@ -44,10 +44,10 @@ public class QuestionSetUnitTest {
         questionSet.addQuestion(question1);
         questionSet.addQuestion(question2);
 
-        List<Question> questions = questionSet.getAllQuestions();
+        List<Question> questions = questionSet.getQuestions();
 
         // assert that the number of questions is 2
-        assertEquals(2, questionSet.getAllQuestions().size());
+        assertEquals(2, questionSet.getQuestions().size());
 
         // assert that the first question is the free text question that was added:
         assertEquals(question1, questions.get(0));
@@ -69,7 +69,7 @@ public class QuestionSetUnitTest {
         questionSet.removeQuestion(question1);
 
         // retrieve the questions from the question set:
-        List<Question> questions = questionSet.getAllQuestions();
+        List<Question> questions = questionSet.getQuestions();
 
         // assert that the number of questions is 1:
         assertEquals(1, questions.size());

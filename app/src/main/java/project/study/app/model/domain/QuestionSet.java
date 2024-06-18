@@ -36,7 +36,7 @@ public class QuestionSet {
         questions.remove(question);
     }
 
-    public List<Question> getAllQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 

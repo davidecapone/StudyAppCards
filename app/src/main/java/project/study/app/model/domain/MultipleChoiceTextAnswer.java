@@ -11,7 +11,7 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
 
     public MultipleChoiceTextAnswer(List<String> possibleAnswers, String correctAnswer) {
         this.possibleAnswers = possibleAnswers;
-        this.correctAnswer = correctAnswer;
+        this.setCorrectAnswer(correctAnswer);
     }
     public List<String> getPossibleAnswers() {
         return possibleAnswers;
