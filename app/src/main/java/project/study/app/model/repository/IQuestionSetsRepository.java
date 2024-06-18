@@ -9,7 +9,7 @@ public interface IQuestionSetsRepository {
     void insertQuestionSet(QuestionSet newQuestionSet);
 
     QuestionSet retrieveQuestionSet(String questionSetName);
-    
+
     void deleteQuestionSet(QuestionSet questionSet);
 
     List<QuestionSet> getAllQuestionSets();
