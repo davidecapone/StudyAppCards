@@ -24,6 +24,7 @@ import java.util.List;
 import project.study.app.model.QuestionSetRepository;
 import project.study.app.model.database.StudyAppDatabase;
 import project.study.app.model.domain.FreeTextAnswer;
+import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.entity.QuestionSetEntity;
 
@@ -63,6 +64,7 @@ public class QuestionSetRepositoryTest {
 
     @Test
     public void insertAndGetQuestionSetByName() throws InterruptedException {
+
         QuestionSetEntity questionSet = new QuestionSetEntity("Sample", createSampleQuestions());
         repository.insert(questionSet);
 
@@ -75,6 +77,7 @@ public class QuestionSetRepositoryTest {
 
     @Test
     public void getAllQuestionSets() throws InterruptedException {
+
         QuestionSetEntity questionSet1 = new QuestionSetEntity("Sample1", createSampleQuestions());
         QuestionSetEntity questionSet2 = new QuestionSetEntity("Sample2", createSampleQuestions());
 
@@ -84,5 +87,53 @@ public class QuestionSetRepositoryTest {
         List<QuestionSetEntity> allQuestionSets = repository.getAllQuestionSets();
         assertNotNull(allQuestionSets);
         assertEquals(2, allQuestionSets.size());
+    }
+
+    @Test
+    public void updateQuestionSet() throws InterruptedException {
+
+        QuestionSetEntity questionSet = new QuestionSetEntity("Sample", createSampleQuestions());
+        repository.insert(questionSet);
+
+        QuestionSetEntity retrieved = repository.getQuestionSetByName("Sample");
+        assertNotNull(retrieved);
+
+        // Update the name and questions
+        retrieved.setName("UpdatedSample");
+        retrieved.addQuestion(
+                new Question("What is the capital of Portugal?",
+                        new MultipleChoiceTextAnswer(
+                                Arrays.asList("Lisbon", "Rome"), "Lisbon")
+                        )
+        );
+        repository.update(retrieved);
+
+        QuestionSetEntity updated = repository.getQuestionSetByName("UpdatedSample");
+        assertNotNull(updated);
+        assertEquals("UpdatedSample", updated.getName());
+        assertEquals(3, updated.getQuestions().size());
+    }
+
+    @Test
+    public void deleteQuestionSet() throws InterruptedException {
+
+        QuestionSetEntity questionSet1 = new QuestionSetEntity("Sample1", createSampleQuestions());
+        QuestionSetEntity questionSet2 = new QuestionSetEntity("Sample2", createSampleQuestions());
+
+        repository.insert(questionSet1);
+        repository.insert(questionSet2);
+
+        List<QuestionSetEntity> allQuestionSets = repository.getAllQuestionSets();
+        assertEquals(2, allQuestionSets.size());
+
+        QuestionSetEntity retrievedSet1 = allQuestionSets.get(0);
+        QuestionSetEntity retrievedSet2 = allQuestionSets.get(1);
+
+        repository.delete(retrievedSet2);
+
+        allQuestionSets = repository.getAllQuestionSets();
+
+        assertEquals(1, allQuestionSets.size());
+        assertEquals("Sample1", allQuestionSets.get(0).getName());
     }
 }

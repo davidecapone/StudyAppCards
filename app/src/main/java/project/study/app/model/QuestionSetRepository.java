@@ -29,4 +29,12 @@ public class QuestionSetRepository {
     public List<QuestionSetEntity> getAllQuestionSets() {
         return questionSetDao.getAllQuestionSets();
     }
+
+    public void update(QuestionSetEntity questionSet) {
+        this.questionSetDao.update(questionSet);
+    }
+
+    public void delete(QuestionSetEntity questionSet) {
+        this.questionSetDao.delete(questionSet);
+    }
 }
