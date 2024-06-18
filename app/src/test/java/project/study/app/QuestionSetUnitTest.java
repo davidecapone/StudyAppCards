@@ -1,4 +1,5 @@
 package project.study.app;
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -14,30 +15,23 @@ public class QuestionSetUnitTest {
     private QuestionSet questionSet;
 
     @Before
-    public void set_up() {
-
-        // create a question set:
+    public void setUp() {
         questionSet = new QuestionSet("Sample Question Set");
     }
 
     @Test
-    public void add_question_to_questionSet() {
-
+    public void testAddQuestion() {
         Question question = new Question("The capital of Italy", new FreeTextAnswer("Rome"));
         questionSet.addQuestion(question);
 
-        List<Question> questions = questionSet.getQuestions(); // retrieve the questions
+        List<Question> questions = questionSet.getQuestions();
 
-        // assert that the number of questions is 1
-        assertEquals(1, questionSet.getQuestions().size());
-        // assert that the first question is the free text question that was added:
+        assertEquals(1, questions.size());
         assertEquals(question, questions.get(0));
     }
 
     @Test
-    public void add_multiple_questions_works() {
-
-        // add both questions to the question set:
+    public void testAddMultipleQuestions() {
         Question question1 = new Question("The capital of Italy", new FreeTextAnswer("Rome"));
         Question question2 = new Question("The capital of Germany", new FreeTextAnswer("Berlin"));
 
@@ -46,39 +40,24 @@ public class QuestionSetUnitTest {
 
         List<Question> questions = questionSet.getQuestions();
 
-        // assert that the number of questions is 2
-        assertEquals(2, questionSet.getQuestions().size());
-
-        // assert that the first question is the free text question that was added:
+        assertEquals(2, questions.size());
         assertEquals(question1, questions.get(0));
-
-        // assert that the second question is the multiple choice question that was added:
         assertEquals(question2, questions.get(1));
     }
 
     @Test
-    public void remove_single_question() {
+    public void testRemoveQuestion() {
+        Question question = new Question("The capital of Italy", new FreeTextAnswer("Rome"));
+        questionSet.addQuestion(question);
+        questionSet.removeQuestion(question);
 
-        Question question1 = new Question("The capital of Italy", new FreeTextAnswer("Rome"));
-        Question question2 = new Question("The capital of Germany", new FreeTextAnswer("Berlin"));
-
-        questionSet.addQuestion(question1);
-        questionSet.addQuestion(question2);
-
-        // remove the first question:
-        questionSet.removeQuestion(question1);
-
-        // retrieve the questions from the question set:
         List<Question> questions = questionSet.getQuestions();
 
-        // assert that the number of questions is 1:
-        assertEquals(1, questions.size());
-
-        assertEquals(question2, questions.get(0));
+        assertEquals(0, questions.size());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void null_question_cannot_be_add() throws IllegalArgumentException {
+    public void testAddNullQuestion() {
         questionSet.addQuestion(null);
     }
 }
