@@ -138,8 +138,6 @@ public class QuestionSetDaoTest {
 
         questionSetDao.insert(questionSet);
 
-        Thread.sleep(2000);
-
         QuestionSetEntity retrieved = questionSetDao.getQuestionSetByName("SAMPLE");
 
         assertNotNull(retrieved);
