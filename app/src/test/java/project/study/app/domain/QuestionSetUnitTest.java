@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import project.study.app.model.domain.AnswerFactory;
+import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 
@@ -77,4 +78,5 @@ public class QuestionSetUnitTest {
     public void testAddNullQuestion() {
         questionSet.addQuestion(null);
     }
+
 }

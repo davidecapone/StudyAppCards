@@ -7,28 +7,23 @@ import androidx.room.TypeConverters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import project.study.app.model.converters.QuestionListConverter;
 
 /**
  * A class to represent a set of questions
  */
-@Entity(tableName = "question_sets")
-@TypeConverters({QuestionListConverter.class})
 public class QuestionSet {
 
-    @PrimaryKey
-    @NonNull
     private String questionSetName;
-
-    @TypeConverters(QuestionListConverter.class)
     private List<Question> questions;
 
     /**
      * Constructs a QuestionSet with the specified name.
      * @param questionSetName the name of the question set
      */
-    public QuestionSet(@NonNull String questionSetName) {
+    public QuestionSet(String questionSetName) {
         this.questionSetName = questionSetName;
         this.questions = new ArrayList<>();
     }
@@ -70,7 +65,6 @@ public class QuestionSet {
      * Gets the name of the question set.
      * @return the name of the question set
      */
-    @NonNull
     public String getQuestionSetName() {
         return questionSetName;
     }
@@ -79,7 +73,7 @@ public class QuestionSet {
      * Sets the name of the question set.
      * @param questionSetName the new name of the question set
      */
-    public void setQuestionSetName(@NonNull String questionSetName) {
+    public void setQuestionSetName(String questionSetName) {
         this.questionSetName = questionSetName;
     }
 }

@@ -8,7 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import project.study.app.model.domain.QuestionSet;
+import project.study.app.model.entity.QuestionSetEntity;
 
 /**
  * Data Access Object (DAO) for the QuestionSet entity.
@@ -19,37 +19,37 @@ public interface QuestionSetDao {
 
     /**
      * Inserts a new QuestionSet into the database.
-     * @param questionSet the QuestionSet to insert
+     * @param questionSetEntity the QuestionSet to insert
      */
     @Insert
-    void insert(QuestionSet questionSet);
+    void insert(QuestionSetEntity questionSetEntity);
 
     /**
      * Retrieves a QuestionSet by its name.
      * @param questionSetName the name of the QuestionSet to retrieve
-     * @return the QuestionSet with the specified name, or null if not found
+     * @return the QuestionSetEntity with the specified name, or null if not found
      */
-    @Query("SELECT * FROM question_sets WHERE questionSetName = :questionSetName")
-    QuestionSet getQuestionSet(String questionSetName);
+    @Query("SELECT * FROM question_sets WHERE name = :questionSetName LIMIT 1")
+    QuestionSetEntity getQuestionSetByName(String questionSetName);
 
     /**
      * Retrieves all QuestionSets from the database.
      * @return a list of all QuestionSets
      */
     @Query("SELECT * FROM question_sets")
-    List<QuestionSet> getAllQuestionSets();
+    List<QuestionSetEntity> getAllQuestionSets();
 
     /**
      * Deletes a specific QuestionSet from the database.
-     * @param questionSet the QuestionSet to delete
+     * @param questionSetEntity the QuestionSetEntity to delete
      */
     @Delete
-    void delete(QuestionSet questionSet);
+    void delete(QuestionSetEntity questionSetEntity);
 
     /**
      * Updates an existing QuestionSet in the database.
-     * @param questionSet the QuestionSet to update
+     * @param questionSetEntity the QuestionSetEntity to update
      */
     @Update
-    void update(QuestionSet questionSet);
+    void update(QuestionSetEntity questionSetEntity);
 }

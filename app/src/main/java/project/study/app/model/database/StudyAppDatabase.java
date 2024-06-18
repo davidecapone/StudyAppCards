@@ -9,9 +9,9 @@ import androidx.room.TypeConverters;
 
 import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.dao.QuestionSetDao;
-import project.study.app.model.domain.QuestionSet;
+import project.study.app.model.entity.QuestionSetEntity;
 
-@Database(entities = {QuestionSet.class}, version = 1, exportSchema = false)
+@Database(entities = {QuestionSetEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({QuestionListConverter.class})
 public abstract class StudyAppDatabase extends RoomDatabase {
 
