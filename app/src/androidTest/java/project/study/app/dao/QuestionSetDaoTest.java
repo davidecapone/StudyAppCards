@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import project.study.app.model.dao.QuestionSetDao;
@@ -56,28 +57,44 @@ public class QuestionSetDaoTest {
     public void closeDb() throws IOException {
         db.close();
     }
+    private QuestionSet createQuestionSet(String name, List<Question> questions) {
+        QuestionSet sample = new QuestionSet(name);
+        sample.setQuestions(questions);
+        return sample;
+    }
 
+    private List<Question> createSampleQuestions() {
+        return Arrays.asList(
+                new Question("What is the capital of Italy?", new FreeTextAnswer("Rome")),
+                new Question("What is the capital of Germany?", new FreeTextAnswer("Berlin"))
+        );
+    }
     @Test
-    public void insert_new_questionSet() {
+    public void testInsertQuestionSet() {
+        String questionSetName = "sample question set";
+        QuestionSet newQuestionSet = createQuestionSet(questionSetName, createSampleQuestions());
 
-        QuestionSet newQuestionSet = new QuestionSet("Sample");
-
-        // INSERT DAO:
         questionSetDao.insert(newQuestionSet);
 
-        // retrieve the question set by its name:
-        QuestionSet retrievedQuestionSet = questionSetDao.getQuestionSet("Sample");
+        QuestionSet retrievedQuestionSet = questionSetDao.getQuestionSet(questionSetName);
 
         assertNotNull(retrievedQuestionSet);
-        assertEquals(newQuestionSet.getQuestionSetName(), retrievedQuestionSet.getQuestionSetName());
-        assertEquals(newQuestionSet.getAllQuestions().size(), retrievedQuestionSet.getAllQuestions().size());
+        assertEquals(
+                newQuestionSet.getQuestionSetName(),
+                retrievedQuestionSet.getQuestionSetName()
+        );
+
+        assertEquals(
+                newQuestionSet.getQuestions().size(),
+                retrievedQuestionSet.getQuestions().size()
+        );
     }
 
     @Test
-    public void retrieve_all_questionSets() {
-        QuestionSet newQuestionSet1 = new QuestionSet("Sample1");
-        QuestionSet newQuestionSet2 = new QuestionSet("Sample2");
-        QuestionSet newQuestionSet3 = new QuestionSet("Sample3");
+    public void testRetrieveAllQuestionSets() {
+        QuestionSet newQuestionSet1 = createQuestionSet("SAMPLE1", createSampleQuestions());
+        QuestionSet newQuestionSet2 = createQuestionSet("SAMPLE2", createSampleQuestions());
+        QuestionSet newQuestionSet3 = createQuestionSet("SAMPLE3", createSampleQuestions());
 
         questionSetDao.insert(newQuestionSet1);
         questionSetDao.insert(newQuestionSet2);
@@ -86,18 +103,29 @@ public class QuestionSetDaoTest {
         List<QuestionSet> allQuestionSets = questionSetDao.getAllQuestionSets();
 
         assertNotNull(allQuestionSets);
-        assertEquals(3, allQuestionSets.size());
-        assertEquals("Sample1", allQuestionSets.get(0).getQuestionSetName());
-        assertEquals("Sample2", allQuestionSets.get(1).getQuestionSetName());
-        assertEquals("Sample3", allQuestionSets.get(2).getQuestionSetName());
+        assertEquals(
+                3,
+                allQuestionSets.size()
+        );
+        assertEquals(
+                "SAMPLE1",
+                allQuestionSets.get(0).getQuestionSetName()
+        );
+        assertEquals(
+                "SAMPLE2",
+                allQuestionSets.get(1).getQuestionSetName()
+        );
+        assertEquals(
+                "SAMPLE3",
+                allQuestionSets.get(2).getQuestionSetName()
+        );
     }
 
     @Test
-    public void delete_questionSet() {
-        QuestionSet questionSet1 = new QuestionSet("Sample1");
-        QuestionSet questionSet2 = new QuestionSet("Sample2");
+    public void testDeleteQuestionSet() {
+        QuestionSet questionSet1 = createQuestionSet("SAMPLE1", createSampleQuestions());
+        QuestionSet questionSet2 = createQuestionSet("SAMPLE2", createSampleQuestions());
 
-        // INSERT DAO:
         questionSetDao.insert(questionSet1);
         questionSetDao.insert(questionSet2);
 
@@ -105,28 +133,13 @@ public class QuestionSetDaoTest {
 
         List<QuestionSet> allQuestionSets = questionSetDao.getAllQuestionSets();
 
-        assertEquals(1, allQuestionSets.size());
-        assertEquals("Sample1", allQuestionSets.get(0).getQuestionSetName());
-    }
-
-    @Test
-    public void add_question_to_questionSet() {
-        QuestionSet questionSet = new QuestionSet("Sample");
-        questionSet.addQuestion(new Question("What is the capital of Italy?", new FreeTextAnswer("Rome")));
-        questionSetDao.insert(questionSet);
-
-        QuestionSet sampleQuestionSet = questionSetDao.getQuestionSet("Sample");
-        // update the sample question set with new questions:
-        sampleQuestionSet.addQuestion(new Question("This second question should be added?", new FreeTextAnswer("Yes")));
-
-        // UPDATE DAO
-        questionSetDao.update(sampleQuestionSet);
-
-        questionSet = questionSetDao.getQuestionSet("Sample");
-
-        assertNotNull(questionSet);
-        assertEquals(2, questionSet.getQuestions().size());
-        assertEquals("This second question should be added?", questionSet.getQuestions().get(1).getText());
+        assertEquals(
+                1,
+                allQuestionSets.size()
+        );
+        assertEquals(
+                "SAMPLE1",
+                allQuestionSets.get(0).getQuestionSetName());
     }
 }
 

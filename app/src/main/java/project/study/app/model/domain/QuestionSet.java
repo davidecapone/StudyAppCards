@@ -20,6 +20,8 @@ public class QuestionSet {
     @PrimaryKey
     @NonNull
     private String questionSetName;
+
+    @TypeConverters(QuestionListConverter.class)
     private List<Question> questions;
 
     /**
@@ -79,13 +81,5 @@ public class QuestionSet {
      */
     public void setQuestionSetName(@NonNull String questionSetName) {
         this.questionSetName = questionSetName;
-    }
-
-    public void setQuestions(List<Question> newQuestions) {
-        this.questions = newQuestions;
-    }
-
-    public List<Question> getQuestions() {
-        return this.questions;
     }
 }
