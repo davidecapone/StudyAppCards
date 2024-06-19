@@ -14,6 +14,9 @@ roomRuntime = "2.6.1"
 roomCompiler = "2.6.1"
 coreTesting = "2.2.0"
 gson = "2.11.0"
+mockitoCore = "5.12.0"
+mockitoKotlin = "5.3.1"
+mockk = "1.13.11"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -30,6 +33,9 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
