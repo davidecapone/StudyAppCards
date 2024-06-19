@@ -12,10 +12,10 @@ import java.util.List;
 public class ManualModePresenter {
 
     // (fake) repository
-    private FakeRepository repository;
+    private final FakeRepository repository;
 
     // view
-    private ManualModeView view;
+    private final ManualModeView view;
 
     public ManualModePresenter(FakeRepository repository, ManualModeView view) {
         this.repository = repository;
@@ -57,5 +57,13 @@ public class ManualModePresenter {
     public void onCreateNewQuestionSetButtonPressed(){
 
         view.navigateToQuestionSetCreation();
+    }
+
+    /**
+     * Delete a question set from the repository
+     * @param questionSetName name of the question set
+     */
+    public void deleteQuestionSet(String questionSetName) {
+        repository.deleteQuestionSet(questionSetName);
     }
 }

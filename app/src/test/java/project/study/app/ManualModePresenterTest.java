@@ -94,4 +94,19 @@ public class ManualModePresenterTest {
         // assert the correct question set is not found
         assertNull(questionSet);
     }
+
+    /**
+     * Test the deletion of a question set
+     */
+    @Test
+    public void testDeleteQuestionSet() {
+        // delete a question set
+        presenter.deleteQuestionSet("Question Set 1");
+
+        // search for the deleted question set
+        QuestionSet questionSet = presenter.searchQuestionSet("Question Set 1");
+
+        // assert the correct question set is not found
+        assertNull(questionSet);
+    }
 }

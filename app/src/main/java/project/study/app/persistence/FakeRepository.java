@@ -35,6 +35,15 @@ public class FakeRepository {
                 .orElseThrow(() -> new QuestionSetNotFoundException("Question set " + questionSetName + " not found"));
     }
 
+    public void deleteQuestionSet(String questionSetName) {
+        try {
+            QuestionSet questionSet = searchQuestionSet(questionSetName);
+            questionSets.remove(questionSet);
+        } catch (QuestionSetNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public class QuestionSetNotFoundException extends RuntimeException {
 
         public QuestionSetNotFoundException(String message) {
