@@ -6,7 +6,7 @@ import project.study.app.repository.QuestionSetRepository;
 
 public class QuestionSetService {
 
-    private QuestionSetRepository repository;
+    private final QuestionSetRepository repository;
 
     public QuestionSetService(QuestionSetRepository repository) {
         this.repository = repository;
@@ -21,7 +21,15 @@ public class QuestionSetService {
         repository.insert(
                 toEntity(newQuestionSet)
         );
+    }
 
+    public void delete(QuestionSet questionSet) {
+        // Retrieve the corresponding entity, if it exists
+        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+
+        if (existingEntity != null) {
+            repository.delete(existingEntity);
+        }
     }
 
     private QuestionSetEntity toEntity(QuestionSet questionSet) {
