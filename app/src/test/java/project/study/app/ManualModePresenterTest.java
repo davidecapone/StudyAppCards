@@ -73,7 +73,7 @@ public class ManualModePresenterTest {
 
         presenter.onCreateNewQuestionSetButtonPressed();
 
-        verify(view).navigateToQuestionSetCreation();
+        verify(view).navigateToQuestionSetView(new QuestionSet("New Question Set"));
     }
 
     /**
@@ -108,5 +108,16 @@ public class ManualModePresenterTest {
 
         // assert the correct question set is not found
         assertNull(questionSet);
+    }
+
+    /**
+     * Test the method to update a question set
+     */
+    @Test
+    public void testUpdateQuestionSet(){
+
+        presenter.onQuestionSetButtonPressed(questionSets.get(0));
+
+        verify(view).navigateToQuestionSetView(questionSets.get(0));
     }
 }
