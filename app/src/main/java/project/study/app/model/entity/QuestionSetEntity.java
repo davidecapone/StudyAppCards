@@ -12,7 +12,10 @@ import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.domain.Question;
 
 /**
- * A class to represent a set of questions for persistence
+ * A class to represent a set of questions for persistence.
+ * This class is used to persist a set of questions in the database.
+ * It uses Room annotations to define the database schema and provides
+ * methods to manage the questions within the set.
  */
 @Entity(tableName = "question_sets")
 public class QuestionSetEntity {

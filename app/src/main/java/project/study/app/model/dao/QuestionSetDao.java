@@ -12,8 +12,9 @@ import java.util.List;
 import project.study.app.model.entity.QuestionSetEntity;
 
 /**
- * Data Access Object (DAO) for the QuestionSet entity.
- * Provides methods for performing database operations on QuestionSets.
+ * DAO (Data Access Object) interface for accessing QuestionSet entities from the database.
+ * Provides methods for performing CRUD operations.
+ * This interface is needed to abstract the database operations related to QuestionSetEntity.
  */
 @Dao
 public interface QuestionSetDao {

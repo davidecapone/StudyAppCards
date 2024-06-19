@@ -21,7 +21,6 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -31,9 +30,12 @@ import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.entity.QuestionSetEntity;
-import project.study.app.model.repository.QuestionSetRepository;
-import project.study.app.model.repository.QuestionSetRepositoryImplementation;
 
+/**
+ * Unit tests for the QuestionSetRepository.
+ * These tests verify the correctness of the repository methods and ensure that the data operations are performed as expected.
+ * Using an in-memory database for testing isolates the tests from the actual database and provides a controlled environment.
+ */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class QuestionSetRepositoryTest {
