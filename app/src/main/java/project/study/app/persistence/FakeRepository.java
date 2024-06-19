@@ -4,7 +4,6 @@ import project.study.app.model.domain.QuestionSet;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.lang.Exception;
 
 /**
  * Fake repository for testing purposes
