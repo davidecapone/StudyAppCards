@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import android.content.Context;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -19,14 +21,18 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
-import project.study.app.model.QuestionSetRepository;
 import project.study.app.model.database.StudyAppDatabase;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.entity.QuestionSetEntity;
+import project.study.app.model.repository.QuestionSetRepository;
+import project.study.app.model.repository.QuestionSetRepositoryImplementation;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
@@ -43,7 +49,12 @@ public class QuestionSetRepositoryTest {
         db = Room.inMemoryDatabaseBuilder(context, StudyAppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        repository = new QuestionSetRepository(context);
+        repository = new QuestionSetRepositoryImplementation(context);
+    }
+
+    @Before
+    public void clear() throws InterruptedException {
+        this.repository.deleteAll();
     }
 
     @After
@@ -65,7 +76,7 @@ public class QuestionSetRepositoryTest {
     @Test
     public void insertAndGetQuestionSetByName() throws InterruptedException {
 
-        QuestionSetEntity questionSet = new QuestionSetEntity("Sample", createSampleQuestions());
+        QuestionSetEntity questionSet = createQuestionSetEntity("Sample", createSampleQuestions());
         repository.insert(questionSet);
 
         QuestionSetEntity retrieved = repository.getQuestionSetByName("Sample");
@@ -78,13 +89,14 @@ public class QuestionSetRepositoryTest {
     @Test
     public void getAllQuestionSets() throws InterruptedException {
 
-        QuestionSetEntity questionSet1 = new QuestionSetEntity("Sample1", createSampleQuestions());
-        QuestionSetEntity questionSet2 = new QuestionSetEntity("Sample2", createSampleQuestions());
+        QuestionSetEntity questionSet1 = createQuestionSetEntity("Sample1", createSampleQuestions());
+        QuestionSetEntity questionSet2 = createQuestionSetEntity("Sample2", createSampleQuestions());
 
         repository.insert(questionSet1);
         repository.insert(questionSet2);
 
-        List<QuestionSetEntity> allQuestionSets = repository.getAllQuestionSets();
+        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllQuestionSets());
+
         assertNotNull(allQuestionSets);
         assertEquals(2, allQuestionSets.size());
     }
@@ -123,7 +135,7 @@ public class QuestionSetRepositoryTest {
         repository.insert(questionSet1);
         repository.insert(questionSet2);
 
-        List<QuestionSetEntity> allQuestionSets = repository.getAllQuestionSets();
+        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllQuestionSets());
         assertEquals(2, allQuestionSets.size());
 
         QuestionSetEntity retrievedSet1 = allQuestionSets.get(0);
@@ -131,9 +143,25 @@ public class QuestionSetRepositoryTest {
 
         repository.delete(retrievedSet2);
 
-        allQuestionSets = repository.getAllQuestionSets();
+        allQuestionSets = getValue(repository.getAllQuestionSets());
 
         assertEquals(1, allQuestionSets.size());
         assertEquals("Sample1", allQuestionSets.get(0).getName());
+    }
+
+    private <T> T getValue(final LiveData<T> liveData) throws InterruptedException {
+        final Object[] data = new Object[1];
+        final CountDownLatch latch = new CountDownLatch(1);
+        Observer<T> observer = new Observer<T>() {
+            @Override
+            public void onChanged(T o) {
+                data[0] = o;
+                latch.countDown();
+                liveData.removeObserver(this);
+            }
+        };
+        liveData.observeForever(observer);
+        latch.await(2, TimeUnit.SECONDS);
+        return (T) data[0];
     }
 }

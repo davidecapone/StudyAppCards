@@ -9,6 +9,8 @@ import static org.junit.Assert.assertNull;
 import android.content.Context;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -23,6 +25,8 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.database.StudyAppDatabase;
@@ -64,12 +68,12 @@ public class QuestionSetDaoTest {
         );
     }
     @Test
-    public void testInsertQuestionSet() {
+    public void testInsertQuestionSet() throws InterruptedException {
 
         QuestionSetEntity questionSetEntity = createQuestionSetEntity("Sample", createSampleQuestions());
         questionSetDao.insert(questionSetEntity);
 
-        List<QuestionSetEntity> allQuestionSets = questionSetDao.getAllQuestionSets();
+        List<QuestionSetEntity> allQuestionSets = getValue(questionSetDao.getAllQuestionSets());
         QuestionSetEntity retrieved = allQuestionSets.get(0);
 
         assertNotNull(retrieved);
@@ -78,7 +82,7 @@ public class QuestionSetDaoTest {
     }
 
     @Test
-    public void testRetrieveAllQuestionSets() {
+    public void testRetrieveAllQuestionSets() throws InterruptedException {
         QuestionSetEntity newQuestionSet1 = createQuestionSetEntity("SAMPLE1", createSampleQuestions());
         QuestionSetEntity newQuestionSet2 = createQuestionSetEntity("SAMPLE2", createSampleQuestions());
         QuestionSetEntity newQuestionSet3 = createQuestionSetEntity("SAMPLE3", createSampleQuestions());
@@ -88,7 +92,7 @@ public class QuestionSetDaoTest {
         questionSetDao.insert(newQuestionSet3);
 
 
-        List<QuestionSetEntity> allQuestionSets = questionSetDao.getAllQuestionSets();
+        List<QuestionSetEntity> allQuestionSets = getValue(questionSetDao.getAllQuestionSets());
 
         assertNotNull(allQuestionSets);
         assertEquals(
@@ -110,14 +114,14 @@ public class QuestionSetDaoTest {
     }
 
     @Test
-    public void testDeleteQuestionSet() {
+    public void testDeleteQuestionSet() throws InterruptedException {
         QuestionSetEntity questionSet1 = createQuestionSetEntity("SAMPLE1", createSampleQuestions());
         QuestionSetEntity questionSet2 = createQuestionSetEntity("SAMPLE2", createSampleQuestions());
 
         questionSetDao.insert(questionSet1);
         questionSetDao.insert(questionSet2);
 
-        List<QuestionSetEntity> allQuestionSets = questionSetDao.getAllQuestionSets();
+        List<QuestionSetEntity> allQuestionSets = getValue(questionSetDao.getAllQuestionSets());
         assertEquals(2, allQuestionSets.size());
 
         QuestionSetEntity retrievedSet1 = allQuestionSets.get(0);
@@ -126,7 +130,7 @@ public class QuestionSetDaoTest {
 
         questionSetDao.delete(retrievedSet2);
 
-        allQuestionSets = questionSetDao.getAllQuestionSets();
+        allQuestionSets = getValue(questionSetDao.getAllQuestionSets());
 
         assertEquals(1, allQuestionSets.size());
         assertEquals("SAMPLE1", allQuestionSets.get(0).getName());
@@ -159,6 +163,22 @@ public class QuestionSetDaoTest {
                 3,
                 retrieved.getQuestions().size()
         );
+    }
+
+    private <T> T getValue(final LiveData<T> liveData) throws InterruptedException {
+        final Object[] data = new Object[1];
+        final CountDownLatch latch = new CountDownLatch(1);
+        Observer<T> observer = new Observer<T>() {
+            @Override
+            public void onChanged(T o) {
+                data[0] = o;
+                latch.countDown();
+                liveData.removeObserver(this);
+            }
+        };
+        liveData.observeForever(observer);
+        latch.await(2, TimeUnit.SECONDS);
+        return (T) data[0];
     }
 }
 
