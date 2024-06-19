@@ -7,20 +7,29 @@ import java.util.List;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.persistence.FakeRepository;
-import project.study.app.presenter.QuestionSetListPresenter;
+import project.study.app.presenter.ManualModePresenter;
+import project.study.app.view.ManualModeView;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import static org.mockito.Mockito.verify;
+
+import org.mockito.Mockito;
 
 /**
  * Test class for ManualModePresenter
  */
-public class QuestionSetListPresenterTest {
+public class ManualModePresenterTest {
 
     // (fake) repository
     private FakeRepository repository;
 
     // presenter
-    private QuestionSetListPresenter presenter;
+    private ManualModePresenter presenter;
+
+    // (mock) view
+    private ManualModeView view;
 
     // list of question sets
     List<QuestionSet> questionSets;
@@ -29,7 +38,9 @@ public class QuestionSetListPresenterTest {
     public void setUp() {
         repository = new FakeRepository();
 
-        presenter = new QuestionSetListPresenter();
+        view = Mockito.mock(ManualModeView.class);
+
+        presenter = new ManualModePresenter(repository, view);
     }
 
     /**
@@ -53,35 +64,16 @@ public class QuestionSetListPresenterTest {
         }
     }
 
+    /**
+     * Test the addition of a new question set
+     * Opens the question set creation view
+     */
     @Test
     public void testAddQuestionSet() {
 
-        // create a new question set
-        QuestionSet newQuestionSet = new QuestionSet("New Question Set");
+        presenter.onCreateNewQuestionSetButtonPressed();
 
-        // add the new question set to the repository
-        repository.addQuestionSet(newQuestionSet);
-
-        // set the repository in the presenter
-        presenter.setRepository(repository);
-
-        // add a new question set via the presenter
-        presenter.addQuestionSet(newQuestionSet);
-
-        // get all question sets in the presenter
-        questionSets = presenter.getAllQuestionSets();
-
-        // get the expected question sets from the repository
-        List<QuestionSet> expectedQuestionSets = repository.getAllQuestionSets();
-
-        // assert the size is the same
-        assertEquals(expectedQuestionSets.size(), questionSets.size());
-
-        // assert all elements are the same
-        for (int i = 0; i < expectedQuestionSets.size(); i++) {
-            assertEquals(expectedQuestionSets.get(i).getQuestionSetName(), questionSets.get(i).getQuestionSetName());
-        }
-
+        verify(view).navigateToQuestionSetCreation();
     }
 
     /**
@@ -100,6 +92,6 @@ public class QuestionSetListPresenterTest {
         questionSet = presenter.searchQuestionSet("Question Set 4");
 
         // assert the correct question set is not found
-        assertEquals(null, questionSet);
+        assertNull(questionSet);
     }
 }

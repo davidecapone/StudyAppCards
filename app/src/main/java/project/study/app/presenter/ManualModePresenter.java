@@ -2,19 +2,24 @@ package project.study.app.presenter;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.persistence.FakeRepository;
+import project.study.app.view.ManualModeView;
 
 import java.util.List;
 
 /**
  * Presenter for manual mode view
  */
-public class QuestionSetListPresenter {
+public class ManualModePresenter {
 
     // (fake) repository
     private FakeRepository repository;
 
-    public QuestionSetListPresenter() {
-        this.repository = new FakeRepository();
+    // view
+    private ManualModeView view;
+
+    public ManualModePresenter(FakeRepository repository, ManualModeView view) {
+        this.repository = repository;
+        this.view = view;
     }
 
     /**
@@ -46,7 +51,11 @@ public class QuestionSetListPresenter {
         }
     }
 
-    public void setRepository(FakeRepository repository) {
-        this.repository = repository;
+    /**
+     * Navigate to question set creation view when the button to create a new question set is pressed
+     */
+    public void onCreateNewQuestionSetButtonPressed(){
+
+        view.navigateToQuestionSetCreation();
     }
 }
