@@ -1,38 +1,51 @@
 package project.study.app.service;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
+import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.model.entity.QuestionSetEntity;
-import project.study.app.repository.QuestionSetRepository;
 
-public class QuestionSetService {
+public interface QuestionSetService {
+    /**
+     * Inserts a new QuestionSet into the repository.
+     * @param questionSet The QuestionSet to be inserted.
+     * @throws IllegalArgumentException if a QuestionSet with the same name already exists.
+     */
+    void insert(QuestionSet questionSet);
 
-    private final QuestionSetRepository repository;
 
-    public QuestionSetService(QuestionSetRepository repository) {
-        this.repository = repository;
-    }
+    /**
+     * Deletes an existing QuestionSet from the repository.
+     * @param questionSet The QuestionSet to be deleted.
+     */
+    void delete(QuestionSet questionSet);
 
-    public void insert(QuestionSet newQuestionSet) {
+    /**
+     * Retrieves all QuestionSets.
+     * @return A LiveData object containing a list of all QuestionSets.
+     */
+    LiveData<List<QuestionSet>> getAllQuestionSets();
 
-        if (repository.getQuestionSetByName(newQuestionSet.getQuestionSetName()) != null) {
-            throw new IllegalArgumentException("QuestionSet with name " + newQuestionSet.getQuestionSetName() + " already exists.");
-        }
+    /**
+     * Adds a question to an existing QuestionSet.
+     * @param questionSetName The name of the QuestionSet.
+     * @param question The Question to be added.
+     */
+    void addQuestionToQuestionSet(String questionSetName, Question question);
 
-        repository.insert(
-                toEntity(newQuestionSet)
-        );
-    }
+    /**
+     * Removes a question from an existing QuestionSet.
+     * @param questionSetName The name of the QuestionSet.
+     * @param question The Question to be removed.
+     */
+    void removeQuestionFromQuestionSet(String questionSetName, Question question);
 
-    public void delete(QuestionSet questionSet) {
-        // Retrieve the corresponding entity, if it exists
-        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName());
-
-        if (existingEntity != null) {
-            repository.delete(existingEntity);
-        }
-    }
-
-    private QuestionSetEntity toEntity(QuestionSet questionSet) {
-        return new QuestionSetEntity(questionSet.getQuestionSetName(), questionSet.getQuestions());
-    }
+    /**
+     * Changes the name of an existing QuestionSet.
+     * @param existingQuestionSetName The current name of the QuestionSet.
+     * @param newName The new name of the QuestionSet.
+     */
+    void changeQuestionSetName(String existingQuestionSetName, String newName);
 }
