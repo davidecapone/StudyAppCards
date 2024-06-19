@@ -1,123 +1,93 @@
 package project.study.app;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.persistence.FakeRepository;
 import project.study.app.presenter.ManualModePresenter;
+import project.study.app.service.QuestionSetService;
+import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.ManualModeView;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import org.mockito.Mockito;
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
+
 
 /**
  * Test class for ManualModePresenter
  */
 public class ManualModePresenterTest {
 
-    // (fake) repository
-    private FakeRepository repository;
-
-    // presenter
+    @Rule // Rule to ensure LiveData executes synchronously in the test environment:
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+    private QuestionSetService service;
     private ManualModePresenter presenter;
-
-    // (mock) view
     private ManualModeView view;
-
-    // list of question sets
-    List<QuestionSet> questionSets;
 
     @Before
     public void setUp() {
-        repository = new FakeRepository();
+        // Create mock instances of the service and view:
+        service = mock(QuestionSetServiceImplementation.class);
+        view = mock(ManualModeView.class);
 
-        view = Mockito.mock(ManualModeView.class);
-
-        presenter = new ManualModePresenter(repository, view);
+        // Initialize the presenter with the mocked service and view:
+        presenter = new ManualModePresenter(service, view);
     }
 
-    /**
-     * Test the getAllQuestionSets method
-     */
     @Test
-    public void testGetAllQuestionSets() {
+    public void testLoadAllQuestionSets() {
 
-        // get all question sets in the presenter
-        questionSets = presenter.getAllQuestionSets();
+        // Prepare mock data and set up the expected behavior of the service
+        List<QuestionSet> mockQuestionSets = Arrays.asList(
+                new QuestionSet("Sample1"),
+                new QuestionSet("Sample2")
+        );
+        MutableLiveData<List<QuestionSet>> liveData = new MutableLiveData<>();
+        liveData.setValue(mockQuestionSets);
 
-        // get the expected question sets from the repository
-        List<QuestionSet> expectedQuestionSets = repository.getAllQuestionSets();
+        when(service.getAllQuestionSets()).thenReturn(liveData);
 
-        // assert the size is the same
-        assertEquals(expectedQuestionSets.size(), questionSets.size());
+        // Call the method to be tested on the presenter:
+        presenter.loadAllQuestionSets();
 
-        // assert all elements are the same
-        for (int i = 0; i < expectedQuestionSets.size(); i++) {
-            assertEquals(expectedQuestionSets.get(i).getQuestionSetName(), questionSets.get(i).getQuestionSetName());
-        }
+        // Verify that the view's displayQuestionSets method is called with the correct data
+        verify(view).displayQuestionSets(mockQuestionSets);
     }
 
-    /**
-     * Test the addition of a new question set
-     * Opens the question set creation view
-     */
     @Test
-    public void testAddQuestionSet() {
+    public void testAddNewQuestionSet() {
 
-        presenter.onCreateNewQuestionSetButtonPressed();
+        // Prepare a new QuestionSet object
+        QuestionSet newQuestionSet = new QuestionSet("Sample");
 
-        verify(view).navigateToQuestionSetView(new QuestionSet("New Question Set"));
+        // Call the method to add a new question set on the presenter
+        presenter.addNewQuestionSet(newQuestionSet);
+
+        // Verify that the service's insert method and the view's showMessage method are called
+        verify(service).insert(newQuestionSet);
+        verify(view).showMessage("Question set added successfully.");
     }
 
-    /**
-     * Test the searchQuestionSet method
-     */
-    @Test
-    public void testSearchQuestionSet(){
-
-        // search for a question set by name
-        QuestionSet questionSet = presenter.searchQuestionSet("Question Set 1");
-
-        // assert the correct question set is found
-        assertEquals("Question Set 1", questionSet.getQuestionSetName());
-
-        // search for a question set that does not exist
-        questionSet = presenter.searchQuestionSet("Question Set 4");
-
-        // assert the correct question set is not found
-        assertNull(questionSet);
-    }
-
-    /**
-     * Test the deletion of a question set
-     */
     @Test
     public void testDeleteQuestionSet() {
-        // delete a question set
-        presenter.deleteQuestionSet("Question Set 1");
 
-        // search for the deleted question set
-        QuestionSet questionSet = presenter.searchQuestionSet("Question Set 1");
+        // Prepare a QuestionSet object to be deleted
+        QuestionSet questionSet = new QuestionSet("Sample");
 
-        // assert the correct question set is not found
-        assertNull(questionSet);
-    }
+        // Call the method to delete a question set on the presenter
+        presenter.deleteQuestionSet(questionSet);
 
-    /**
-     * Test the method to update a question set
-     */
-    @Test
-    public void testUpdateQuestionSet(){
-
-        presenter.onQuestionSetButtonPressed(questionSets.get(0));
-
-        verify(view).navigateToQuestionSetView(questionSets.get(0));
+        // Verify that the service's delete method and the view's showMessage method are called
+        verify(service).delete(questionSet);
+        verify(view).showMessage("Question set deleted successfully.");
     }
 }

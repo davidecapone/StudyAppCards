@@ -48,10 +48,15 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.androidx.runner)
     implementation(libs.mockito.android)
+    testImplementation(libs.mockito.inline)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.android)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.byte.buddy)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
     annotationProcessor(libs.androidx.room.compiler)
 
 }
