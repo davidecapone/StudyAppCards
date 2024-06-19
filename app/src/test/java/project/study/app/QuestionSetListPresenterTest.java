@@ -7,20 +7,20 @@ import java.util.List;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.persistence.FakeRepository;
-import project.study.app.presenter.ManualModePresenter;
+import project.study.app.presenter.QuestionSetListPresenter;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for ManualModePresenter
  */
-public class ManualModePresenterTest {
+public class QuestionSetListPresenterTest {
 
     // (fake) repository
     private FakeRepository repository;
 
     // presenter
-    private ManualModePresenter presenter;
+    private QuestionSetListPresenter presenter;
 
     // list of question sets
     List<QuestionSet> questionSets;
@@ -29,7 +29,7 @@ public class ManualModePresenterTest {
     public void setUp() {
         repository = new FakeRepository();
 
-        presenter = new ManualModePresenter();
+        presenter = new QuestionSetListPresenter();
     }
 
     /**

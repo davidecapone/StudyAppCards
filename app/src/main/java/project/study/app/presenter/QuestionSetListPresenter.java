@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Presenter for manual mode view
  */
-public class ManualModePresenter {
+public class QuestionSetListPresenter {
 
     // (fake) repository
     private FakeRepository repository;
 
-    public ManualModePresenter() {
+    public QuestionSetListPresenter() {
         this.repository = new FakeRepository();
     }
 
