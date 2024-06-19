@@ -1,5 +1,6 @@
 package project.study.app.presenter;
 
+import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.persistence.FakeRepository;
 import project.study.app.view.ManualModeView;
@@ -52,11 +53,11 @@ public class ManualModePresenter {
     }
 
     /**
-     * Navigate to question set creation view when the button to create a new question set is pressed
+     * Navigate to question set view when the button to create a new question set is pressed
      */
     public void onCreateNewQuestionSetButtonPressed(){
 
-        view.navigateToQuestionSetCreation();
+        view.navigateToQuestionSetView(new QuestionSet("New Question Set"));
     }
 
     /**
@@ -65,5 +66,13 @@ public class ManualModePresenter {
      */
     public void deleteQuestionSet(String questionSetName) {
         repository.deleteQuestionSet(questionSetName);
+    }
+
+    /**
+     * Navigate to question set view when a question set is selected
+     * @param questionSet the question set to be updated
+     */
+    public void onQuestionSetButtonPressed(QuestionSet questionSet) {
+        view.navigateToQuestionSetView(questionSet);
     }
 }
