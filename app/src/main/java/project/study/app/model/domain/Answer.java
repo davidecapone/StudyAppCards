@@ -5,14 +5,15 @@ package project.study.app.model.domain;
  * @param <T> the type of the answer
  */
 public abstract class Answer<T> {
-
-    T correctAnswer;
+    private T correctAnswer;
 
     public T getCorrectAnswer() {
-        return this.correctAnswer;
+        return correctAnswer;
     }
 
-    public void setCorrectAnswer(T newCorrectAnswer) {
-        this.correctAnswer = newCorrectAnswer;
+    public void setCorrectAnswer(T correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
+
+    public abstract boolean isCorrect(Object answer);
 }
