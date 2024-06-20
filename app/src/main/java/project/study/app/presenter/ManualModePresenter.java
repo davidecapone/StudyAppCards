@@ -29,13 +29,6 @@ public class ManualModePresenter {
         LiveData<List<QuestionSet>> questionSets = service.getAllQuestionSets();
         questionSets.observeForever(view::displayQuestionSets);
     }
-    
-    public void addNewQuestionSet(String name) {
-
-        QuestionSet newQuestionSet = new QuestionSet(name);
-        this.service.insert(newQuestionSet);
-        this.view.showMessage("Question set added successfully.");
-    }
 
     public void deleteQuestionSet(QuestionSet questionSet) {
 
@@ -46,5 +39,10 @@ public class ManualModePresenter {
     public void onQuestionSetSelected(QuestionSet questionSet) {
 
         this.view.navigateToQuestionSetDetails(questionSet);
+    }
+
+    public void onAddQuestionSetButtonClicked() {
+
+        this.view.navigateToQuestionSetDetails(null);
     }
 }
