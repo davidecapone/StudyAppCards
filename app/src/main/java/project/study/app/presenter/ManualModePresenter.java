@@ -2,9 +2,9 @@ package project.study.app.presenter;
 
 import androidx.lifecycle.LiveData;
 
-import project.study.app.model.domain.Question;
+import org.junit.Test;
+
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.persistence.FakeRepository;
 import project.study.app.service.QuestionSetService;
 import project.study.app.view.ManualModeView;
 
@@ -19,22 +19,32 @@ public class ManualModePresenter {
     private final ManualModeView view;
 
     public ManualModePresenter(QuestionSetService questionSetService, ManualModeView view) {
+
         this.service = questionSetService;
         this.view = view;
     }
 
     public void loadAllQuestionSets() {
+
         LiveData<List<QuestionSet>> questionSets = service.getAllQuestionSets();
         questionSets.observeForever(view::displayQuestionSets);
     }
     
-    public void addNewQuestionSet(QuestionSet newQuestionSet) {
+    public void addNewQuestionSet(String name) {
+
+        QuestionSet newQuestionSet = new QuestionSet(name);
         this.service.insert(newQuestionSet);
-        view.showMessage("Question set added successfully.");
+        this.view.showMessage("Question set added successfully.");
     }
 
     public void deleteQuestionSet(QuestionSet questionSet) {
-        service.delete(questionSet);
-        view.showMessage("Question set deleted successfully.");
+
+        this.service.delete(questionSet);
+        this.view.showMessage("Question set deleted successfully.");
+    }
+
+    public void onQuestionSetSelected(QuestionSet questionSet) {
+
+        this.view.navigateToQuestionSetDetails(questionSet);
     }
 }

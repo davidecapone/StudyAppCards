@@ -39,6 +39,14 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
         }
     }
 
+    public void update(QuestionSet questionSet) {
+        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+
+        if (existingEntity != null) {
+            repository.update(existingEntity);
+        }
+    }
+
     public void addQuestionToQuestionSet(String questionSetName, Question question) {
         QuestionSetEntity entity = repository.getQuestionSetByName(questionSetName);
 
@@ -71,6 +79,10 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
 
     private QuestionSetEntity toEntity(QuestionSet questionSet) {
         return new QuestionSetEntity(questionSet.getQuestionSetName(), questionSet.getQuestions());
+    }
+
+    public QuestionSet getQuestionSetByName(String name) {
+        return toDomain(this.repository.getQuestionSetByName(name));
     }
 
     public void changeQuestionSetName(String existingQuestionSetName, String newName) {

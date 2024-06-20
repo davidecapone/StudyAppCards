@@ -14,6 +14,7 @@ import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.ManualModeView;
 
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -65,15 +66,11 @@ public class ManualModePresenterTest {
 
     @Test
     public void testAddNewQuestionSet() {
+        String name = "Sample";
 
-        // Prepare a new QuestionSet object
-        QuestionSet newQuestionSet = new QuestionSet("Sample");
+        presenter.addNewQuestionSet(name);
 
-        // Call the method to add a new question set on the presenter
-        presenter.addNewQuestionSet(newQuestionSet);
-
-        // Verify that the service's insert method and the view's showMessage method are called
-        verify(service).insert(newQuestionSet);
+        verify(service).insert(any(QuestionSet.class));
         verify(view).showMessage("Question set added successfully.");
     }
 
@@ -89,5 +86,15 @@ public class ManualModePresenterTest {
         // Verify that the service's delete method and the view's showMessage method are called
         verify(service).delete(questionSet);
         verify(view).showMessage("Question set deleted successfully.");
+    }
+
+    @Test
+    public void testOnQuestionSetSelected() {
+
+        QuestionSet questionSet = new QuestionSet("Sample");
+
+        presenter.onQuestionSetSelected(questionSet);
+
+        verify(view).navigateToQuestionSetDetails(questionSet);
     }
 }

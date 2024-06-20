@@ -48,4 +48,8 @@ public interface QuestionSetService {
      * @param newName The new name of the QuestionSet.
      */
     void changeQuestionSetName(String existingQuestionSetName, String newName);
+
+    QuestionSet getQuestionSetByName(String name);
+
+    void update(QuestionSet questionSet);
 }

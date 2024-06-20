@@ -8,4 +8,6 @@ public interface ManualModeView {
     void displayQuestionSets(List<QuestionSet> questionSets);
 
     void showMessage(String message);
+
+    void navigateToQuestionSetDetails(QuestionSet questionSet);
 }
