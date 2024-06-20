@@ -65,6 +65,16 @@ public class ManualModePresenterTest {
     }
 
     @Test
+    public void testAddNewQuestionSet() {
+        String name = "Sample";
+
+        presenter.addNewQuestionSet(name);
+
+        verify(service).insert(any(QuestionSet.class));
+        verify(view).showMessage("Question set added successfully.");
+    }
+
+    @Test
     public void testDeleteQuestionSet() {
 
         // Prepare a QuestionSet object to be deleted
@@ -86,13 +96,5 @@ public class ManualModePresenterTest {
         presenter.onQuestionSetSelected(questionSet);
 
         verify(view).navigateToQuestionSetDetails(questionSet);
-    }
-
-    @Test
-    public void testOnAddQuestionSetButtonClicked() {
-
-        presenter.onAddQuestionSetButtonClicked();
-
-        verify(view).navigateToQuestionSetDetails(null);
     }
 }
