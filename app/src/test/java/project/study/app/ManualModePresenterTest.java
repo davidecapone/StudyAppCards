@@ -97,4 +97,16 @@ public class ManualModePresenterTest {
 
         verify(view).navigateToQuestionSetDetails(questionSet);
     }
+
+    @Test
+    public void testStartExaminationSession() {
+        // Arrange
+        String questionSetId = "1";
+
+        // Act
+        presenter.onStartExaminationSessionButtonClicked(questionSetId);
+
+        // Assert
+        verify(view).navigateToExaminationSession(questionSetId);
+    }
 }

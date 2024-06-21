@@ -47,4 +47,8 @@ public class ManualModePresenter {
 
         this.view.navigateToQuestionSetDetails(questionSet);
     }
+
+    public void onStartExaminationSessionButtonClicked(String questionSetId) {
+        view.navigateToExaminationSession(questionSetId);
+    }
 }

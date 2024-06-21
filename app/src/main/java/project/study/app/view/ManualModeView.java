@@ -10,4 +10,6 @@ public interface ManualModeView {
     void showMessage(String message);
 
     void navigateToQuestionSetDetails(QuestionSet questionSet);
+
+    void navigateToExaminationSession(String questionSetId);
 }
