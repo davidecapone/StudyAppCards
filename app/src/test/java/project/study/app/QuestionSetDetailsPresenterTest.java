@@ -59,7 +59,7 @@ public class QuestionSetDetailsPresenterTest {
         presenter.loadQuestionSet(name);
 
         verify(view).setQuestionSetName(name);
-        verify(view, times(2)).displayQuestions(questions);
+        verify(view).displayQuestions(questions);
     }
 
     @Test
