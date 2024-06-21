@@ -101,12 +101,11 @@ public class ManualModePresenterTest {
     @Test
     public void testStartExaminationSession() {
         // Arrange
-        String questionSetId = "1";
+        QuestionSet questionSet = new QuestionSet("Sample");
 
-        // Act
-        presenter.onStartExaminationSessionButtonClicked(questionSetId);
+        presenter.onStartExaminationSessionButtonClicked(questionSet);
 
         // Assert
-        verify(view).navigateToExaminationSession(questionSetId);
+        verify(view).navigateToExaminationSession(questionSet);
     }
 }

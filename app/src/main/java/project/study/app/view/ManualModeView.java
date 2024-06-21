@@ -11,5 +11,5 @@ public interface ManualModeView {
 
     void navigateToQuestionSetDetails(QuestionSet questionSet);
 
-    void navigateToExaminationSession(String questionSetId);
+    void navigateToExaminationSession(QuestionSet questionSet);
 }

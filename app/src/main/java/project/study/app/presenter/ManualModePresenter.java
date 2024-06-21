@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import org.junit.Test;
 
+import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.service.QuestionSetService;
 import project.study.app.view.ManualModeView;
@@ -48,7 +49,7 @@ public class ManualModePresenter {
         this.view.navigateToQuestionSetDetails(questionSet);
     }
 
-    public void onStartExaminationSessionButtonClicked(String questionSetId) {
-        view.navigateToExaminationSession(questionSetId);
+    public void onStartExaminationSessionButtonClicked(QuestionSet questionSet) {
+        view.navigateToExaminationSession(questionSet);
     }
 }
