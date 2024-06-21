@@ -27,6 +27,7 @@ public class QuestionSetDetailsPresenter {
     public void addQuestion(Question question) {
 
         currentQuestionSet.addQuestion(question);
+        service.update(currentQuestionSet);
         view.displayQuestions(currentQuestionSet.getQuestions());
     }
 

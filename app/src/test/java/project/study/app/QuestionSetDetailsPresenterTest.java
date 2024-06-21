@@ -15,6 +15,7 @@ import project.study.app.view.QuestionSetDetailsView;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -58,22 +59,26 @@ public class QuestionSetDetailsPresenterTest {
         presenter.loadQuestionSet(name);
 
         verify(view).setQuestionSetName(name);
-        verify(view).displayQuestions(questions);
+        verify(view, times(2)).displayQuestions(questions);
     }
 
     @Test
     public void testAddQuestion() {
-
+        // Arrange
         String name = "Sample";
         QuestionSet questionSet = new QuestionSet(name);
         when(service.getQuestionSetByName(name)).thenReturn(questionSet);
-        presenter.loadQuestionSet(name);
-        Question question = new Question("What is the capital of Portugal?", new FreeTextAnswer("Lisbon"));
 
+        presenter.loadQuestionSet(name);
+
+        Question question = new Question("What is the capital of Germany?", new FreeTextAnswer("Berlin"));
+
+        // Act
         presenter.addQuestion(question);
 
         // Assert
-        verify(view).displayQuestions(questionSet.getQuestions());
+        verify(service).update(questionSet);
+        verify(view, times(2)).displayQuestions(questionSet.getQuestions());
     }
 
     @Test
