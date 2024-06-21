@@ -15,7 +15,7 @@ public interface QuestionSetRepository {
 
     void insert( QuestionSetEntity newQuestionSetEntity );
 
-    QuestionSetEntity getQuestionSetByName( String name );
+    LiveData<QuestionSetEntity> getQuestionSetByName(String name);
 
     LiveData<List<QuestionSetEntity>> getAllQuestionSets();
 

@@ -26,12 +26,6 @@ public interface QuestionSetDao {
     @Insert
     void insert(QuestionSetEntity questionSetEntity);
 
-    @Query("SELECT * FROM question_sets WHERE name = :questionSetName LIMIT 1")
-    QuestionSetEntity getQuestionSetByName(String questionSetName);
-
-    @Query("SELECT * FROM question_sets")
-    LiveData<List<QuestionSetEntity>> getAllQuestionSets();
-
     @Delete
     void delete(QuestionSetEntity questionSetEntity);
 
@@ -40,4 +34,10 @@ public interface QuestionSetDao {
 
     @Query("DELETE FROM question_sets")
     void deleteAll();
+
+    @Query("SELECT * FROM question_sets WHERE name = :name LIMIT 1")
+    LiveData<QuestionSetEntity> getQuestionSetByName(String name);
+
+    @Query("SELECT * FROM question_sets")
+    LiveData<List<QuestionSetEntity>> getAllQuestionSets();
 }

@@ -79,11 +79,9 @@ public class QuestionSetRepositoryTest {
     public void insertAndGetQuestionSetByName() throws InterruptedException {
 
         QuestionSetEntity questionSet = createQuestionSetEntity("Sample", createSampleQuestions());
-        repository.insert(questionSet);
-
-        QuestionSetEntity retrieved = repository.getQuestionSetByName("Sample");
-
-        assertNotNull(retrieved);
+        insertQuestionSetAndWait(questionSet);
+        QuestionSetEntity retrieved = getValue(repository.getQuestionSetByName("Sample"));
+        assertNotNull("QuestionSetEntity retrieved is null", retrieved);
         assertEquals("Sample", retrieved.getName());
         assertEquals(2, retrieved.getQuestions().size());
     }
@@ -93,12 +91,9 @@ public class QuestionSetRepositoryTest {
 
         QuestionSetEntity questionSet1 = createQuestionSetEntity("Sample1", createSampleQuestions());
         QuestionSetEntity questionSet2 = createQuestionSetEntity("Sample2", createSampleQuestions());
-
-        repository.insert(questionSet1);
-        repository.insert(questionSet2);
-
+        insertQuestionSetAndWait(questionSet1);
+        insertQuestionSetAndWait(questionSet2);
         List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllQuestionSets());
-
         assertNotNull(allQuestionSets);
         assertEquals(2, allQuestionSets.size());
     }
@@ -107,22 +102,25 @@ public class QuestionSetRepositoryTest {
     public void updateQuestionSet() throws InterruptedException {
 
         QuestionSetEntity questionSet = new QuestionSetEntity("Sample", createSampleQuestions());
-        repository.insert(questionSet);
-
-        QuestionSetEntity retrieved = repository.getQuestionSetByName("Sample");
+        insertQuestionSetAndWait(questionSet);
+        QuestionSetEntity retrieved = getValue(repository.getQuestionSetByName("Sample"));
         assertNotNull(retrieved);
 
-        // Update the name and questions
+        // update the question set name and add a question:
         retrieved.setName("UpdatedSample");
         retrieved.addQuestion(
                 new Question("What is the capital of Portugal?",
                         new MultipleChoiceTextAnswer(
                                 Arrays.asList("Lisbon", "Rome"), "Lisbon")
-                        )
+                )
         );
+
         repository.update(retrieved);
 
-        QuestionSetEntity updated = repository.getQuestionSetByName("UpdatedSample");
+        // Add a small delay to ensure the database operation completes
+        Thread.sleep(500);
+
+        QuestionSetEntity updated = getValue(repository.getQuestionSetByName("UpdatedSample"));
         assertNotNull(updated);
         assertEquals("UpdatedSample", updated.getName());
         assertEquals(3, updated.getQuestions().size());
@@ -134,8 +132,8 @@ public class QuestionSetRepositoryTest {
         QuestionSetEntity questionSet1 = new QuestionSetEntity("Sample1", createSampleQuestions());
         QuestionSetEntity questionSet2 = new QuestionSetEntity("Sample2", createSampleQuestions());
 
-        repository.insert(questionSet1);
-        repository.insert(questionSet2);
+        insertQuestionSetAndWait(questionSet1);
+        insertQuestionSetAndWait(questionSet2);
 
         List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllQuestionSets());
         assertEquals(2, allQuestionSets.size());
@@ -145,13 +143,29 @@ public class QuestionSetRepositoryTest {
 
         repository.delete(retrievedSet2);
 
+        Thread.sleep(500);
+
         allQuestionSets = getValue(repository.getAllQuestionSets());
 
         assertEquals(1, allQuestionSets.size());
         assertEquals("Sample1", allQuestionSets.get(0).getName());
     }
 
+    private void insertQuestionSetAndWait(QuestionSetEntity questionSet) throws InterruptedException {
+        /*
+        This method inserts a QuestionSetEntity and waits for the insertion to complete using a CountDownLatch.
+        This ensures that the insertion is completed before trying to retrieve the data.
+         */
+        final CountDownLatch latch = new CountDownLatch(1);
+        repository.insert(questionSet);
+        latch.await(500, TimeUnit.MILLISECONDS); // Wait for the insertion to complete
+    }
+
     private <T> T getValue(final LiveData<T> liveData) throws InterruptedException {
+        /*
+        This method waits for the LiveData to be updated using a CountDownLatch,
+        ensuring that the value is retrieved before proceeding.
+         */
         final Object[] data = new Object[1];
         final CountDownLatch latch = new CountDownLatch(1);
         Observer<T> observer = new Observer<T>() {

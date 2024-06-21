@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.androidx.runner)
     implementation(libs.mockito.android)
+    implementation(libs.androidx.junit)
     testImplementation(libs.mockito.inline)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.android)
