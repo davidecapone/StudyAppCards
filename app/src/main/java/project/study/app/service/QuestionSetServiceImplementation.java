@@ -32,7 +32,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
 
     public void delete(QuestionSet questionSet) {
         // Retrieve the corresponding entity, if it exists
-        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName()).getValue();
 
         if (existingEntity != null) {
             repository.delete(existingEntity);
@@ -40,7 +40,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
     }
 
     public void update(QuestionSet questionSet) {
-        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName()).getValue();
 
         if (existingEntity != null) {
             repository.update(existingEntity);
@@ -48,18 +48,10 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
     }
 
     public void addQuestionToQuestionSet(String questionSetName, Question question) {
-        QuestionSetEntity entity = repository.getQuestionSetByName(questionSetName);
+        QuestionSetEntity entity = repository.getQuestionSetByName(questionSetName).getValue();
 
         if (entity != null) {
             entity.addQuestion(question);
-            repository.update(entity);
-        }
-    }
-
-    public void removeQuestionFromQuestionSet(String questionSetName, Question question) {
-        QuestionSetEntity entity = repository.getQuestionSetByName(questionSetName);
-        if (entity != null) {
-            entity.getQuestions().remove(question);
             repository.update(entity);
         }
     }
@@ -82,14 +74,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
     }
 
     public QuestionSet getQuestionSetByName(String name) {
-        return toDomain(this.repository.getQuestionSetByName(name));
+        return toDomain(this.repository.getQuestionSetByName(name).getValue());
     }
 
-    public void changeQuestionSetName(String existingQuestionSetName, String newName) {
-        QuestionSetEntity existingEntity = repository.getQuestionSetByName(existingQuestionSetName);
-        if (existingEntity != null) {
-            existingEntity.setName(newName);
-            repository.update(existingEntity);
-        }
-    }
 }
