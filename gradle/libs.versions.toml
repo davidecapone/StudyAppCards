@@ -21,6 +21,7 @@ mockitoInline = "5.2.0"
 byteBuddy = "1.14.17"
 androidxJunit = "1.2.0-rc01"
 espressoCoreVersion = "3.6.0-rc01"
+robolectric = "4.12.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -44,6 +45,7 @@ mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref =
 byte-buddy = { group = "net.bytebuddy", name = "byte-buddy", version.ref = "byteBuddy" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

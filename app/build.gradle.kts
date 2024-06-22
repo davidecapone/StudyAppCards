@@ -54,6 +54,7 @@ dependencies {
     testImplementation(libs.mockito.android)
     testImplementation(libs.mockito.core)
     testImplementation(libs.byte.buddy)
+    testImplementation(libs.robolectric)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.androidx.junit)
