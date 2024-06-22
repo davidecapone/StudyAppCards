@@ -30,6 +30,7 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
 
     @Override
     public void insert(QuestionSetEntity newSet) {
+
         executorService.execute(() -> questionSetDao.insert(newSet));
     }
 
@@ -39,6 +40,10 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     }
 
     @Override
+    public void update(QuestionSetEntity questionSet) {
+        executorService.execute(() -> questionSetDao.update(questionSet));
+    }
+    @Override
     public LiveData<List<QuestionSetEntity>> getAllQuestionSets() {
         return questionSetDao.getAllQuestionSets();
     }
@@ -46,11 +51,6 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     @Override
     public LiveData<QuestionSetEntity> getQuestionSetByName(String name) {
         return questionSetDao.getQuestionSetByName(name);
-    }
-
-    @Override
-    public void update(QuestionSetEntity questionSet) {
-        executorService.execute(() -> questionSetDao.update(questionSet));
     }
 
     @Override

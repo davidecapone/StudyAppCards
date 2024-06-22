@@ -19,21 +19,21 @@ public class QuestionSetDetailsPresenter {
 
     public void loadQuestionSet(String name) {
 
-        currentQuestionSet = service.getQuestionSetByName(name);
-        view.setQuestionSetName(currentQuestionSet.getQuestionSetName());
-        view.displayQuestions(currentQuestionSet.getQuestions());
+        //currentQuestionSet = service.getQuestionSetByName(name);
+        //view.setQuestionSetName(currentQuestionSet.getQuestionSetName());
+        //view.displayQuestions(currentQuestionSet.getQuestions());
     }
 
     public void addQuestion(Question question) {
 
-        currentQuestionSet.addQuestion(question);
-        service.update(currentQuestionSet);
-        view.displayQuestions(currentQuestionSet.getQuestions());
+        //currentQuestionSet.addQuestion(question);
+        //service.update(currentQuestionSet);
+        //view.displayQuestions(currentQuestionSet.getQuestions());
     }
 
     public void saveQuestionSet(String newName) {
 
-        service.update(currentQuestionSet);
-        view.showMessage("Question set updated successfully.");
+        //service.update(currentQuestionSet);
+        //view.showMessage("Question set updated successfully.");
     }
 }

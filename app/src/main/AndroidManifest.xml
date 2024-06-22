@@ -12,13 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudyApp"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.StudyApp">
+        <activity android:name=".view.QuestionSetDetailsActivity" />
+        <activity android:name=".view.ManualModeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

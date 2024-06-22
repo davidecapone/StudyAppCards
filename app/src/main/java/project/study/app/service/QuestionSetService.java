@@ -9,13 +9,13 @@ import project.study.app.model.domain.QuestionSet;
 
 public interface QuestionSetService {
 
-    void insert(QuestionSet questionSet);
+    void insert(QuestionSet questionSet, Callback callback);
 
-    void delete(QuestionSet questionSet);
+    void delete(QuestionSet questionSet, Callback callback);
 
     LiveData<List<QuestionSet>> getAllQuestionSets();
 
-    QuestionSet getQuestionSetByName(String name);
+    void getQuestionSetByName(String name, SingleItemCallback<QuestionSet> callback);
 
-    void update(QuestionSet questionSet);
+    void update(QuestionSet questionSet, Callback callback);
 }

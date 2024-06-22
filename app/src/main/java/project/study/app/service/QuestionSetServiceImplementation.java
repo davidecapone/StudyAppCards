@@ -1,6 +1,7 @@
 package project.study.app.service;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 
 import java.util.List;
@@ -19,43 +20,61 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
         this.repository = repository;
     }
 
-    public void insert(QuestionSet newQuestionSet) {
-
-        if (repository.getQuestionSetByName(newQuestionSet.getQuestionSetName()) != null) {
-            throw new IllegalArgumentException("QuestionSet with name " + newQuestionSet.getQuestionSetName() + " already exists.");
-        }
-
-        repository.insert(
-                toEntity(newQuestionSet)
-        );
+    public void insert(QuestionSet questionSet, Callback callback) {
+        LiveData<QuestionSetEntity> existingLiveData = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+        existingLiveData.observeForever(new Observer<QuestionSetEntity>() {
+            @Override
+            public void onChanged(QuestionSetEntity existingEntity) {
+                if (existingEntity != null) {
+                    callback.onError(new IllegalArgumentException("QuestionSet with name " + questionSet.getQuestionSetName() + " already exists."));
+                } else {
+                    QuestionSetEntity entity = new QuestionSetEntity(questionSet.getQuestionSetName(), questionSet.getQuestions());
+                    repository.insert(entity);
+                    callback.onSuccess();
+                }
+                existingLiveData.removeObserver(this);
+            }
+        });
     }
 
-    public void delete(QuestionSet questionSet) {
-        // Retrieve the corresponding entity, if it exists
-        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName()).getValue();
 
-        if (existingEntity != null) {
-            repository.delete(existingEntity);
-        }
+    @Override
+    public void delete(QuestionSet questionSet, Callback callback) {
+        LiveData<QuestionSetEntity> existingLiveData = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+        existingLiveData.observeForever(new Observer<QuestionSetEntity>() {
+            @Override
+            public void onChanged(QuestionSetEntity existingEntity) {
+                if (existingEntity != null) {
+                    repository.delete(existingEntity);
+                    callback.onSuccess();
+                } else {
+                    callback.onError(new IllegalArgumentException("QuestionSet with name " + questionSet.getQuestionSetName() + " does not exist."));
+                }
+                existingLiveData.removeObserver(this);
+            }
+        });
     }
 
-    public void update(QuestionSet questionSet) {
-        QuestionSetEntity existingEntity = repository.getQuestionSetByName(questionSet.getQuestionSetName()).getValue();
-
-        if (existingEntity != null) {
-            repository.update(existingEntity);
-        }
+    @Override
+    public void update(QuestionSet questionSet, Callback callback) {
+        LiveData<QuestionSetEntity> existingLiveData = repository.getQuestionSetByName(questionSet.getQuestionSetName());
+        existingLiveData.observeForever(new Observer<QuestionSetEntity>() {
+            @Override
+            public void onChanged(QuestionSetEntity existingEntity) {
+                if (existingEntity != null) {
+                    existingEntity.setName(questionSet.getQuestionSetName());
+                    existingEntity.setQuestions(questionSet.getQuestions());
+                    repository.update(existingEntity);
+                    callback.onSuccess();
+                } else {
+                    callback.onError(new IllegalArgumentException("QuestionSet with name " + questionSet.getQuestionSetName() + " does not exist."));
+                }
+                existingLiveData.removeObserver(this);
+            }
+        });
     }
 
-    public void addQuestionToQuestionSet(String questionSetName, Question question) {
-        QuestionSetEntity entity = repository.getQuestionSetByName(questionSetName).getValue();
-
-        if (entity != null) {
-            entity.addQuestion(question);
-            repository.update(entity);
-        }
-    }
-
+    @Override
     public LiveData<List<QuestionSet>> getAllQuestionSets() {
         return Transformations.map(repository.getAllQuestionSets(), entities ->
                 entities.stream().map(this::toDomain).collect(Collectors.toList())
@@ -73,8 +92,20 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
         return new QuestionSetEntity(questionSet.getQuestionSetName(), questionSet.getQuestions());
     }
 
-    public QuestionSet getQuestionSetByName(String name) {
-        return toDomain(this.repository.getQuestionSetByName(name).getValue());
+    @Override
+    public void getQuestionSetByName(String name, SingleItemCallback<QuestionSet> callback) {
+        LiveData<QuestionSetEntity> existingLiveData = repository.getQuestionSetByName(name);
+        existingLiveData.observeForever(new Observer<QuestionSetEntity>() {
+            @Override
+            public void onChanged(QuestionSetEntity existingEntity) {
+                if (existingEntity != null) {
+                    callback.onSuccess(toDomain(existingEntity));
+                } else {
+                    callback.onError(new IllegalArgumentException("QuestionSet with name " + name + " does not exist."));
+                }
+                existingLiveData.removeObserver(this);
+            }
+        });
     }
 
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
+import project.study.app.service.Callback;
 import project.study.app.service.QuestionSetService;
 import project.study.app.view.ManualModeView;
 
@@ -30,18 +31,36 @@ public class ManualModePresenter {
         LiveData<List<QuestionSet>> questionSets = service.getAllQuestionSets();
         questionSets.observeForever(view::displayQuestionSets);
     }
-    
-    public void addNewQuestionSet(String name) {
 
+    public void addNewQuestionSet(String name) {
         QuestionSet newQuestionSet = new QuestionSet(name);
-        this.service.insert(newQuestionSet);
-        this.view.showMessage("Question set added successfully.");
+        service.insert(newQuestionSet, new Callback() {
+            @Override
+            public void onSuccess() {
+                view.showMessage("Question set added successfully.");
+                loadAllQuestionSets(); // Refresh the list after successful insertion
+            }
+
+            @Override
+            public void onError(Exception e) {
+                view.showMessage("Error adding question set: " + e.getMessage());
+            }
+        });
     }
 
     public void deleteQuestionSet(QuestionSet questionSet) {
+        service.delete(questionSet, new Callback() {
+            @Override
+            public void onSuccess() {
+                view.showMessage("Question set deleted successfully.");
+                loadAllQuestionSets(); // Refresh the list after successful deletion
+            }
 
-        this.service.delete(questionSet);
-        this.view.showMessage("Question set deleted successfully.");
+            @Override
+            public void onError(Exception e) {
+                view.showMessage("Error deleting question set: " + e.getMessage());
+            }
+        });
     }
 
     public void onQuestionSetSelected(QuestionSet questionSet) {

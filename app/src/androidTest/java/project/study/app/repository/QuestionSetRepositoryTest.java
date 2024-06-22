@@ -2,6 +2,7 @@ package project.study.app.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import android.content.Context;
 
@@ -76,14 +77,23 @@ public class QuestionSetRepositoryTest {
     }
 
     @Test
-    public void insertAndGetQuestionSetByName() throws InterruptedException {
+    public void testGetQuestionSetByName() throws InterruptedException {
 
-        QuestionSetEntity questionSet = createQuestionSetEntity("Sample", createSampleQuestions());
+        QuestionSetEntity questionSet = createQuestionSetEntity(
+                "Sample",
+                createSampleQuestions()
+        );
+
         insertQuestionSetAndWait(questionSet);
+
+
         QuestionSetEntity retrieved = getValue(repository.getQuestionSetByName("Sample"));
+
         assertNotNull("QuestionSetEntity retrieved is null", retrieved);
         assertEquals("Sample", retrieved.getName());
         assertEquals(2, retrieved.getQuestions().size());
+
+
     }
 
     @Test
