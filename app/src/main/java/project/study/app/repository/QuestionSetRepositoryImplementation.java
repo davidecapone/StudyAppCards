@@ -22,15 +22,13 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     private final QuestionSetDao questionSetDao;
     private final ExecutorService executorService;
 
-    public QuestionSetRepositoryImplementation(Context appContext) {
-        StudyAppDatabase db = StudyAppDatabase.getDatabase(appContext);
-        questionSetDao = db.questionSetDao();
-        this.executorService = Executors.newSingleThreadExecutor();
+    public QuestionSetRepositoryImplementation(QuestionSetDao questionSetDao, ExecutorService executorService) {
+        this.questionSetDao = questionSetDao;
+        this.executorService = executorService;
     }
 
     @Override
     public void insert(QuestionSetEntity newSet) {
-
         executorService.execute(() -> questionSetDao.insert(newSet));
     }
 
