@@ -3,10 +3,12 @@ package project.study.app;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,13 +33,18 @@ public class QuestionSetServiceTest {
 
     @Mock
     private QuestionSetRepository repository;
-
     @InjectMocks
     private QuestionSetServiceImplementation service;
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    private void triggerObserver(LiveData<?> liveData) {
+        liveData.observeForever(o -> {}); // Dummy observer to trigger LiveData
     }
 
     @Test
@@ -45,8 +52,7 @@ public class QuestionSetServiceTest {
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
-        liveData.setValue(null);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -54,7 +60,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.insert(questionSet, callback);
-        liveData.setValue(null);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(repository).insert(any(QuestionSetEntity.class));
@@ -66,9 +72,7 @@ public class QuestionSetServiceTest {
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
-        QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
-        liveData.setValue(existingEntity);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(new QuestionSetEntity(name, null));
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -76,7 +80,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.insert(questionSet, callback);
-        liveData.setValue(existingEntity);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(repository, never()).insert(any(QuestionSetEntity.class));
@@ -88,9 +92,8 @@ public class QuestionSetServiceTest {
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
         QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
-        liveData.setValue(existingEntity);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(existingEntity);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -98,7 +101,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.delete(questionSet, callback);
-        liveData.setValue(existingEntity);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(repository).delete(existingEntity);
@@ -110,8 +113,7 @@ public class QuestionSetServiceTest {
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
-        liveData.setValue(null);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -119,7 +121,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.delete(questionSet, callback);
-        liveData.setValue(null);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(repository, never()).delete(any(QuestionSetEntity.class));
@@ -131,9 +133,8 @@ public class QuestionSetServiceTest {
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
         QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
-        liveData.setValue(existingEntity);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(existingEntity);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -141,7 +142,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.update(questionSet, callback);
-        liveData.setValue(existingEntity);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(repository).update(existingEntity);
@@ -153,8 +154,7 @@ public class QuestionSetServiceTest {
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
-        liveData.setValue(null);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -162,7 +162,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.update(questionSet, callback);
-        liveData.setValue(null);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(repository, never()).update(any(QuestionSetEntity.class));
@@ -173,7 +173,10 @@ public class QuestionSetServiceTest {
     public void testGetAllQuestionSets() {
         // Arrange
         MutableLiveData<List<QuestionSetEntity>> liveData = new MutableLiveData<>();
-        List<QuestionSetEntity> entities = Arrays.asList(new QuestionSetEntity("1", null), new QuestionSetEntity("2", null));
+        List<QuestionSetEntity> entities = Arrays.asList(
+                new QuestionSetEntity("1", null),
+                new QuestionSetEntity("2", null)
+        );
         liveData.setValue(entities);
 
         when(repository.getAllQuestionSets()).thenReturn(liveData);
@@ -193,9 +196,8 @@ public class QuestionSetServiceTest {
     public void testGetQuestionSetByNameSuccess() {
         // Arrange
         String name = "Test Set";
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
         QuestionSetEntity entity = new QuestionSetEntity(name, null);
-        liveData.setValue(entity);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(entity);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -203,7 +205,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.getQuestionSetByName(name, callback);
-        liveData.setValue(entity);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(callback).onSuccess(any(QuestionSet.class));
@@ -213,8 +215,7 @@ public class QuestionSetServiceTest {
     public void testGetQuestionSetByNameDoesNotExist() {
         // Arrange
         String name = "Test Set";
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>();
-        liveData.setValue(null);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
         when(repository.getQuestionSetByName(name)).thenReturn(liveData);
 
@@ -222,7 +223,7 @@ public class QuestionSetServiceTest {
 
         // Act
         service.getQuestionSetByName(name, callback);
-        liveData.setValue(null);  // Trigger observer
+        triggerObserver(liveData);
 
         // Assert
         verify(callback).onError(any(IllegalArgumentException.class));
