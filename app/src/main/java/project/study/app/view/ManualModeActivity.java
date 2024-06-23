@@ -1,5 +1,6 @@
 package project.study.app.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,9 @@ import java.util.List;
 import project.study.app.R;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.presenter.ManualModePresenter;
+import project.study.app.repository.QuestionSetRepository;
 import project.study.app.repository.QuestionSetRepositoryImplementation;
+import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
 
 public class ManualModeActivity extends AppCompatActivity implements ManualModeView {
@@ -31,7 +34,8 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_mode);
 
-        QuestionSetRepositoryImplementation repository = new QuestionSetRepositoryImplementation(this);
+        QuestionSetRepository repository = RepositoryFactory.create(this);
+
         QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
         presenter = new ManualModePresenter(service, this);
 
@@ -39,6 +43,7 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         adapter = new QuestionSetAdapter(new QuestionSetAdapter.QuestionSetClickListener() {
             @Override
             public void onQuestionSetClicked(QuestionSet questionSet) {
@@ -55,6 +60,7 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
                 presenter.onStartExaminationSessionButtonClicked(questionSet);
             }
         });
+
         recyclerView.setAdapter(adapter);
 
         Button buttonAddQuestionSet = findViewById(R.id.buttonAddQuestionSet);
@@ -85,9 +91,9 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
 
     @Override
     public void navigateToQuestionSetDetails(QuestionSet questionSet) {
-        //Intent intent = new Intent(this, QuestionSetDetailsActivity.class);
-        //intent.putExtra("questionSetName", questionSet.getQuestionSetName());
-        //startActivity(intent);
+        Intent intent = new Intent(this, QuestionSetDetailsActivity.class);
+        intent.putExtra("questionSetName", questionSet.getQuestionSetName());
+        startActivity(intent);
     }
 
     @Override
