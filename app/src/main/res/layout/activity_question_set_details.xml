@@ -1,53 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/textViewQuestionSetName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:text="Question Set Name"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert the question text"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editTextQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Question text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert the answer and the type of the answer"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/spinnerAnswerType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/answer_types" />
+
+    <EditText
+        android:id="@+id/editTextFreeTextAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Free Text Answer"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/editTextMultipleChoiceOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Multiple Choice Options (comma-separated)"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/editTextMultipleChoiceAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Correct Answer"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/buttonAddQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Question"
+        android:layout_margin="8sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your questions for this set:"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewQuestions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/textViewQuestionSetName"
-        android:layout_above="@id/layoutAddQuestion"
-        android:layout_marginTop="16dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <LinearLayout
-        android:id="@+id/layoutAddQuestion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/design_default_color_background">
-
-        <EditText
-            android:id="@+id/editTextQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter question"/>
-
-        <EditText
-            android:id="@+id/editTextAnswer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter answer"/>
-
-        <Button
-            android:id="@+id/buttonAddQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Question"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"/>
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

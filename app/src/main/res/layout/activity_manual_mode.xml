@@ -14,17 +14,16 @@
 
     <Button
         android:id="@+id/buttonAddQuestionSet"
-        android:layout_width="wrap_content"
+        android:layout_width="369dp"
         android:layout_height="wrap_content"
-        android:text="Add Question Set"
         android:layout_below="@id/editTextQuestionSetName"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="14dp"
+        android:text="Add Question Set" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="381dp"
+        android:layout_height="556dp"
         android:layout_below="@id/buttonAddQuestionSet"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="36dp" />
 </RelativeLayout>

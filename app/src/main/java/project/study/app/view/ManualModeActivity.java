@@ -22,6 +22,7 @@ import project.study.app.repository.QuestionSetRepository;
 import project.study.app.repository.QuestionSetRepositoryImplementation;
 import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
+import project.study.app.view.QuestionSetAdapter.QuestionSetClickListener;
 
 public class ManualModeActivity extends AppCompatActivity implements ManualModeView {
 
@@ -36,6 +37,7 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
 
         QuestionSetRepository repository = RepositoryFactory.create(this);
 
+
         QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
         presenter = new ManualModePresenter(service, this);
 
@@ -44,7 +46,7 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new QuestionSetAdapter(new QuestionSetAdapter.QuestionSetClickListener() {
+        adapter = new QuestionSetAdapter(new QuestionSetClickListener() {
             @Override
             public void onQuestionSetClicked(QuestionSet questionSet) {
                 presenter.onQuestionSetSelected(questionSet);
@@ -59,24 +61,31 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
             public void onStartExaminationButtonClicked(QuestionSet questionSet) {
                 presenter.onStartExaminationSessionButtonClicked(questionSet);
             }
+
+            @Override
+            public void onModifyButtonClicked(QuestionSet questionSet) {
+                presenter.onQuestionSetSelected(questionSet);
+            }
         });
 
         recyclerView.setAdapter(adapter);
 
         Button buttonAddQuestionSet = findViewById(R.id.buttonAddQuestionSet);
-        buttonAddQuestionSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String questionSetName = editTextQuestionSetName.getText().toString().trim();
-                if (!questionSetName.isEmpty()) {
-                    presenter.addNewQuestionSet(questionSetName);
-                } else {
-                    Toast.makeText(ManualModeActivity.this, "Please enter a question set name", Toast.LENGTH_SHORT).show();
-                }
+
+        buttonAddQuestionSet.setOnClickListener(v -> {
+            String questionSetName = editTextQuestionSetName.getText().toString().trim();
+            if (!questionSetName.isEmpty()) {
+                presenter.addNewQuestionSet(questionSetName);
+            } else {
+                Toast.makeText(ManualModeActivity.this, "Please enter a question set name", Toast.LENGTH_SHORT).show();
             }
         });
 
         presenter.loadAllQuestionSets();
+    }
+
+    public EditText getEditTextQuestionSetName() {
+        return editTextQuestionSetName;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class QuestionSetAdapter extends RecyclerView.Adapter<QuestionSetAdapter.
         void onQuestionSetClicked(QuestionSet questionSet);
         void onDeleteButtonClicked(QuestionSet questionSet);
         void onStartExaminationButtonClicked(QuestionSet questionSet);
+        void onModifyButtonClicked(QuestionSet questionSet); // New method for Modify button
     }
 
     public QuestionSetAdapter(QuestionSetClickListener listener) {
@@ -57,12 +58,14 @@ public class QuestionSetAdapter extends RecyclerView.Adapter<QuestionSetAdapter.
         private final TextView textViewQuestionSetName;
         private final Button buttonDelete;
         private final Button buttonStartExamination;
+        private final Button buttonModify; // New button for Modify
 
         public QuestionSetViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewQuestionSetName = itemView.findViewById(R.id.textViewQuestionSetName);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
             buttonStartExamination = itemView.findViewById(R.id.buttonStartExamination);
+            buttonModify = itemView.findViewById(R.id.buttonModify); // Initialize Modify button
         }
 
         public void bind(final QuestionSet questionSet, final QuestionSetClickListener listener) {
@@ -83,6 +86,12 @@ public class QuestionSetAdapter extends RecyclerView.Adapter<QuestionSetAdapter.
                 @Override
                 public void onClick(View v) {
                     listener.onStartExaminationButtonClicked(questionSet);
+                }
+            });
+            buttonModify.setOnClickListener(new View.OnClickListener() { // Set onClick listener for Modify button
+                @Override
+                public void onClick(View v) {
+                    listener.onModifyButtonClicked(questionSet);
                 }
             });
         }
