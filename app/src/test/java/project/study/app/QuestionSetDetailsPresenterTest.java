@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import project.study.app.model.domain.FreeTextAnswer;
@@ -58,7 +57,7 @@ public class QuestionSetDetailsPresenterTest {
         }).when(service).getQuestionSetByName(anyString(), any(SingleItemCallback.class));
 
         // Act
-        presenter.loadQuestions(questionSetName);
+        presenter.loadQuestionSet(questionSetName);
 
         // Assert
         verify(view).setQuestionSetName(questionSetName);
@@ -77,7 +76,7 @@ public class QuestionSetDetailsPresenterTest {
         }).when(service).getQuestionSetByName(anyString(), any(SingleItemCallback.class));
 
         // Act
-        presenter.loadQuestions(questionSetName);
+        presenter.loadQuestionSet(questionSetName);
 
         // Assert
         verify(view).showMessage("Error loading question set: Question set not found");
@@ -103,7 +102,7 @@ public class QuestionSetDetailsPresenterTest {
             return null;
         }).when(service).update(any(QuestionSet.class), any(Callback.class));
 
-        presenter.loadQuestions(questionSetName);
+        presenter.loadQuestionSet(questionSetName);
 
         // Act
         presenter.addQuestion(newQuestion);
@@ -135,7 +134,7 @@ public class QuestionSetDetailsPresenterTest {
             return null;
         }).when(service).update(any(QuestionSet.class), any(Callback.class));
 
-        presenter.loadQuestions(questionSetName);
+        presenter.loadQuestionSet(questionSetName);
 
         // Act
         presenter.addQuestion(newQuestion);

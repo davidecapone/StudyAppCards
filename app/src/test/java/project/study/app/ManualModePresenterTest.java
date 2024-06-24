@@ -59,7 +59,7 @@ public class ManualModePresenterTest {
 
     @Test
     public void testAddNewQuestionSet() {
-        // Arrange
+
         String name = "New Set";
         doAnswer(invocation -> {
             Callback callback = invocation.getArgument(1);
@@ -82,7 +82,7 @@ public class ManualModePresenterTest {
 
     @Test
     public void testDeleteQuestionSet() {
-        // Arrange
+
         QuestionSet questionSet = new QuestionSet("1");
         doAnswer(invocation -> {
             Callback callback = invocation.getArgument(1);

@@ -3,6 +3,7 @@ package project.study.app.presenter;
 import project.study.app.model.domain.Question;
 import project.study.app.service.QuestionSetService;
 
+import project.study.app.service.SingleItemCallback;
 import project.study.app.view.ExaminationSessionView;
 import project.study.app.service.QuestionSetService;
 import project.study.app.model.domain.QuestionSet;
@@ -14,40 +15,55 @@ public class ExaminationSessionPresenter {
 
     private final QuestionSetService service;
     private final ExaminationSessionView view;
-    private final QuestionSet currentQuestionSet;
-    private int currentQuestionIndex = 0;
+    private List<Question> questions;
+    private int currentQuestionIndex;
 
-    public ExaminationSessionPresenter(ExaminationSessionView view, QuestionSetService service, QuestionSet questionSet) {
-
-        this.view = view;
-
+    public ExaminationSessionPresenter(QuestionSetService service, ExaminationSessionView view) {
         this.service = service;
-
-        this.currentQuestionSet = questionSet;
-
+        this.view = view;
     }
 
-    public void startSession(){
-        List<Question> questions = currentQuestionSet.getQuestions();
+    public void startExamination(String questionSetName) {
+        service.getQuestionSetByName(questionSetName, new SingleItemCallback<QuestionSet>() {
+            @Override
+            public void onSuccess(QuestionSet item) {
+                questions = item.getQuestions();
+                currentQuestionIndex = 0;
 
-        Collections.shuffle(questions);
+                if (!questions.isEmpty()) {
+                    view.displayQuestion(questions.get(currentQuestionIndex));
+                } else {
+                    view.showMessage("This question set is empty!");
+                }
+            }
 
-        view.showQuestion(questions.get(currentQuestionIndex));
-
-        currentQuestionIndex++;
+            @Override
+            public void onError(Exception e) {
+                view.showMessage("Error loading question set: " + e.getMessage());
+            }
+        });
     }
 
-    public void nextQuestion(){
+    public void checkAnswer(String answer) {
 
-        if(currentQuestionIndex == currentQuestionSet.getQuestions().size()){
-            endSession();
+        Question currentQuestion = questions.get(currentQuestionIndex);
+
+        if (currentQuestion.getAnswer().getCorrectAnswer().equals(answer)) {
+            view.showCorrectAnswerFeedback();
         } else {
-            view.showQuestion(currentQuestionSet.getQuestions().get(currentQuestionIndex));
-            currentQuestionIndex++;
+            view.showIncorrectAnswerFeedback();
         }
+
+        // move to next question
+        moveToNextQuestion();
     }
 
-    public void endSession(){
-        view.navigateToManualModeView();
+    private void moveToNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.size()) {
+            view.displayQuestion(questions.get(currentQuestionIndex));
+        } else {
+            view.showMessage("Examination session completed.");
+        }
     }
 }

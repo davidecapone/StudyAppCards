@@ -4,9 +4,11 @@ import project.study.app.model.domain.Answer;
 import project.study.app.model.domain.Question;
 
 public interface ExaminationSessionView {
-    void showQuestion(Question question);
+    void displayQuestion(Question question);
 
-    void confirmAnswer(Answer answer); // calls nextQuestion() in ExaminationSessionPresenter
+    void showMessage(String message);
 
-    void navigateToManualModeView();
+    void showCorrectAnswerFeedback();
+
+    void showIncorrectAnswerFeedback();
 }

@@ -19,7 +19,12 @@ public class QuestionSetDetailsPresenter {
         this.view = view;
     }
 
-    public void loadQuestions(String questionSetName) {
+    /**
+     * Loads the question set (all questions) with the given name.
+     *
+     * @param questionSetName the name of the question set to load
+     */
+    public void loadQuestionSet(String questionSetName) {
         service.getQuestionSetByName(questionSetName, new SingleItemCallback<QuestionSet>() {
             @Override
             public void onSuccess(QuestionSet questionSet) {
@@ -35,6 +40,11 @@ public class QuestionSetDetailsPresenter {
         });
     }
 
+    /**
+     * Adds a new question to the current question set.
+     *
+     * @param question the question to add
+     */
     public void addQuestion(Question question) {
         currentQuestionSet.addQuestion(question);
         service.update(currentQuestionSet, new Callback() {
@@ -50,5 +60,4 @@ public class QuestionSetDetailsPresenter {
             }
         });
     }
-
 }
