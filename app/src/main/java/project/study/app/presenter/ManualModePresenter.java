@@ -21,7 +21,6 @@ public class ManualModePresenter {
     private final ManualModeView view;
 
     public ManualModePresenter(QuestionSetService questionSetService, ManualModeView view) {
-
         this.service = questionSetService;
         this.view = view;
     }
@@ -33,6 +32,7 @@ public class ManualModePresenter {
     }
 
     public void addNewQuestionSet(String name) {
+
         QuestionSet newQuestionSet = new QuestionSet(name);
         service.insert(newQuestionSet, new Callback() {
             @Override
@@ -49,6 +49,7 @@ public class ManualModePresenter {
     }
 
     public void deleteQuestionSet(QuestionSet questionSet) {
+
         service.delete(questionSet, new Callback() {
             @Override
             public void onSuccess() {
@@ -64,7 +65,6 @@ public class ManualModePresenter {
     }
 
     public void onQuestionSetSelected(QuestionSet questionSet) {
-
         this.view.navigateToQuestionSetDetails(questionSet);
     }
 
