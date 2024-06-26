@@ -63,4 +63,6 @@ public class ManualModeActivityTest {
         // Verify that the EditText contains the correct text
         onView(withId(R.id.editTextQuestionSetName)).check(matches(withText(inputText)));
     }
+
+
 }
