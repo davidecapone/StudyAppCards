@@ -109,4 +109,9 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
     public void navigateToExaminationSession(QuestionSet questionSet) {
         // Implement navigation to examination session activity
     }
+
+    // For testing purposes
+    public int getContentView() {
+        return findViewById(android.R.id.content).getId();
+    }
 }

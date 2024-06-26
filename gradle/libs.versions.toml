@@ -1,7 +1,7 @@
 [versions]
-agp = "8.4.2"
+agp = "8.5.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
+junitVersion = "1.2.0"
 espressoCore = "3.5.1"
 appcompat = "1.7.0"
 material = "1.12.0"
@@ -14,7 +14,7 @@ roomRuntime = "2.6.1"
 roomCompiler = "2.6.1"
 coreTesting = "2.2.0"
 gson = "2.11.0"
-runner = "1.5.2"
+runner = "1.6.0"
 mockitoAndroid = "5.12.0"
 mockitoCore = "5.12.0"
 mockitoInline = "5.2.0"
@@ -22,6 +22,14 @@ byteBuddy = "1.14.17"
 androidxJunit = "1.2.0-rc01"
 espressoCoreVersion = "3.6.0-rc01"
 robolectric = "4.12.2"
+rules = "1.6.0"
+androidxEspressoCore = "3.6.0"
+core = "1.6.0"
+runnerVersion = "1.6.0"
+espressoContrib = "3.6.0"
+espressoIntents = "3.6.0"
+androidxJunitVersion = "1.2.0"
+hamcrest = "2.2"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -46,6 +54,14 @@ byte-buddy = { group = "net.bytebuddy", name = "byte-buddy", version.ref = "byte
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+androidx-rules = { group = "androidx.test", name = "rules", version.ref = "rules" }
+androidx-test-espresso-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspressoCore" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+runner = { group = "androidx.test", name = "runner", version.ref = "runnerVersion" }
+androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espressoContrib" }
+androidx-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "espressoIntents" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunitVersion" }
+hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
