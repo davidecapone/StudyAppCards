@@ -11,6 +11,7 @@ import org.junit.After;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -19,7 +20,11 @@ import android.widget.EditText;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import project.study.app.R;
+import project.study.app.model.domain.QuestionSet;
 
 @RunWith(AndroidJUnit4.class)
 public class ManualModeActivityTest {
@@ -64,5 +69,25 @@ public class ManualModeActivityTest {
         onView(withId(R.id.editTextQuestionSetName)).check(matches(withText(inputText)));
     }
 
+    @Test
+    public void testDisplayQuestionSets() {
 
+        // Create a list of QuestionSet objects to display
+        List<QuestionSet> questionSets = Arrays.asList(
+                new QuestionSet("Question Set 1"),
+                new QuestionSet("Question Set 2"),
+                new QuestionSet("Question Set 3")
+        );
+
+        // Use ActivityScenario to run the displayQuestionSets method
+        scenario.onActivity(activity -> {
+            activity.displayQuestionSets(questionSets);
+        });
+
+        // Check if the RecyclerView has the correct items
+        onView(withId(R.id.recyclerView))
+                .check(matches(hasDescendant(withText("Question Set 1"))))
+                .check(matches(hasDescendant(withText("Question Set 2"))))
+                .check(matches(hasDescendant(withText("Question Set 3"))));
+    }
 }
