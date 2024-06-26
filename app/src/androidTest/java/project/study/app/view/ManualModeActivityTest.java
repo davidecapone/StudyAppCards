@@ -1,6 +1,7 @@
 package project.study.app.view;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
@@ -11,10 +12,14 @@ import org.junit.After;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.equalTo;
 
 import android.widget.EditText;
 
@@ -89,5 +94,29 @@ public class ManualModeActivityTest {
                 .check(matches(hasDescendant(withText("Question Set 1"))))
                 .check(matches(hasDescendant(withText("Question Set 2"))))
                 .check(matches(hasDescendant(withText("Question Set 3"))));
+    }
+
+    @Test
+    public void testShowMessage() {
+
+        // There is a problem with the asynchronous calls, maybe this can be tested by adding callbacks
+    }
+
+    @Test
+    public void testNavigateToQuestionSetDetails() {
+
+        Intents.init();
+
+        // Create a QuestionSet object to pass
+        QuestionSet questionSet = new QuestionSet("Sample Question Set");
+
+        // Run the navigateToQuestionSetDetails method on the main thread
+        scenario.onActivity(activity -> {
+            activity.navigateToQuestionSetDetails(questionSet);
+        });
+
+        // Verify that the correct intent was sent
+        intended(hasComponent(QuestionSetDetailsActivity.class.getName()));
+        intended(hasExtra("questionSetName", equalTo("Sample Question Set")));
     }
 }
