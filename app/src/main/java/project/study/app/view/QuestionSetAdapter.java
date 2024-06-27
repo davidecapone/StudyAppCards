@@ -70,12 +70,7 @@ public class QuestionSetAdapter extends RecyclerView.Adapter<QuestionSetAdapter.
 
         public void bind(final QuestionSet questionSet, final QuestionSetClickListener listener) {
             textViewQuestionSetName.setText(questionSet.getQuestionSetName());
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onQuestionSetClicked(questionSet);
-                }
-            });
+
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

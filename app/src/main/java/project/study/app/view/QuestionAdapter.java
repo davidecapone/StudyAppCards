@@ -1,5 +1,6 @@
 package project.study.app.view;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     private List<Question> questions;
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
         notifyDataSetChanged();

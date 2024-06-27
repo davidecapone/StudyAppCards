@@ -1,10 +1,9 @@
-package project.study.app.service;
+package project.study.app.service.interfaces;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 
 public interface QuestionSetService {

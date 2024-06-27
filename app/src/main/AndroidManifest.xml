@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudyApp"
         tools:targetApi="31">
+
         <activity android:name=".view.QuestionSetDetailsActivity" />
+        <activity android:name=".view.ExaminationSessionActivity"/>
+
         <activity android:name=".view.ManualModeActivity"
             android:exported="true">
             <intent-filter>
@@ -20,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -2,13 +2,10 @@ package project.study.app.presenter;
 
 import androidx.lifecycle.LiveData;
 
-import org.junit.Test;
-
-import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.service.Callback;
-import project.study.app.service.QuestionSetService;
-import project.study.app.view.ManualModeView;
+import project.study.app.service.interfaces.Callback;
+import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.view.interfaces.ManualModeView;
 
 import java.util.List;
 

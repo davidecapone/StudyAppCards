@@ -7,10 +7,12 @@ import androidx.lifecycle.Transformations;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.entity.QuestionSetEntity;
 import project.study.app.repository.QuestionSetRepository;
+import project.study.app.service.interfaces.Callback;
+import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.SingleItemCallback;
 
 public class QuestionSetServiceImplementation implements QuestionSetService {
 
