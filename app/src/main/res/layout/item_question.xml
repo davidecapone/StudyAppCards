@@ -16,12 +16,5 @@
         android:textStyle="bold"
         android:paddingBottom="8dp" />
 
-    <!-- Delete Question Button -->
-    <Button
-        android:id="@+id/buttonDeleteQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:padding="8dp" />
 
 </LinearLayout>

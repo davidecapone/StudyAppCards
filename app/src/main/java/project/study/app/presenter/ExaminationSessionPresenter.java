@@ -1,20 +1,20 @@
 package project.study.app.presenter;
 
+import project.study.app.model.Statistics;
 import project.study.app.model.domain.Question;
-import project.study.app.service.QuestionSetService;
+import project.study.app.service.interfaces.QuestionSetService;
 
-import project.study.app.service.SingleItemCallback;
-import project.study.app.view.ExaminationSessionView;
-import project.study.app.service.QuestionSetService;
+import project.study.app.service.interfaces.SingleItemCallback;
+import project.study.app.view.interfaces.ExaminationSessionView;
 import project.study.app.model.domain.QuestionSet;
 
 import java.util.List;
-import java.util.Collections;
 
 public class ExaminationSessionPresenter {
 
     private final QuestionSetService service;
     private final ExaminationSessionView view;
+    private Statistics stats;
     private List<Question> questions;
     private int currentQuestionIndex;
 
@@ -29,6 +29,7 @@ public class ExaminationSessionPresenter {
             public void onSuccess(QuestionSet item) {
                 questions = item.getQuestions();
                 currentQuestionIndex = 0;
+                stats = new Statistics();
 
                 if (!questions.isEmpty()) {
                     view.displayQuestion(questions.get(currentQuestionIndex));
@@ -50,8 +51,10 @@ public class ExaminationSessionPresenter {
 
         if (currentQuestion.getAnswer().getCorrectAnswer().equals(answer)) {
             view.showCorrectAnswerFeedback();
+            stats.incrementCorrectAnswers();
         } else {
             view.showIncorrectAnswerFeedback();
+            stats.incrementIncorrectAnswers();
         }
 
         // move to next question
@@ -63,7 +66,13 @@ public class ExaminationSessionPresenter {
         if (currentQuestionIndex < questions.size()) {
             view.displayQuestion(questions.get(currentQuestionIndex));
         } else {
-            view.showMessage("Examination session completed.");
+            displayStatistics();
+            view.navigateToManualMode();
         }
+    }
+
+    private void displayStatistics() {
+        double proportionCorrect = stats.calculateProportionCorrect();
+        view.showMessage("Correct answers: " + proportionCorrect + "%");
     }
 }

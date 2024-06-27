@@ -15,9 +15,9 @@ import org.robolectric.annotation.Config;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.presenter.ManualModePresenter;
-import project.study.app.service.Callback;
-import project.study.app.service.QuestionSetService;
-import project.study.app.view.ManualModeView;
+import project.study.app.service.interfaces.Callback;
+import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.view.interfaces.ManualModeView;
 
 import java.util.Arrays;
 import java.util.List;

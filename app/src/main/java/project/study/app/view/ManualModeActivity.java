@@ -2,14 +2,12 @@ package project.study.app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,12 +15,13 @@ import java.util.List;
 
 import project.study.app.R;
 import project.study.app.model.domain.QuestionSet;
+import project.study.app.presenter.ExaminationSessionPresenter;
 import project.study.app.presenter.ManualModePresenter;
 import project.study.app.repository.QuestionSetRepository;
-import project.study.app.repository.QuestionSetRepositoryImplementation;
 import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.QuestionSetAdapter.QuestionSetClickListener;
+import project.study.app.view.interfaces.ManualModeView;
 
 public class ManualModeActivity extends AppCompatActivity implements ManualModeView {
 
@@ -107,6 +106,8 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
 
     @Override
     public void navigateToExaminationSession(QuestionSet questionSet) {
-        // Implement navigation to examination session activity
+        Intent intent = new Intent(this, ExaminationSessionActivity.class);
+        intent.putExtra("questionSetName", questionSet.getQuestionSetName());
+        startActivity(intent);
     }
 }

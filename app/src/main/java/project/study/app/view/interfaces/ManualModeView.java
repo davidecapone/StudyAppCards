@@ -1,4 +1,4 @@
-package project.study.app.view;
+package project.study.app.view.interfaces;
 
 import java.util.List;
 

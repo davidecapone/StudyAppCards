@@ -23,9 +23,9 @@ import java.util.List;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.entity.QuestionSetEntity;
 import project.study.app.repository.QuestionSetRepository;
-import project.study.app.service.Callback;
+import project.study.app.service.interfaces.Callback;
 import project.study.app.service.QuestionSetServiceImplementation;
-import project.study.app.service.SingleItemCallback;
+import project.study.app.service.interfaces.SingleItemCallback;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)

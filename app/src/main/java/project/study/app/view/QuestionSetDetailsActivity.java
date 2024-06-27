@@ -2,6 +2,8 @@ package project.study.app.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,6 +26,7 @@ import project.study.app.presenter.QuestionSetDetailsPresenter;
 import project.study.app.repository.QuestionSetRepository;
 import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
+import project.study.app.view.interfaces.QuestionSetDetailsView;
 
 public class QuestionSetDetailsActivity extends AppCompatActivity implements QuestionSetDetailsView {
 
@@ -34,9 +37,7 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
     private EditText editTextFreeTextAnswer;
     private EditText editTextMultipleChoiceOptions;
     private EditText editTextMultipleChoiceAnswer;
-    private String questionSetName;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
         presenter = new QuestionSetDetailsPresenter(service, this);
 
         // Get the question set name from the intent
-        questionSetName = getIntent().getStringExtra("questionSetName");
+        String questionSetName = getIntent().getStringExtra("questionSetName");
 
         // Initialize views
         TextView textViewQuestionSetName = findViewById(R.id.textViewQuestionSetName);
@@ -59,6 +60,30 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
         editTextFreeTextAnswer = findViewById(R.id.editTextFreeTextAnswer);
         editTextMultipleChoiceOptions = findViewById(R.id.editTextMultipleChoiceOptions);
         editTextMultipleChoiceAnswer = findViewById(R.id.editTextMultipleChoiceAnswer);
+
+        // Set up the Spinner to handle answer type selection
+        spinnerAnswerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedAnswerType = parent.getItemAtPosition(position).toString();
+                if (selectedAnswerType.equals("Free Text")) {
+                    editTextFreeTextAnswer.setVisibility(View.VISIBLE);
+                    editTextMultipleChoiceOptions.setVisibility(View.GONE);
+                    editTextMultipleChoiceAnswer.setVisibility(View.GONE);
+                } else {
+                    editTextFreeTextAnswer.setVisibility(View.GONE);
+                    editTextMultipleChoiceOptions.setVisibility(View.VISIBLE);
+                    editTextMultipleChoiceAnswer.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                editTextFreeTextAnswer.setVisibility(View.GONE);
+                editTextMultipleChoiceOptions.setVisibility(View.GONE);
+                editTextMultipleChoiceAnswer.setVisibility(View.GONE);
+            }
+        });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewQuestions);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,14 +112,8 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
             }
         });
 
-
         // Load questions for the specified question set
         presenter.loadQuestionSet(questionSetName);
-    }
-
-    @Override
-    public void setQuestionSetName(String name) {
-        // Do nothing as modifying the question set name is not allowed
     }
 
     @Override
@@ -106,4 +125,5 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
 }

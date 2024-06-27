@@ -2,10 +2,10 @@ package project.study.app.presenter;
 
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.service.Callback;
-import project.study.app.service.QuestionSetService;
-import project.study.app.service.SingleItemCallback;
-import project.study.app.view.QuestionSetDetailsView;
+import project.study.app.service.interfaces.Callback;
+import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.SingleItemCallback;
+import project.study.app.view.interfaces.QuestionSetDetailsView;
 
 public class QuestionSetDetailsPresenter {
 
@@ -29,7 +29,6 @@ public class QuestionSetDetailsPresenter {
             @Override
             public void onSuccess(QuestionSet questionSet) {
                 currentQuestionSet = questionSet;
-                view.setQuestionSetName(questionSet.getQuestionSetName());
                 view.displayQuestions(questionSet.getQuestions());
             }
 

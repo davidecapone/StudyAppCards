@@ -9,7 +9,7 @@
         android:id="@+id/textViewQuestionSetName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Question Set Name"
+        android:text="@string/question_set_name"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_marginBottom="16dp"/>
@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insert the question text"
+        android:text="@string/insert_the_question_text"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp" />
 
@@ -25,12 +25,12 @@
         android:id="@+id/editTextQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Question text" />
+        android:hint="@string/question_text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insert the answer and the type of the answer"
+        android:text="@string/insert_the_answer_and_the_type_of_the_answer"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp" />
 
@@ -38,28 +38,28 @@
         android:id="@+id/spinnerAnswerType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/answer_types" />
+        android:entries="@array/answer_types"/>
 
     <EditText
         android:id="@+id/editTextFreeTextAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Free Text Answer"
-        android:visibility="gone" />
+        android:hint="Enter the correct answer"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/editTextMultipleChoiceOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Multiple Choice Options (comma-separated)"
-        android:visibility="gone" />
+        android:hint="Enter options separated by commas"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/editTextMultipleChoiceAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correct Answer"
-        android:visibility="gone" />
+        android:hint="Enter the correct answer"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/buttonAddQuestion"

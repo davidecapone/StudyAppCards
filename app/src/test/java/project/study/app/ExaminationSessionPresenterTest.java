@@ -1,6 +1,5 @@
 package project.study.app;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -11,13 +10,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import project.study.app.model.domain.Answer;
-import project.study.app.service.QuestionSetService;
-import project.study.app.service.SingleItemCallback;
-import project.study.app.view.ExaminationSessionView;
+import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.SingleItemCallback;
+import project.study.app.view.interfaces.ExaminationSessionView;
 import project.study.app.presenter.ExaminationSessionPresenter;
 
 import project.study.app.model.domain.QuestionSet;

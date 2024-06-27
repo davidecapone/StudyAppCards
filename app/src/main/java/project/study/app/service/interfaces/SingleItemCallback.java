@@ -1,4 +1,4 @@
-package project.study.app.service;
+package project.study.app.service.interfaces;
 
 public interface SingleItemCallback<T> {
     void onSuccess(T item);
