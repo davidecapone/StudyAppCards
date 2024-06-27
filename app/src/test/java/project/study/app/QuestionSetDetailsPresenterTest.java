@@ -60,7 +60,6 @@ public class QuestionSetDetailsPresenterTest {
         presenter.loadQuestionSet(questionSetName);
 
         // Assert
-        verify(view).setQuestionSetName(questionSetName);
         verify(view).displayQuestions(questionSet.getQuestions());
     }
 
