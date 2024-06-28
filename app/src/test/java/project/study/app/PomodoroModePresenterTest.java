@@ -28,5 +28,17 @@ public class PomodoroModePresenterTest {
         presenter = new PomodoroModePresenter(view);
     }
 
+    @Test
+    public void testStartPomodoroMode() {
+        // Act
+        presenter.startPomodoroMode();
 
+        // Assert
+        InOrder inOrder = inOrder(view);
+        inOrder.verify(view).showStudySession();
+        inOrder.verify(view).showBreakSession();
+        inOrder.verify(view).showInsertQuestionsSession();
+        inOrder.verify(view).showExaminationSession();
+        inOrder.verify(view).showCompletionMessage();
+    }
 }
