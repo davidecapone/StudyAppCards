@@ -45,7 +45,7 @@ public class ExaminationSessionActivity extends AppCompatActivity implements Exa
         buttonSubmitAnswer.setOnClickListener(v -> {
             String answer = editTextAnswer.getText().toString().trim();
             if (!answer.isEmpty()) {
-                presenter.checkAnswer(answer);
+                presenter.validateAnswer(answer);
             } else {
                 showMessage("Please enter an answer");
             }

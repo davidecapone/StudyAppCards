@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.presenter;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;

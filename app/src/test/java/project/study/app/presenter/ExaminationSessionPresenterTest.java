@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.presenter;
 
 import static org.mockito.Mockito.*;
 
@@ -72,7 +72,7 @@ public class ExaminationSessionPresenterTest {
         verify(service).getQuestionSetByName(eq(questionSetName), callbackCaptor.capture());
         callbackCaptor.getValue().onSuccess(questionSet);
 
-        presenter.checkAnswer("4");
+        presenter.validateAnswer("4");
 
         verify(view).showCorrectAnswerFeedback();
     }
@@ -93,7 +93,7 @@ public class ExaminationSessionPresenterTest {
         verify(service).getQuestionSetByName(eq(questionSetName), callbackCaptor.capture());
         callbackCaptor.getValue().onSuccess(questionSet);
 
-        presenter.checkAnswer("5");
+        presenter.validateAnswer("5");
 
         verify(view).showIncorrectAnswerFeedback();
     }
@@ -114,7 +114,7 @@ public class ExaminationSessionPresenterTest {
         verify(service).getQuestionSetByName(eq(questionSetName), callbackCaptor.capture());
         callbackCaptor.getValue().onSuccess(questionSet);
 
-        presenter.checkAnswer("4");
+        presenter.validateAnswer("4");
 
         verify(view).showCorrectAnswerFeedback();
         // back to the manual mode activity:

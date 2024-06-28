@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.presenter;
 
 import static org.mockito.Mockito.*;
 
