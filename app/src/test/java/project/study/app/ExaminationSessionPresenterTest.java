@@ -117,7 +117,8 @@ public class ExaminationSessionPresenterTest {
         presenter.checkAnswer("4");
 
         verify(view).showCorrectAnswerFeedback();
-        verify(view).showMessage("Examination session completed.");
+        // back to the manual mode activity:
+        verify(view).navigateToManualMode();
     }
 }
 
