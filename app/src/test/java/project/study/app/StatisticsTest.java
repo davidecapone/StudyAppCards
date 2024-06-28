@@ -34,6 +34,6 @@ public class StatisticsTest {
         stats.incrementCorrectAnswers();
         stats.incrementIncorrectAnswers();
         double proportionCorrect = stats.calculateProportionCorrect();
-        assertEquals((2.0 / 3.0), proportionCorrect, 0.001);
+        assertEquals((2.0 / 3.0) * 100, proportionCorrect, 0.001);
     }
 }
