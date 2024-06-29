@@ -21,10 +21,18 @@ public class PomodoroModePresenter implements TimerCallback {
     // Examination duration is 30 minutes
     private static final long EXAMINATION_DURATION = 30 * 1000L;
 
+    // View to display the Pomodoro mode
     private final PomodoroModeView view;
+
+    // Timer to manage the Pomodoro mode
     private final Timer timer;
+
+    // Current session in the Pomodoro mode
     private Session currentSession;
 
+    /**
+     * Enum representing the different sessions in the Pomodoro mode.
+     */
     public enum Session {
         STUDY,
         BREAK,
@@ -33,6 +41,12 @@ public class PomodoroModePresenter implements TimerCallback {
         COMPLETED
     }
 
+    /**
+     * Constructor to create a new PomodoroModePresenter.
+     *
+     * @param view The view to display the Pomodoro mode
+     * @param timer The timer to manage the Pomodoro mode
+     */
     public PomodoroModePresenter(PomodoroModeView view, Timer timer) {
         this.view = view;
         this.timer = timer;
@@ -67,7 +81,10 @@ public class PomodoroModePresenter implements TimerCallback {
      * @param session The session to start (STUDY, BREAK, INSERT_QUESTIONS, EXAMINATION, or COMPLETED).
      */
     private void startSession(Session session) {
+
+        // Update the current session
         currentSession = session;
+
         switch (session) {
             case STUDY:
                 view.showStudySession();
@@ -96,6 +113,7 @@ public class PomodoroModePresenter implements TimerCallback {
      * The order of sessions is: STUDY -> BREAK -> INSERT_QUESTIONS -> EXAMINATION -> COMPLETED.
      */
     private void moveToNextSession() {
+
         switch (currentSession) {
             case STUDY:
                 startSession(Session.BREAK); // Move from STUDY to BREAK session
@@ -122,6 +140,7 @@ public class PomodoroModePresenter implements TimerCallback {
      */
     @Override
     public void onTick(long millisUntilFinished) {
+
         // Convert the remaining time from milliseconds to seconds
         int secondsRemaining = (int) (millisUntilFinished / 1000);
         view.updateTimer(secondsRemaining);
