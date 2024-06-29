@@ -1,11 +1,6 @@
 package project.study.app.model;
 
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Model class representing the statistics for an examination session.
