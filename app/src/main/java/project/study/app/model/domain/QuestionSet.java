@@ -60,7 +60,7 @@ public class QuestionSet {
 
     /**
      * Gets the name of the question set.
-     * 
+     *
      * @return the name of the question set
      */
     public String getQuestionSetName() {
