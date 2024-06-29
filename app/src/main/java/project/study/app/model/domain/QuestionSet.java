@@ -60,12 +60,4 @@ public class QuestionSet {
     public String getQuestionSetName() {
         return questionSetName;
     }
-
-    /**
-     * Sets the name of the question set.
-     * @param questionSetName the new name of the question set
-     */
-    public void setQuestionSetName(String questionSetName) {
-        this.questionSetName = questionSetName;
-    }
 }
