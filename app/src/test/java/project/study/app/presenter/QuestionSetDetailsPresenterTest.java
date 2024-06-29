@@ -132,7 +132,7 @@ public class QuestionSetDetailsPresenterTest {
      */
     @Test
     public void testAddQuestion_Error() {
-        
+
         // Arrange
         String questionSetName = "Sample Set";
         QuestionSet questionSet = new QuestionSet(questionSetName);

@@ -8,8 +8,18 @@ import java.util.concurrent.Executors;
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.database.StudyAppDatabase;
 
+/**
+ * Factory class for creating instances of the QuestionSetRepository.
+ * This class is needed to provide a clean API for creating instances of the repository.
+ */
 public class RepositoryFactory {
 
+    /**
+     * Create a new instance of the QuestionSetRepository.
+     *
+     * @param context
+     * @return
+     */
     public static QuestionSetRepository create(Context context) {
 
         // Get an instance of the StudyAppDatabase using the provided context

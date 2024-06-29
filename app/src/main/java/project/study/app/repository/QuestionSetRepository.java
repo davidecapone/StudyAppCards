@@ -13,15 +13,44 @@ import project.study.app.model.entity.QuestionSetEntity;
  */
 public interface QuestionSetRepository {
 
+    /**
+     * Insert a new QuestionSetEntity into the database.
+     *
+     * @param newQuestionSetEntity
+     */
     void insert( QuestionSetEntity newQuestionSetEntity );
 
+    /**
+     * Get a QuestionSetEntity by its name.
+     *
+     * @param name
+     * @return
+     */
     LiveData<QuestionSetEntity> getQuestionSetByName(String name);
 
+    /**
+     * Get all QuestionSetEntity objects from the database.
+     *
+     * @return
+     */
     LiveData<List<QuestionSetEntity>> getAllQuestionSets();
 
+    /**
+     * Update an existing QuestionSetEntity in the database.
+     *
+     * @param toBeUpdated
+     */
     void update( QuestionSetEntity toBeUpdated );
 
+    /**
+     * Delete a QuestionSetEntity from the database.
+     *
+     * @param toBeDeleted
+     */
     void delete( QuestionSetEntity toBeDeleted );
 
+    /**
+     * Delete all QuestionSetEntity objects from the database.
+     */
     void deleteAll();
 }
