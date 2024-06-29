@@ -15,7 +15,7 @@ public class Question {
      * Constructs a Question with the specified text and answer.
      *
      * @param questionText the text of the question
-     * @param answer       the answer to the question
+     * @param answer the answer to the question
      */
     public Question(String questionText, Answer<?> answer) {
         this.questionText = questionText;

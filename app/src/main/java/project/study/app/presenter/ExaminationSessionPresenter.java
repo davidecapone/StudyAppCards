@@ -39,8 +39,8 @@ public class ExaminationSessionPresenter {
     /**
      * Constructor to create a new ExaminationSessionPresenter.
      *
-     * @param service
-     * @param view
+     * @param service The service to fetch the question set.
+     * @param view The view to display the questions and statistics.
      */
     public ExaminationSessionPresenter(QuestionSetService service, ExaminationSessionView view) {
         this.service = service;

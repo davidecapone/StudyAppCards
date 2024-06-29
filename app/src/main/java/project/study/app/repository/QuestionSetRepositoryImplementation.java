@@ -24,8 +24,8 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     /**
      * Constructor for the QuestionSetRepositoryImplementation class.
      *
-     * @param questionSetDao
-     * @param executorService
+     * @param questionSetDao The DAO for QuestionSetEntity objects.
+     * @param executorService The ExecutorService for handling asynchronous tasks.
      */
     public QuestionSetRepositoryImplementation(QuestionSetDao questionSetDao, ExecutorService executorService) {
         this.questionSetDao = questionSetDao;
@@ -35,7 +35,7 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     /**
      * Insert a new QuestionSetEntity into the database.
      *
-     * @param newSet
+     * @param newSet The new QuestionSetEntity to be inserted.
      */
     @Override
     public void insert(QuestionSetEntity newSet) {
@@ -45,7 +45,7 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     /**
      * Delete a QuestionSetEntity from the database.
      *
-     * @param setToBeDeleted
+     * @param setToBeDeleted The QuestionSetEntity to be deleted.
      */
     @Override
     public void delete(QuestionSetEntity setToBeDeleted) {
@@ -55,7 +55,7 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     /**
      * Update an existing QuestionSetEntity in the database.
      *
-     * @param questionSet
+     * @param questionSet The QuestionSetEntity to be updated.
      */
     @Override
     public void update(QuestionSetEntity questionSet) {
@@ -65,7 +65,7 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     /**
      * Get all QuestionSetEntity objects from the database.
      *
-     * @return
+     * @return A LiveData object containing a list of all QuestionSetEntity objects.
      */
     @Override
     public LiveData<List<QuestionSetEntity>> getAllQuestionSets() {
@@ -75,8 +75,8 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
     /**
      * Get a QuestionSetEntity by its name.
      *
-     * @param name
-     * @return
+     * @param name The name of the QuestionSetEntity to retrieve.
+     * @return A LiveData object containing the QuestionSetEntity with the specified name.
      */
     @Override
     public LiveData<QuestionSetEntity> getQuestionSetByName(String name) {

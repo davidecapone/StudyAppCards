@@ -14,7 +14,7 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
      * Constructs a MultipleChoiceTextAnswer with the specified possible answers and correct answer.
      *
      * @param possibleAnswers the list of possible answers
-     * @param correctAnswer   the correct answer
+     * @param correctAnswer the correct answer
      */
     public MultipleChoiceTextAnswer(List<String> possibleAnswers, String correctAnswer) {
         this.possibleAnswers = possibleAnswers;
