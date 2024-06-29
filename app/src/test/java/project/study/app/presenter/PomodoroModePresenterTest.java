@@ -1,13 +1,9 @@
 package project.study.app.presenter;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,15 +14,20 @@ import org.mockito.MockitoAnnotations;
 import project.study.app.util.Timer;
 import project.study.app.util.TimerCallback;
 
-import project.study.app.presenter.PomodoroModePresenter;
 import project.study.app.view.interfaces.PomodoroModeView;
 
+/**
+ * Test class for the PomodoroModePresenter
+ */
 public class PomodoroModePresenterTest {
 
+    // Mock the PomodoroModeView and Timer
     @Mock
     private PomodoroModeView view;
     @Mock
     private Timer timer;
+
+    // Create a PomodoroModePresenter
     private PomodoroModePresenter presenter;
 
     @Before
@@ -35,6 +36,9 @@ public class PomodoroModePresenterTest {
         presenter = new PomodoroModePresenter(view, timer);
     }
 
+    /**
+     * Test that the startPomodoroMode method triggers the sequence of sessions
+     */
     @Test
     public void testStartPomodoroMode() {
 

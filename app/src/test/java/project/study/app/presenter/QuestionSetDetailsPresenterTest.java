@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -20,20 +19,23 @@ import java.util.Collections;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.presenter.QuestionSetDetailsPresenter;
 import project.study.app.service.interfaces.Callback;
 import project.study.app.service.interfaces.QuestionSetService;
 import project.study.app.service.interfaces.SingleItemCallback;
 import project.study.app.view.interfaces.QuestionSetDetailsView;
 
+/**
+ * Test class for the QuestionSetDetailsPresenter
+ */
 public class QuestionSetDetailsPresenterTest {
 
+    // Mock the QuestionSetService and QuestionSetDetailsView
     @Mock
     private QuestionSetService service;
-
     @Mock
     private QuestionSetDetailsView view;
 
+    // Create a QuestionSetDetailsPresenter
     @InjectMocks
     private QuestionSetDetailsPresenter presenter;
 
@@ -42,8 +44,12 @@ public class QuestionSetDetailsPresenterTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test that the loadQuestionSet method loads the questions successfully
+     */
     @Test
     public void testLoadQuestions_Success() {
+
         // Arrange
         String questionSetName = "Sample Set";
         QuestionSet questionSet = new QuestionSet(questionSetName);
@@ -63,8 +69,12 @@ public class QuestionSetDetailsPresenterTest {
         verify(view).displayQuestions(questionSet.getQuestions());
     }
 
+    /**
+     * Test that the loadQuestionSet method shows an error message when the question set is not found
+     */
     @Test
     public void testLoadQuestions_Error() {
+
         // Arrange
         String questionSetName = "Sample Set";
 
@@ -81,8 +91,12 @@ public class QuestionSetDetailsPresenterTest {
         verify(view).showMessage("Error loading question set: Question set not found");
     }
 
+    /**
+     * Test that the addQuestion method adds a question successfully
+     */
     @Test
     public void testAddQuestion_Success() {
+
         // Arrange
         String questionSetName = "Sample Set";
         QuestionSet questionSet = new QuestionSet(questionSetName);
@@ -113,8 +127,12 @@ public class QuestionSetDetailsPresenterTest {
         verify(view).showMessage("Question added successfully.");
     }
 
+    /**
+     * Test that the addQuestion method shows an error message when adding a question fails
+     */
     @Test
     public void testAddQuestion_Error() {
+        
         // Arrange
         String questionSetName = "Sample Set";
         QuestionSet questionSet = new QuestionSet(questionSetName);

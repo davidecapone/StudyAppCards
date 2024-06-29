@@ -15,22 +15,27 @@ import java.util.List;
 import project.study.app.service.interfaces.QuestionSetService;
 import project.study.app.service.interfaces.SingleItemCallback;
 import project.study.app.view.interfaces.ExaminationSessionView;
-import project.study.app.presenter.ExaminationSessionPresenter;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.FreeTextAnswer;
 
+/**
+ * Test class for the ExaminationSessionPresenter
+ */
 public class ExaminationSessionPresenterTest {
+
+    // Mock the QuestionSetService and ExaminationSessionView
     @Mock
     private QuestionSetService service;
-
     @Mock
     private ExaminationSessionView view;
 
+    // Create an ArgumentCaptor for the SingleItemCallback
     @Captor
     private ArgumentCaptor<SingleItemCallback<QuestionSet>> callbackCaptor;
 
+    // Create an ExaminationSessionPresenter
     private ExaminationSessionPresenter presenter;
 
     @Before
@@ -39,8 +44,12 @@ public class ExaminationSessionPresenterTest {
         presenter = new ExaminationSessionPresenter(service, view);
     }
 
+    /**
+     * Test that the startExamination method calls the service to get the question set
+     */
     @Test
     public void testStartExaminationSession_DisplaysFirstQuestion() {
+
         String questionSetName = "Test Set";
         Question question1 = new Question("What is 2+2?", null);
         List<Question> questions = new ArrayList<>();
@@ -56,8 +65,12 @@ public class ExaminationSessionPresenterTest {
         verify(view).displayQuestion(question1);
     }
 
+    /**
+     * Test that the checkAnswer method correctly validates the answer
+     */
     @Test
     public void testCheckAnswer_CorrectAnswer() {
+
         String questionSetName = "Test Set";
         Question question1 = new Question(
                 "What is 2+2?",
@@ -77,8 +90,12 @@ public class ExaminationSessionPresenterTest {
         verify(view).showCorrectAnswerFeedback();
     }
 
+    /**
+     * Test that the checkAnswer method correctly validates the answer
+     */
     @Test
     public void testCheckAnswer_IncorrectAnswer() {
+
         String questionSetName = "Test Set";
         Question question1 = new Question(
                 "What is 2+2?",
@@ -98,8 +115,12 @@ public class ExaminationSessionPresenterTest {
         verify(view).showIncorrectAnswerFeedback();
     }
 
+    /**
+     * Test that the checkAnswer method correctly navigates to the next question
+     */
     @Test
     public void testCheckAnswer_EndOfQuestionSet() {
+
         String questionSetName = "Test Set";
         Question question1 = new Question(
                 "What is 2+2?",
@@ -117,6 +138,7 @@ public class ExaminationSessionPresenterTest {
         presenter.validateAnswer("4");
 
         verify(view).showCorrectAnswerFeedback();
+
         // back to the manual mode activity:
         verify(view).navigateToManualMode();
     }
