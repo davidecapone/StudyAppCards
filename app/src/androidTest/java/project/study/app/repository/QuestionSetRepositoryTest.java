@@ -238,7 +238,7 @@ public class QuestionSetRepositoryTest {
      * @throws InterruptedException If the current thread is interrupted while waiting.
      */
     private void insertSampleQuestionSets() throws InterruptedException {
-        
+
         // Create a sample QuestionSetEntity with the name "Sample1" and a list of sample questions
         QuestionSetEntity questionSet1 = createQuestionSetEntity("Sample1", createSampleQuestions());
 
