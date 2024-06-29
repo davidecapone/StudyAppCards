@@ -60,7 +60,7 @@ public interface QuestionSetDao {
 
     /**
      * Retrieves all QuestionSet entities from the database.
-     * 
+     *
      * @return a list of all QuestionSet entities
      */
     @Query("SELECT * FROM question_sets")
