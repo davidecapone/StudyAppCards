@@ -16,6 +16,7 @@ public class FreeTextAnswer extends Answer<String> {
 
     /**
      * Checks if the given answer is correct.
+     *
      * @param answer the answer to check
      * @return true if the answer is correct, false otherwise
      */

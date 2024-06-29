@@ -23,6 +23,7 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
 
     /**
      * Gets the list of possible answers.
+     *
      * @return the list of possible answers
      */
     public List<String> getPossibleAnswers() {
@@ -31,6 +32,7 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
 
     /**
      * Sets the list of possible answers.
+     *
      * @param possibleAnswers the new list of possible answers
      */
     public void setPossibleAnswers(List<String> possibleAnswers) {
@@ -39,6 +41,7 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
 
     /**
      * Checks if the given answer is correct.
+     *
      * @param answer the answer to check
      * @return true if the answer is correct, false otherwise
      */

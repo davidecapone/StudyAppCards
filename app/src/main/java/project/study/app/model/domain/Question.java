@@ -13,6 +13,7 @@ public class Question {
 
     /**
      * Constructs a Question with the specified text and answer.
+     *
      * @param questionText the text of the question
      * @param answer       the answer to the question
      */
@@ -23,6 +24,7 @@ public class Question {
 
     /**
      * Gets the text of the question.
+     *
      * @return the text of the question
      */
     public String getText() {
@@ -31,6 +33,7 @@ public class Question {
 
     /**
      * Sets the text of the question.
+     *
      * @param questionText the new text of the question
      */
     public void setText(String questionText) {
@@ -39,6 +42,7 @@ public class Question {
 
     /**
      * Gets the answer to the question.
+     *
      * @return the answer to the question
      */
     public Answer<?> getAnswer() {
@@ -47,6 +51,7 @@ public class Question {
 
     /**
      * Sets the answer to the question.
+     *
      * @param answer the new answer to the question
      */
     public void setAnswer(Answer<?> answer) {
@@ -55,6 +60,7 @@ public class Question {
 
     /**
      * Validates the given answer.
+     *
      * @param answer the answer to validate
      * @return true if the answer is correct, false otherwise
      */
