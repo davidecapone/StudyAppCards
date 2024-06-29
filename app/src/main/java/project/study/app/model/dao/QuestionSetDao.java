@@ -21,6 +21,7 @@ public interface QuestionSetDao {
 
     /**
      * Inserts a new QuestionSet into the database.
+     *
      * @param questionSetEntity the QuestionSet to insert
      */
     @Insert
@@ -28,6 +29,7 @@ public interface QuestionSetDao {
 
     /**
      * Deletes a QuestionSet from the database.
+     *
      * @param questionSetEntity the QuestionSet to delete
      */
     @Delete
@@ -35,6 +37,7 @@ public interface QuestionSetDao {
 
     /**
      * Updates a QuestionSet in the database.
+     *
      * @param questionSetEntity the QuestionSet to update
      */
     @Update
@@ -48,6 +51,7 @@ public interface QuestionSetDao {
 
     /**
      * Retrieves a QuestionSet by its name from the database.
+     *
      * @param name the name of the QuestionSet to retrieve
      * @return the QuestionSet with the given name
      */
@@ -56,6 +60,7 @@ public interface QuestionSetDao {
 
     /**
      * Retrieves all QuestionSet entities from the database.
+     * 
      * @return a list of all QuestionSet entities
      */
     @Query("SELECT * FROM question_sets")

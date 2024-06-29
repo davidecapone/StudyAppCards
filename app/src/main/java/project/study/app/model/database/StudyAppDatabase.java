@@ -29,6 +29,7 @@ public abstract class StudyAppDatabase extends RoomDatabase {
 
     /**
      * Method to get an instance of the database.
+     *
      * @param context the application context
      * @return the database instance
      */
