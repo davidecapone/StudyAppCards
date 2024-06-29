@@ -62,16 +62,6 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
         adapter = new QuestionSetAdapter(new QuestionSetClickListener() {
 
             /**
-             * Called when a question set is clicked.
-             *
-             * @param questionSet The question set
-             */
-            @Override
-            public void onQuestionSetClicked(QuestionSet questionSet) {
-                presenter.onQuestionSetSelected(questionSet);
-            }
-
-            /**
              * Called when the delete button is clicked.
              *
              * @param questionSet The question set
