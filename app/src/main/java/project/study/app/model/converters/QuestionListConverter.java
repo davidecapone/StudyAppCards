@@ -15,12 +15,14 @@ import java.util.List;
  */
 public class QuestionListConverter {
 
+    // Gson object to handle JSON serialization and deserialization
     private static final Gson gson = new GsonBuilder()
             .registerTypeHierarchyAdapter(Question.class, new QuestionTypeAdapter())
             .create();
 
     /**
      * Converts a list of Question objects to a JSON string.
+     *
      * @param questions: The list of Question objects to be converted to JSON. This list can contain objects of any class that implements Question.
      * @return String: A JSON representation of the list of Question objects.
      */
@@ -31,6 +33,7 @@ public class QuestionListConverter {
 
     /**
      * Converts a JSON string to a list of Question objects.
+     *
      * @param json: The JSON string to be converted to a list of Question objects.
      * @return List<Question<?>>: A list of Question objects represented by the JSON string.
      */
