@@ -11,10 +11,15 @@ import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.entity.QuestionSetEntity;
 
+/**
+ * Room database class for the StudyApp application.
+ * This class defines the database and provides a method to get an instance of the database.
+ */
 @Database(entities = {QuestionSetEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({QuestionListConverter.class})
 public abstract class StudyAppDatabase extends RoomDatabase {
 
+    // Singleton instance of the database
     private static volatile StudyAppDatabase INSTANCE;
 
     /**
@@ -22,7 +27,11 @@ public abstract class StudyAppDatabase extends RoomDatabase {
      */
     public abstract QuestionSetDao questionSetDao();
 
-
+    /**
+     * Method to get an instance of the database.
+     * @param context the application context
+     * @return the database instance
+     */
     public static StudyAppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (StudyAppDatabase.class) {
