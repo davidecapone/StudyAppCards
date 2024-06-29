@@ -6,6 +6,8 @@ import java.util.List;
  * A class to represent a multiple choice answer composed of just text answers
  */
 public class MultipleChoiceTextAnswer extends Answer<String> {
+
+    // List of possible answers
     private List<String> possibleAnswers;
 
     /**

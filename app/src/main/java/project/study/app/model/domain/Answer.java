@@ -5,6 +5,7 @@ package project.study.app.model.domain;
  * @param <T> the type of the answer
  */
 public abstract class Answer<T> {
+
     private T correctAnswer;
 
     public T getCorrectAnswer() {

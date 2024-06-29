@@ -1,15 +1,7 @@
 package project.study.app.model.domain;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import project.study.app.model.converters.QuestionListConverter;
 
 /**
  * A class to represent a set of questions

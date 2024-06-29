@@ -1,19 +1,15 @@
 package project.study.app.model.domain;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
-
 /**
  * A class to represent a question
  */
 public class Question {
 
+    // The text of the question
     private String questionText;
-    private Answer<?> answer;
 
+    // The answer to the question
+    private Answer<?> answer;
 
     /**
      * Constructs a Question with the specified text and answer.
