@@ -25,6 +25,7 @@ public class QuestionTypeAdapter implements JsonSerializer<Question>, JsonDeseri
 
     /**
      * Serializes a Question object into a JSON element.
+     *
      * @param src the object that needs to be converted to Json.
      * @param typeOfSrc (Type) The type of the source object.
      * @param context (JsonSerializationContext): Context for serialization.
@@ -63,6 +64,7 @@ public class QuestionTypeAdapter implements JsonSerializer<Question>, JsonDeseri
 
     /**
      * Deserializes a JSON element into a Question object.
+     *
      * @param json The Json data being deserialized
      * @param typeOfT (Type): The type of the Object to deserialize to
      * @param context (JsonDeserializationContext): Context for deserialization.

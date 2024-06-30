@@ -10,10 +10,17 @@ import java.util.List;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 
+/**
+ * A test class for the QuestionListConverter.
+ */
 public class QuestionListConverterTest {
 
+    /**
+     * Test the conversion from a JSON string to a list of questions.
+     */
     @Test
     public void testFromString() {
+
         String json = "[{\"questionText\":\"What is the capital of Italy?\",\"answerType\":\"FreeTextAnswer\",\"correctAnswer\":\"Rome\"},{\"questionText\":\"What is the capital of Germany?\",\"answerType\":\"FreeTextAnswer\",\"correctAnswer\":\"Berlin\"}]";
         List<Question> questions = QuestionListConverter.toList(json);
 
@@ -24,8 +31,12 @@ public class QuestionListConverterTest {
         assertEquals("Berlin", ((FreeTextAnswer) questions.get(1).getAnswer()).getCorrectAnswer());
     }
 
+    /**
+     * Test the conversion from a list of questions to a JSON string.
+     */
     @Test
     public void testFromList() {
+
         Question question1 = new Question("What is the capital of Italy?", new FreeTextAnswer("Rome"));
         Question question2 = new Question("What is the capital of Germany?", new FreeTextAnswer("Berlin"));
 

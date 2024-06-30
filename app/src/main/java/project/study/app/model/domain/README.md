@@ -1,6 +1,6 @@
 # Study App Domain Package
 
-The domain package includes core classes and interfaces that define the primary data models and business logic for the application. These models include various types of answers, questions, and question sets.
+The domain package includes core classes and interfaces that define the primary data models and business logic for the application. These models include questions, question sets and various types of answers.
 
 ## Contents
 
@@ -23,6 +23,8 @@ A subclass of `Answer<String>` that represents a multiple-choice text answer. It
 - A constructor to initialize the possible answers and the correct answer.
 - Getter and setter methods for the possible answers.
 - An implementation of the `isCorrect` method to check if the given answer matches the correct answer.
+
+Note that both `FreeTextAnswer` and `MultipleChoiceTextAnswer` are subclasses of `Answer<String>`, which means that they are specific to text-based answers. Additional subclasses can be created for other types of answers (e.g., images, audio, etc.).
 
 #### `Question`
 A class that represents a question. It includes:

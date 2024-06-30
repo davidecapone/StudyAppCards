@@ -2,7 +2,6 @@ package project.study.app.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import android.content.Context;
 
@@ -46,13 +45,20 @@ public class QuestionSetRepositoryTest {
     private static final int TIMEOUT_SECONDS = 2;
     private static final int SLEEP_MILLISECONDS = 500;
 
+    // Rule to execute LiveData operations synchronously
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    // Database and repository instances
     private StudyAppDatabase db;
     private QuestionSetRepository repository;
 
+    /**
+     * Create an in-memory database and a repository instance before each test.
+     */
     @Before
     public void createDb() {
+
         // Set up the in-memory database for testing
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, StudyAppDatabase.class)
@@ -63,24 +69,40 @@ public class QuestionSetRepositoryTest {
         repository = new QuestionSetRepositoryImplementation(db.questionSetDao(), Executors.newSingleThreadExecutor());
     }
 
+    /**
+     * Clear the repository before each test.
+     */
     @Before
     public void clear() throws InterruptedException {
         // Clear the repository before each test
         this.repository.deleteAll();
     }
 
+    /**
+     * Close the database after each test.
+     */
     @After
     public void closeDb() throws IOException {
         // Close the database after each test
         db.close();
     }
 
-    // Helper method to create a QuestionSetEntity
+    /**
+     * Helper method to create a QuestionSetEntity with the given name and list of questions.
+     *
+     * @param name
+     * @param questions
+     * @return
+     */
     private QuestionSetEntity createQuestionSetEntity(String name, List<Question> questions) {
         return new QuestionSetEntity(name, questions);
     }
 
-    // Helper method to create a sample list of questions
+    /**
+     * Helper method to create a list of sample questions.
+     *
+     * @return
+     */
     private List<Question> createSampleQuestions() {
         return Arrays.asList(
                 new Question("What is the capital of Italy?", new FreeTextAnswer("Rome")),
@@ -88,9 +110,13 @@ public class QuestionSetRepositoryTest {
         );
     }
 
+    /**
+     * Test the insertion of a QuestionSetEntity into the repository.
+     *
+     * @throws InterruptedException
+     */
     @Test
     public void testGetQuestionSetByName() throws InterruptedException {
-        // Insert a question set and then retrieve it by name
 
         // Create a QuestionSetEntity with the name "Sample" and sample questions
         QuestionSetEntity questionSet = createQuestionSetEntity("Sample", createSampleQuestions());
@@ -111,9 +137,13 @@ public class QuestionSetRepositoryTest {
         assertEquals(2, retrieved.getQuestions().size());
     }
 
+    /**
+     * Test the retrieval of all QuestionSetEntities from the repository.
+     *
+     * @throws InterruptedException
+     */
     @Test
     public void getAllQuestionSets() throws InterruptedException {
-        // Insert multiple question sets and retrieve all
 
         // Insert sample question sets into the repository
         insertSampleQuestionSets();
@@ -128,9 +158,13 @@ public class QuestionSetRepositoryTest {
         assertEquals(2, allQuestionSets.size());
     }
 
+    /**
+     * Test the update operation on a QuestionSetEntity in the repository.
+     *
+     * @throws InterruptedException
+     */
     @Test
-    public void updateQuestionSet() throws InterruptedException {
-        // Insert a question set, update it, and verify the changes
+    public void testUpdateQuestionSet() throws InterruptedException {
 
         // Create a new QuestionSetEntity with the name "Sample" and sample questions
         QuestionSetEntity questionSet = new QuestionSetEntity("Sample", createSampleQuestions());
@@ -153,16 +187,25 @@ public class QuestionSetRepositoryTest {
 
         // Retrieve the updated question set by its new name "UpdatedSample"
         QuestionSetEntity updated = getValue(repository.getQuestionSetByName("UpdatedSample"));
+
         // Ensure that the updated question set is not null
         assertNotNull(updated);
+
         // Verify that the name of the updated question set is "UpdatedSample"
         assertEquals("UpdatedSample", updated.getName());
+
         // Verify that the updated question set contains 3 questions
         assertEquals(3, updated.getQuestions().size());
     }
 
+    /**
+     * Test the deletion of a QuestionSetEntity from the repository.
+     *
+     * @throws InterruptedException
+     */
     @Test
-    public void deleteQuestionSet() throws InterruptedException {
+    public void testDeleteQuestionSet() throws InterruptedException {
+
         // Insert multiple question sets and then delete one
         insertSampleQuestionSets();
 
@@ -181,8 +224,10 @@ public class QuestionSetRepositoryTest {
 
         // Retrieve all question sets from the repository again
         allQuestionSets = getValue(repository.getAllQuestionSets());
+
         // Assert that there is only 1 question set left in the repository
         assertEquals(1, allQuestionSets.size());
+
         // Assert that the remaining question set is the first one inserted with the name "Sample1"
         assertEquals("Sample1", allQuestionSets.get(0).getName());
     }
@@ -193,6 +238,7 @@ public class QuestionSetRepositoryTest {
      * @throws InterruptedException If the current thread is interrupted while waiting.
      */
     private void insertSampleQuestionSets() throws InterruptedException {
+
         // Create a sample QuestionSetEntity with the name "Sample1" and a list of sample questions
         QuestionSetEntity questionSet1 = createQuestionSetEntity("Sample1", createSampleQuestions());
 

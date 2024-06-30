@@ -14,30 +14,59 @@ import java.util.List;
  */
 public class ManualModePresenter {
 
+    // Service to fetch the question sets
     private final QuestionSetService service;
+
+    // View to display the question sets
     private final ManualModeView view;
 
+    /**
+     * Constructor to create a new ManualModePresenter.
+     *
+     * @param questionSetService The service to fetch the question sets
+     * @param view The view to display the question sets
+     */
     public ManualModePresenter(QuestionSetService questionSetService, ManualModeView view) {
         this.service = questionSetService;
         this.view = view;
     }
 
+    /**
+     * Loads all question sets from the database and displays them in the view.
+     */
     public void loadAllQuestionSets() {
 
         LiveData<List<QuestionSet>> questionSets = service.getAllQuestionSets();
         questionSets.observeForever(view::displayQuestionSets);
     }
 
+    /**
+     * Adds a new question set to the database.
+     *
+     * @param name The name of the new question set
+     */
     public void addNewQuestionSet(String name) {
 
+        // Create a new QuestionSet object with the given name
         QuestionSet newQuestionSet = new QuestionSet(name);
+
+        // Insert the new question set into the database
         service.insert(newQuestionSet, new Callback() {
+
+            /**
+             * Callback method to handle the result of the insert operation.
+             */
             @Override
             public void onSuccess() {
                 view.showMessage("Question set added successfully.");
                 loadAllQuestionSets(); // Refresh the list after successful insertion
             }
 
+            /**
+             * Callback method to handle errors during the insert operation.
+             *
+             * @param e The exception that occurred during the insert operation
+             */
             @Override
             public void onError(Exception e) {
                 view.showMessage("Error adding question set: " + e.getMessage());
@@ -45,6 +74,11 @@ public class ManualModePresenter {
         });
     }
 
+    /**
+     * Deletes the specified question set from the database.
+     *
+     * @param questionSet The question set to delete
+     */
     public void deleteQuestionSet(QuestionSet questionSet) {
 
         service.delete(questionSet, new Callback() {
@@ -61,10 +95,20 @@ public class ManualModePresenter {
         });
     }
 
+    /**
+     * Handles the event when a question set is selected in the view.
+     *
+     * @param questionSet The selected question set
+     */
     public void onQuestionSetSelected(QuestionSet questionSet) {
         this.view.navigateToQuestionSetDetails(questionSet);
     }
 
+    /**
+     * Handles the event when the start examination session button is clicked.
+     *
+     * @param questionSet The question set for the examination session
+     */
     public void onStartExaminationSessionButtonClicked(QuestionSet questionSet) {
         view.navigateToExaminationSession(questionSet);
     }

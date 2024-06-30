@@ -18,14 +18,29 @@ import project.study.app.view.interfaces.ExaminationSessionView;
 
 import project.study.app.model.domain.Question;
 
+/**
+ * Activity for the examination session
+ */
 public class ExaminationSessionActivity extends AppCompatActivity implements ExaminationSessionView {
 
+    // Presenter
     private ExaminationSessionPresenter presenter;
+
+    // Views
     private TextView textViewQuestion;
     private EditText editTextAnswer;
 
+    /**
+     * Called when the activity is starting.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        // Call the super class onCreate to complete the creation of activity like
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_examination_session);
 
@@ -45,7 +60,7 @@ public class ExaminationSessionActivity extends AppCompatActivity implements Exa
         buttonSubmitAnswer.setOnClickListener(v -> {
             String answer = editTextAnswer.getText().toString().trim();
             if (!answer.isEmpty()) {
-                presenter.checkAnswer(answer);
+                presenter.validateAnswer(answer);
             } else {
                 showMessage("Please enter an answer");
             }
@@ -55,27 +70,48 @@ public class ExaminationSessionActivity extends AppCompatActivity implements Exa
         presenter.startExamination(questionSetName);
     }
 
+    /**
+     * Display the question.
+     *
+     * @param question The question to display
+     */
     @Override
     public void displayQuestion(Question question) {
+
         textViewQuestion.setText(question.getText());
+
         editTextAnswer.setText("");
     }
 
+    /**
+     * Show feedback for a correct answer.
+     */
     @Override
     public void showCorrectAnswerFeedback() {
         showMessage("Correct!");
     }
 
+    /**
+     * Show feedback for an incorrect answer.
+     */
     @Override
     public void showIncorrectAnswerFeedback() {
         showMessage("Incorrect!");
     }
 
+    /**
+     * Show a message.
+     *
+     * @param message The message to show
+     */
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Navigate to the manual mode.
+     */
     @Override
     public void navigateToManualMode() {
         Intent intent = new Intent(this, ManualModeActivity.class);

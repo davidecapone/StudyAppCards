@@ -1,14 +1,12 @@
-package project.study.app;
+package project.study.app.domain;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import project.study.app.model.domain.AnswerFactory;
-import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 

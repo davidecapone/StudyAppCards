@@ -6,6 +6,9 @@ import java.util.List;
 
 import project.study.app.model.domain.QuestionSet;
 
+/**
+ * A service interface to manage QuestionSets.
+ */
 public interface QuestionSetService {
 
     /**

@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.presenter;
 
 import static org.mockito.Mockito.*;
 
@@ -14,7 +14,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import project.study.app.model.domain.QuestionSet;
-import project.study.app.presenter.ManualModePresenter;
 import project.study.app.service.interfaces.Callback;
 import project.study.app.service.interfaces.QuestionSetService;
 import project.study.app.view.interfaces.ManualModeView;
@@ -22,16 +21,20 @@ import project.study.app.view.interfaces.ManualModeView;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Test class for the ManualModePresenter
+ */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class ManualModePresenterTest {
 
+    // Mock the QuestionSetService and ManualModeView
     @Mock
     private QuestionSetService service;
-
     @Mock
     private ManualModeView view;
 
+    // Create a ManualModePresenter
     @InjectMocks
     private ManualModePresenter presenter;
 
@@ -40,8 +43,12 @@ public class ManualModePresenterTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Test that the loadAllQuestionSets method calls the service to get all question sets
+     */
     @Test
     public void testLoadAllQuestionSets() {
+
         // Arrange
         MutableLiveData<List<QuestionSet>> liveData = new MutableLiveData<>();
         List<QuestionSet> questionSets = Arrays.asList(new QuestionSet("1"), new QuestionSet("2"));
@@ -57,6 +64,9 @@ public class ManualModePresenterTest {
         verify(view).displayQuestionSets(questionSets);
     }
 
+    /**
+     * Test that the addNewQuestionSet method calls the service to insert a new question set
+     */
     @Test
     public void testAddNewQuestionSet() {
 
@@ -80,6 +90,9 @@ public class ManualModePresenterTest {
         verify(service).getAllQuestionSets(); // Once during setup, once after insertion
     }
 
+    /**
+     * Test that the deleteQuestionSet method calls the service to delete a question set
+     */
     @Test
     public void testDeleteQuestionSet() {
 
@@ -106,8 +119,12 @@ public class ManualModePresenterTest {
         verify(service).getAllQuestionSets(); // Once during setup, once after deletion
     }
 
+    /**
+     * Test that the onQuestionSetSelected method navigates to the question set details view
+     */
     @Test
     public void testOnQuestionSetSelected() {
+
         // Arrange
         QuestionSet questionSet = new QuestionSet("1");
 
@@ -118,8 +135,12 @@ public class ManualModePresenterTest {
         verify(view).navigateToQuestionSetDetails(questionSet);
     }
 
+    /**
+     * Test that the onStartExaminationSessionButtonClicked method navigates to the examination session view
+     */
     @Test
     public void testOnStartExaminationSessionButtonClicked() {
+
         // Arrange
         QuestionSet questionSet = new QuestionSet("1");
 

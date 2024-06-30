@@ -27,14 +27,22 @@ import project.study.app.service.interfaces.Callback;
 import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.service.interfaces.SingleItemCallback;
 
+/**
+ * A test class for the QuestionSetServiceImplementation.
+ */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
 public class QuestionSetServiceTest {
 
+    // Mock the QuestionSetRepository.
     @Mock
     private QuestionSetRepository repository;
+
+    // Inject the QuestionSetServiceImplementation.
     @InjectMocks
     private QuestionSetServiceImplementation service;
+
+    // Create a rule to execute LiveData tasks synchronously.
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
@@ -43,12 +51,21 @@ public class QuestionSetServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    /**
+     * Triggers the observer of a LiveData.
+     *
+     * @param liveData The LiveData to trigger.
+     */
     private void triggerObserver(LiveData<?> liveData) {
         liveData.observeForever(o -> {}); // Dummy observer to trigger LiveData
     }
 
+    /**
+     * Tests the insert method of the QuestionSetServiceImplementation.
+     */
     @Test
     public void testInsertQuestionSetSuccess() {
+
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
@@ -67,8 +84,12 @@ public class QuestionSetServiceTest {
         verify(callback).onSuccess();
     }
 
+    /**
+     * Tests the insert method of the QuestionSetServiceImplementation when the QuestionSet already exists.
+     */
     @Test
     public void testInsertQuestionSetAlreadyExists() {
+
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
@@ -87,8 +108,12 @@ public class QuestionSetServiceTest {
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 
+    /**
+     * Tests the delete method of the QuestionSetServiceImplementation.
+     */
     @Test
     public void testDeleteQuestionSetSuccess() {
+
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
@@ -108,8 +133,12 @@ public class QuestionSetServiceTest {
         verify(callback).onSuccess();
     }
 
+    /**
+     * Tests the delete method of the QuestionSetServiceImplementation when the QuestionSet does not exist.
+     */
     @Test
     public void testDeleteQuestionSetDoesNotExist() {
+
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
@@ -128,8 +157,12 @@ public class QuestionSetServiceTest {
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 
+    /**
+     * Tests the update method of the QuestionSetServiceImplementation.
+     */
     @Test
     public void testUpdateQuestionSetSuccess() {
+
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
@@ -149,8 +182,12 @@ public class QuestionSetServiceTest {
         verify(callback).onSuccess();
     }
 
+    /**
+     * Tests the update method of the QuestionSetServiceImplementation when the QuestionSet does not exist.
+     */
     @Test
     public void testUpdateQuestionSetDoesNotExist() {
+
         // Arrange
         String name = "Test Set";
         QuestionSet questionSet = new QuestionSet(name);
@@ -169,8 +206,12 @@ public class QuestionSetServiceTest {
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 
+    /**
+     * Tests the getAllQuestionSets method of the QuestionSetServiceImplementation.
+     */
     @Test
     public void testGetAllQuestionSets() {
+
         // Arrange
         MutableLiveData<List<QuestionSetEntity>> liveData = new MutableLiveData<>();
         List<QuestionSetEntity> entities = Arrays.asList(
@@ -192,8 +233,12 @@ public class QuestionSetServiceTest {
         });
     }
 
+    /**
+     * Tests the getQuestionSetByName method of the QuestionSetServiceImplementation.
+     */
     @Test
     public void testGetQuestionSetByNameSuccess() {
+
         // Arrange
         String name = "Test Set";
         QuestionSetEntity entity = new QuestionSetEntity(name, null);
@@ -211,8 +256,12 @@ public class QuestionSetServiceTest {
         verify(callback).onSuccess(any(QuestionSet.class));
     }
 
+    /**
+     * Tests the getQuestionSetByName method of the QuestionSetServiceImplementation when the QuestionSet does not exist.
+     */
     @Test
     public void testGetQuestionSetByNameDoesNotExist() {
+        
         // Arrange
         String name = "Test Set";
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);

@@ -1,6 +1,7 @@
-package project.study.app;
+package project.study.app.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,8 +66,8 @@ public class QuestionUnitTest {
      * Tests validating the correct answer for the question.
      */
     @Test
-    public void testCorrectAnswer() {
+    public void testValidateAnswer() {
         question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
-        assertEquals("Rome", question.getAnswer().getCorrectAnswer());
+        assertTrue(question.validateAnswer("Rome"));
     }
 }
