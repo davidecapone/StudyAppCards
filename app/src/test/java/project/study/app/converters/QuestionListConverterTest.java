@@ -1,4 +1,4 @@
-package project.study.app.model.converters;
+package project.study.app.converters;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 

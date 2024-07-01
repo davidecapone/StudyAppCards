@@ -16,7 +16,7 @@ import java.util.List;
 import project.study.app.R;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.presenter.ManualModePresenter;
-import project.study.app.repository.QuestionSetRepository;
+import project.study.app.repository.interfaces.Repository;
 import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.QuestionSetAdapter.QuestionSetClickListener;
@@ -48,7 +48,7 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_mode);
 
-        QuestionSetRepository repository = RepositoryFactory.create(this);
+        Repository repository = RepositoryFactory.create(this);
 
         QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
         presenter = new ManualModePresenter(service, this);

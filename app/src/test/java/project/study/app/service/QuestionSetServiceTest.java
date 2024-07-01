@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.entity.QuestionSetEntity;
-import project.study.app.repository.QuestionSetRepository;
+import project.study.app.repository.interfaces.Repository;
 import project.study.app.service.interfaces.Callback;
 import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.service.interfaces.SingleItemCallback;
@@ -36,7 +36,7 @@ public class QuestionSetServiceTest {
 
     // Mock the QuestionSetRepository.
     @Mock
-    private QuestionSetRepository repository;
+    private Repository repository;
 
     // Inject the QuestionSetServiceImplementation.
     @InjectMocks

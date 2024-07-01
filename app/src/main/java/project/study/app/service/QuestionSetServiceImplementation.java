@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.entity.QuestionSetEntity;
-import project.study.app.repository.QuestionSetRepository;
+import project.study.app.repository.interfaces.Repository;
 import project.study.app.service.interfaces.Callback;
 import project.study.app.service.interfaces.QuestionSetService;
 import project.study.app.service.interfaces.SingleItemCallback;
@@ -20,14 +20,14 @@ import project.study.app.service.interfaces.SingleItemCallback;
 public class QuestionSetServiceImplementation implements QuestionSetService {
 
     // The repository to manage QuestionSetEntities.
-    private final QuestionSetRepository repository;
+    private final Repository repository;
 
     /**
      * Creates a new QuestionSetServiceImplementation.
      *
      * @param repository The repository to manage QuestionSetEntities.
      */
-    public QuestionSetServiceImplementation(QuestionSetRepository repository) {
+    public QuestionSetServiceImplementation(Repository repository) {
         this.repository = repository;
     }
 

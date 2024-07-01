@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.database.StudyAppDatabase;
+import project.study.app.repository.interfaces.Repository;
 
 /**
  * Factory class for creating instances of the QuestionSetRepository.
@@ -20,7 +21,7 @@ public class RepositoryFactory {
      * @param context
      * @return
      */
-    public static QuestionSetRepository create(Context context) {
+    public static Repository create(Context context) {
 
         // Get an instance of the StudyAppDatabase using the provided context
         StudyAppDatabase db = StudyAppDatabase.getDatabase(context);
@@ -31,6 +32,6 @@ public class RepositoryFactory {
         // Create a cached thread pool ExecutorService to handle asynchronous tasks
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        return new QuestionSetRepositoryImplementation(questionSetDao, executorService);
+        return new RepositoryImplementation(questionSetDao, executorService);
     }
 }

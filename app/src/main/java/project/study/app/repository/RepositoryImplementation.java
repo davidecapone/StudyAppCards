@@ -7,13 +7,14 @@ import java.util.concurrent.ExecutorService;
 
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.entity.QuestionSetEntity;
+import project.study.app.repository.interfaces.Repository;
 
 /**
  * Implementation of the QuestionSetRepository interface.
  * This class is needed to provide a concrete implementation of the repository interface.
  * It handles data operations using the DAO and serves as the single source of truth for QuestionSet data.
  */
-public class QuestionSetRepositoryImplementation implements QuestionSetRepository {
+public class RepositoryImplementation implements Repository {
 
     // DAO for QuestionSetEntity objects
     private final QuestionSetDao questionSetDao;
@@ -27,7 +28,7 @@ public class QuestionSetRepositoryImplementation implements QuestionSetRepositor
      * @param questionSetDao The DAO for QuestionSetEntity objects.
      * @param executorService The ExecutorService for handling asynchronous tasks.
      */
-    public QuestionSetRepositoryImplementation(QuestionSetDao questionSetDao, ExecutorService executorService) {
+    public RepositoryImplementation(QuestionSetDao questionSetDao, ExecutorService executorService) {
         this.questionSetDao = questionSetDao;
         this.executorService = executorService;
     }

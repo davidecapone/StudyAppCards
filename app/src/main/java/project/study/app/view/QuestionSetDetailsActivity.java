@@ -22,7 +22,7 @@ import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.presenter.QuestionSetDetailsPresenter;
-import project.study.app.repository.QuestionSetRepository;
+import project.study.app.repository.interfaces.Repository;
 import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.interfaces.QuestionSetDetailsView;
@@ -60,7 +60,7 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
         setContentView(R.layout.activity_question_set_details);
 
         // Initialize the repository, service, and presenter
-        QuestionSetRepository repository = RepositoryFactory.create(this);
+        Repository repository = RepositoryFactory.create(this);
         QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
         presenter = new QuestionSetDetailsPresenter(service, this);
 

@@ -31,6 +31,7 @@ import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.entity.QuestionSetEntity;
+import project.study.app.repository.interfaces.Repository;
 
 /**
  * Unit tests for the QuestionSetRepository.
@@ -39,7 +40,7 @@ import project.study.app.model.entity.QuestionSetEntity;
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class QuestionSetRepositoryTest {
+public class RepositoryTest {
 
     // Constants for waiting times
     private static final int TIMEOUT_SECONDS = 2;
@@ -51,7 +52,7 @@ public class QuestionSetRepositoryTest {
 
     // Database and repository instances
     private StudyAppDatabase db;
-    private QuestionSetRepository repository;
+    private Repository repository;
 
     /**
      * Create an in-memory database and a repository instance before each test.
@@ -66,7 +67,7 @@ public class QuestionSetRepositoryTest {
                 .build();
 
         // Create the repository using the in-memory database and an executor service
-        repository = new QuestionSetRepositoryImplementation(db.questionSetDao(), Executors.newSingleThreadExecutor());
+        repository = new RepositoryImplementation(db.questionSetDao(), Executors.newSingleThreadExecutor());
     }
 
     /**

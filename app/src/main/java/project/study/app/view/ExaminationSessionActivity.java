@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import project.study.app.R;
 import project.study.app.presenter.ExaminationSessionPresenter;
-import project.study.app.repository.QuestionSetRepository;
+import project.study.app.repository.interfaces.Repository;
 import project.study.app.repository.RepositoryFactory;
 import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.interfaces.ExaminationSessionView;
@@ -45,7 +45,7 @@ public class ExaminationSessionActivity extends AppCompatActivity implements Exa
         setContentView(R.layout.activity_examination_session);
 
         // Initialize the repository, service, and presenter
-        QuestionSetRepository repository = RepositoryFactory.create(this);
+        Repository repository = RepositoryFactory.create(this);
         QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
         presenter = new ExaminationSessionPresenter(service, this);
 
