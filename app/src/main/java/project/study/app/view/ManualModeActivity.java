@@ -118,15 +118,6 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
     }
 
     /**
-     * Get the edit text for the question set name.
-     *
-     * @return The edit text for the question set name
-     */
-    public EditText getEditTextQuestionSetName() {
-        return editTextQuestionSetName;
-    }
-
-    /**
      * Display the question sets.
      *
      * @param questionSets The question sets to display
