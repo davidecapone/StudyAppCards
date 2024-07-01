@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import project.study.app.BaseActivity;
 import project.study.app.R;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.presenter.ManualModePresenter;
@@ -25,7 +26,7 @@ import project.study.app.view.interfaces.ManualModeView;
 /**
  * Activity for the manual mode
  */
-public class ManualModeActivity extends AppCompatActivity implements ManualModeView {
+public class ManualModeActivity extends BaseActivity implements ManualModeView{
 
     // Presenter
     private ManualModePresenter presenter;
@@ -48,10 +49,9 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_mode);
 
-        Repository repository = RepositoryFactory.create(this);
+        // Set up the presenter:
+        presenter = new ManualModePresenter(super.getService(), this);
 
-        QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
-        presenter = new ManualModePresenter(service, this);
 
         editTextQuestionSetName = findViewById(R.id.editTextQuestionSetName);
 
@@ -60,34 +60,19 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
 
         // Initialize the adapter
         adapter = new QuestionSetAdapter(new QuestionSetClickListener() {
-
-            /**
-             * Called when the delete button is clicked.
-             *
-             * @param questionSet The question set
-             */
             @Override
             public void onDeleteButtonClicked(QuestionSet questionSet) {
+                // Called when the delete button is clicked.
                 presenter.deleteQuestionSet(questionSet);
             }
-
-            /**
-             * Called when the start examination button is clicked.
-             *
-             * @param questionSet The question set
-             */
             @Override
             public void onStartExaminationButtonClicked(QuestionSet questionSet) {
+                // Called when the start examination button is clicked.
                 presenter.onStartExaminationSessionButtonClicked(questionSet);
             }
-
-            /**
-             * Called when the modify button is clicked.
-             *
-             * @param questionSet The question set
-             */
             @Override
             public void onModifyButtonClicked(QuestionSet questionSet) {
+                // Called when the modify button is clicked.
                 presenter.onQuestionSetSelected(questionSet);
             }
         });
@@ -105,15 +90,13 @@ public class ManualModeActivity extends AppCompatActivity implements ManualModeV
             String questionSetName = editTextQuestionSetName.getText().toString().trim();
 
             if (!questionSetName.isEmpty()) {
-
                 presenter.addNewQuestionSet(questionSetName);
-
             } else {
-
-                Toast.makeText(ManualModeActivity.this, "Please enter a question set name", Toast.LENGTH_SHORT).show();
+                showMessage("Please enter a question set name");
             }
         });
 
+        // Load all question sets from the presenter:
         presenter.loadAllQuestionSets();
     }
 

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import project.study.app.BaseActivity;
 import project.study.app.R;
 import project.study.app.presenter.ExaminationSessionPresenter;
 import project.study.app.repository.interfaces.Repository;
@@ -21,7 +22,7 @@ import project.study.app.model.domain.Question;
 /**
  * Activity for the examination session
  */
-public class ExaminationSessionActivity extends AppCompatActivity implements ExaminationSessionView {
+public class ExaminationSessionActivity extends BaseActivity implements ExaminationSessionView {
 
     // Presenter
     private ExaminationSessionPresenter presenter;
@@ -44,10 +45,8 @@ public class ExaminationSessionActivity extends AppCompatActivity implements Exa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_examination_session);
 
-        // Initialize the repository, service, and presenter
-        Repository repository = RepositoryFactory.create(this);
-        QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
-        presenter = new ExaminationSessionPresenter(service, this);
+        // Set up the presenter:
+        presenter = new ExaminationSessionPresenter(super.getService(), this);
 
         // Get the question set name from the intent
         String questionSetName = getIntent().getStringExtra("questionSetName");
@@ -77,9 +76,7 @@ public class ExaminationSessionActivity extends AppCompatActivity implements Exa
      */
     @Override
     public void displayQuestion(Question question) {
-
         textViewQuestion.setText(question.getText());
-
         editTextAnswer.setText("");
     }
 

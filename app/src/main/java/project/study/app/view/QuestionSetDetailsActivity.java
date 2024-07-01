@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
+import project.study.app.BaseActivity;
 import project.study.app.R;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
@@ -30,7 +31,7 @@ import project.study.app.view.interfaces.QuestionSetDetailsView;
 /**
  * Activity for the question set details
  */
-public class QuestionSetDetailsActivity extends AppCompatActivity implements QuestionSetDetailsView {
+public class QuestionSetDetailsActivity extends BaseActivity implements QuestionSetDetailsView {
 
     // Presenter
     private QuestionSetDetailsPresenter presenter;
@@ -59,12 +60,10 @@ public class QuestionSetDetailsActivity extends AppCompatActivity implements Que
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_set_details);
 
-        // Initialize the repository, service, and presenter
-        Repository repository = RepositoryFactory.create(this);
-        QuestionSetServiceImplementation service = new QuestionSetServiceImplementation(repository);
-        presenter = new QuestionSetDetailsPresenter(service, this);
+        // Set up the presenter:
+        presenter = new QuestionSetDetailsPresenter(super.getService(), this);
 
-        // Get the question set name from the intent
+        // Get the question set name from the intent:
         String questionSetName = getIntent().getStringExtra("questionSetName");
 
         // Initialize views
