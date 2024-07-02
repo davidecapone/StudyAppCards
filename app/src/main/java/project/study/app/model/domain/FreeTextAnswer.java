@@ -20,6 +20,6 @@ public class FreeTextAnswer extends Answer<String> {
      */
     @Override
     public boolean isCorrect(Object answer) {
-        return getCorrectAnswer().equals(answer);
+        return getCorrectAnswer().equalsIgnoreCase((String)answer);
     }
 }

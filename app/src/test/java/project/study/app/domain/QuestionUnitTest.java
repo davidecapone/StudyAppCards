@@ -61,4 +61,9 @@ public class QuestionUnitTest {
         question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
         assertTrue(question.validateAnswer("Rome"));
     }
+    @Test
+    public void testValidateAnswerIgnoreCase() {
+        question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
+        assertTrue(question.validateAnswer("rome"));
+    }
 }
