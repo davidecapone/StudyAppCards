@@ -1,4 +1,4 @@
-# SDMProject
+# Study App Cards
 
 ## Overview
 This repository contains a mobile application project (written in Java) designed to enhance students' study experiences by providing tools to manage and review study materials effectively. 
