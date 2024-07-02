@@ -1,5 +1,6 @@
 name: SDMProject Gradle Test
 
+# Trigger the workflow on push or pull request events on specific branches
 on:
   push:
     branches: [ "main", "persistency", "presenter" ]
@@ -11,8 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # Checkout the latest code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      # Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -20,16 +24,20 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      # Grant execute permission for the Gradle wrapper script
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # Run the Gradle tests
       - name: Test with Gradle
         run: ./gradlew test
 
+      # Handle success
       - name: Test Success
-        if: success() 
-        run: exit 0
+        if: success()
+        run: echo "Tests passed successfully."
 
+      # Handle failure
       - name: Test Failure
         if: failure()
-        run: exit 1
+        run: echo "Tests failed. Please check the logs for details." && exit 1
