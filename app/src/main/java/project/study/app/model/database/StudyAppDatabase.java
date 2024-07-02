@@ -17,6 +17,7 @@ import project.study.app.model.entity.QuestionSetEntity;
 @TypeConverters({QuestionListConverter.class})
 public abstract class StudyAppDatabase extends RoomDatabase {
     private static volatile StudyAppDatabase INSTANCE;
+    private static final String STUDY_DATABASE = "study_database";
 
     /**
      * Here we define all the data access objects (DAO) for the database.
@@ -33,7 +34,7 @@ public abstract class StudyAppDatabase extends RoomDatabase {
             synchronized (StudyAppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    StudyAppDatabase.class, "study_database")
+                                    StudyAppDatabase.class, STUDY_DATABASE)
                             .build();
                 }
             }
