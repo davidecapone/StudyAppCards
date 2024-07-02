@@ -1,45 +1,89 @@
-# Study App Domain Package
+# Domain Package
 
-The domain package includes core classes and interfaces that define the primary data models and business logic for the application. These models include questions, question sets and various types of answers.
+## Overview
 
-## Contents
+The domain package contains the core business logic and domain models of the application. These models represent the key entities and their behaviors in the system. This package is crucial for defining how the data is structured and manipulated within the application.
 
-### Classes
+## Classes
 
-#### `Answer<T>`
-An abstract class that represents an answer to a question. It includes:
-- A generic type `T` for the correct answer.
-- Getter and setter methods for the correct answer.
-- An abstract method `isCorrect(T answer)` to be implemented by subclasses.
+### Answer.java
 
-#### `FreeTextAnswer`
-A subclass of `Answer<String>` that represents a free-text answer. It includes:
-- A constructor to initialize the correct answer.
-- An implementation of the `isCorrect` method to check if the given answer matches the correct answer.
+**Description:**  
+Defines the abstract class `Answer` that serves as a base for different types of answers in the application.
 
-#### `MultipleChoiceTextAnswer`
-A subclass of `Answer<String>` that represents a multiple-choice text answer. It includes:
-- A list of possible answers.
-- A constructor to initialize the possible answers and the correct answer.
-- Getter and setter methods for the possible answers.
-- An implementation of the `isCorrect` method to check if the given answer matches the correct answer.
+**Key Responsibilities:**
+- Provides a contract for the `getCorrectAnswer` method.
+- Serves as a parent class for specific answer types like `FreeTextAnswer` and `MultipleChoiceTextAnswer`.
 
-Note that both `FreeTextAnswer` and `MultipleChoiceTextAnswer` are subclasses of `Answer<String>`, which means that they are specific to text-based answers. Additional subclasses can be created for other types of answers (e.g., images, audio, etc.).
+**Authors:**  
+Davide Capone, Sandro Junior Della Rovere
 
-#### `Question`
-A class that represents a question. It includes:
-- The text of the question.
-- An answer of type `Answer<?>`.
-- Getter and setter methods for the question text and answer.
-- A method `validateAnswer(Object answer)` to check if the given answer is correct.
+---
 
-#### `QuestionSet`
-A class that represents a set of questions. It includes:
-- The name of the question set.
-- A list of `Question` objects.
-- Methods to add and remove questions from the set.
-- Getter and setter methods for the question set name and list of questions.
+### AnswerFactory.java
 
-#### `AnswerFactory`
-A factory class for creating instances of `Answer`. It includes:
-- A static method `createAnswer` that takes the type of answer, the correct answer, and a list of possible answers (if applicable), and returns an instance of the appropriate `Answer` subclass.
+**Description:**  
+Implements the factory design pattern to create instances of different `Answer` types based on provided criteria.
+
+**Key Responsibilities:**
+- Provides a method to instantiate `FreeTextAnswer` or `MultipleChoiceTextAnswer` based on input parameters.
+- Encapsulates the object creation logic for `Answer` objects.
+
+**Authors:**  
+Davide Capone, Sandro Junior Della Rovere
+
+---
+
+### FreeTextAnswer.java
+
+**Description:**  
+Represents an answer where the correct answer is a free text string.
+
+**Key Responsibilities:**
+- Stores the correct answer as a string.
+- Implements the `getCorrectAnswer` method to return the stored string.
+
+**Authors:**  
+Davide Capone, Sandro Junior Della Rovere
+
+---
+
+### MultipleChoiceTextAnswer.java
+
+**Description:**  
+Represents an answer where the correct answer is one of several multiple-choice options.
+
+**Key Responsibilities:**
+- Stores multiple choice options and the correct answer.
+- Implements the `getCorrectAnswer` method to return the correct choice.
+
+**Authors:**  
+Davide Capone, Sandro Junior Della Rovere
+
+---
+
+### Question.java
+
+**Description:**  
+Represents a question in the application, containing the question text and an associated answer.
+
+**Key Responsibilities:**
+- Stores the question text and an `Answer` object.
+- Provides methods to get the question text and the associated answer.
+
+**Authors:**  
+Davide Capone, Sandro Junior Della Rovere
+
+---
+
+### QuestionSet.java
+
+**Description:**  
+Represents a set of questions, typically grouped together for a quiz or examination.
+
+**Key Responsibilities:**
+- Stores a list of `Question` objects.
+- Provides methods to add questions to the set and retrieve the list of questions.
+
+**Authors:**  
+Davide Capone, Sandro Junior Della Rovere
