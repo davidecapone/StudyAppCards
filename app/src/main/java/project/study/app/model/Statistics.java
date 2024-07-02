@@ -1,14 +1,10 @@
 package project.study.app.model;
 
-import androidx.room.PrimaryKey;
-
 /**
  * Model class representing the statistics for an examination session.
  * This class tracks the number of correct and incorrect answers for a given session.
  */
 public class Statistics {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     private int numberOfCorrectAnswers;
     private int numberOfIncorrectAnswers;
 
