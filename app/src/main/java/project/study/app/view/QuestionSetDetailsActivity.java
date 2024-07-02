@@ -10,22 +10,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Arrays;
 import java.util.List;
 
-import project.study.app.BaseActivity;
 import project.study.app.R;
 import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.presenter.QuestionSetDetailsPresenter;
-import project.study.app.repository.interfaces.Repository;
-import project.study.app.repository.RepositoryFactory;
-import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.interfaces.QuestionSetDetailsView;
 
 /**

@@ -7,14 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import project.study.app.BaseActivity;
 import project.study.app.R;
 import project.study.app.presenter.ExaminationSessionPresenter;
-import project.study.app.repository.interfaces.Repository;
-import project.study.app.repository.RepositoryFactory;
-import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.view.interfaces.ExaminationSessionView;
 
 import project.study.app.model.domain.Question;

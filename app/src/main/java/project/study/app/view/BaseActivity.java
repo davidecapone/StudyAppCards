@@ -1,4 +1,4 @@
-package project.study.app;
+package project.study.app.view;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
