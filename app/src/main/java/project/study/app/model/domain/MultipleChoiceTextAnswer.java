@@ -6,16 +6,16 @@ import java.util.List;
  * A class to represent a multiple choice answer composed of just text answers
  */
 public class MultipleChoiceTextAnswer extends Answer<String> {
-    private List<String> possibleAnswers;
+    private List<String> options;
 
     /**
      * Constructs a MultipleChoiceTextAnswer with the specified possible answers and correct answer.
      *
-     * @param possibleAnswers the list of possible answers
+     * @param options the list of possible answers
      * @param correctAnswer the correct answer
      */
-    public MultipleChoiceTextAnswer(List<String> possibleAnswers, String correctAnswer) {
-        this.possibleAnswers = possibleAnswers;
+    public MultipleChoiceTextAnswer(List<String> options, String correctAnswer) {
+        this.options = options;
         setCorrectAnswer(correctAnswer);
     }
     /**
@@ -23,16 +23,8 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
      *
      * @return the list of possible answers
      */
-    public List<String> getPossibleAnswers() {
-        return possibleAnswers;
-    }
-    /**
-     * Sets the list of possible answers.
-     *
-     * @param possibleAnswers the new list of possible answers
-     */
-    public void setPossibleAnswers(List<String> possibleAnswers) {
-        this.possibleAnswers = possibleAnswers;
+    public List<String> getOptions() {
+        return options;
     }
     /**
      * Checks if the given answer is correct.

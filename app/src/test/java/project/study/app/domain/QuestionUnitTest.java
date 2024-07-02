@@ -51,7 +51,7 @@ public class QuestionUnitTest {
         question.setAnswer(AnswerFactory.createAnswer("MultipleChoice", "Rome", possibleAnswers));
 
         assertEquals("Rome", question.getAnswer().getCorrectAnswer());
-        assertEquals(possibleAnswers, ((MultipleChoiceTextAnswer) question.getAnswer()).getPossibleAnswers());
+        assertEquals(possibleAnswers, ((MultipleChoiceTextAnswer) question.getAnswer()).getOptions());
     }
     /**
      * Tests validating the correct answer for the question.

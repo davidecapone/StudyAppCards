@@ -42,7 +42,7 @@ public class QuestionTypeAdapter implements JsonSerializer<Question>, JsonDeseri
             jsonObject.addProperty("answerType", "MultipleChoiceAnswer");
             JsonArray answersArray = new JsonArray();
             int i = 0;
-            for (String answerText : ((MultipleChoiceTextAnswer) answer).getPossibleAnswers()) {
+            for (String answerText : ((MultipleChoiceTextAnswer) answer).getOptions()) {
                 JsonObject answerObject = new JsonObject();
                 answerObject.addProperty("answer_"+i, answerText);
                 answersArray.add(answerObject);
