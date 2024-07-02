@@ -21,7 +21,7 @@ public class QuestionSetUnitTest {
     @Test
     public void testAddQuestion() {
         Question question = new Question("The capital of Italy",
-                AnswerFactory.createAnswer("FreeText", "Rome", null));
+                AnswerFactory.createMultipleChoiceAnswer("Rome", null));
         questionSet.addQuestion(question);
         List<Question> questions = questionSet.getQuestions();
         assertEquals(1, questions.size());
@@ -33,9 +33,9 @@ public class QuestionSetUnitTest {
     @Test
     public void testAddMultipleQuestions() {
         Question question1 = new Question("The capital of Italy",
-                AnswerFactory.createAnswer("FreeText", "Rome", null));
+                AnswerFactory.createMultipleChoiceAnswer("Rome", null));
         Question question2 = new Question("The capital of Germany",
-                AnswerFactory.createAnswer("FreeText", "Berlin", null));
+                AnswerFactory.createMultipleChoiceAnswer("Berlin", null));
         questionSet.addQuestion(question1);
         questionSet.addQuestion(question2);
         List<Question> questions = questionSet.getQuestions();
@@ -49,7 +49,7 @@ public class QuestionSetUnitTest {
     @Test
     public void testRemoveQuestion() {
         Question question = new Question("The capital of Italy",
-                AnswerFactory.createAnswer("FreeText", "Rome", null));
+                AnswerFactory.createMultipleChoiceAnswer("Rome", null));
         questionSet.addQuestion(question);
         questionSet.removeQuestion(question);
         List<Question> questions = questionSet.getQuestions();

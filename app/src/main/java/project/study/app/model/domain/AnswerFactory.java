@@ -7,21 +7,22 @@ import java.util.List;
  */
 public class AnswerFactory {
     /**
-     * Creates an answer of a specified type.
+     * Creates a MultipleChoiceTextAnswer
      *
-     * @param type              the type of the answer ("FreeText" or "MultipleChoice")
-     * @param correctAnswer     the correct answer
-     * @param possibleAnswers   the list of possible answers for multiple-choice questions
+     * @param correctAnswer   the correct answer
+     * @param possibleAnswers the list of possible answers for multiple-choice questions
      * @return an instance of Answer
      */
-    public static Answer<?> createAnswer(String type, Object correctAnswer, List<String> possibleAnswers) {
-        switch (type) {
-            case "FreeText":
-                return new FreeTextAnswer((String) correctAnswer);
-            case "MultipleChoice":
-                return new MultipleChoiceTextAnswer(possibleAnswers, (String) correctAnswer);
-            default:
-                throw new IllegalArgumentException("Unknown answer type: " + type);
-        }
+    public static Answer<?> createMultipleChoiceAnswer(Object correctAnswer, List<String> possibleAnswers) {
+        return new MultipleChoiceTextAnswer(possibleAnswers, (String) correctAnswer);
+    }
+    /**
+     * Creates a FreeTextAnswer
+     *
+     * @param correctAnswer the correct answer
+     * @return an instance of Answer
+     */
+    public static Answer<?> createFreeTextAnswer(Object correctAnswer) {
+        return new FreeTextAnswer((String) correctAnswer);
     }
 }

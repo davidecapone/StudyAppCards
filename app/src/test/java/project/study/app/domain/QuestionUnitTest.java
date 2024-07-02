@@ -37,7 +37,7 @@ public class QuestionUnitTest {
      */
     @Test
     public void testSetAnswer() {
-        question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
+        question.setAnswer(AnswerFactory.createMultipleChoiceAnswer("Rome", null));
         assertEquals("Rome", question.getAnswer().getCorrectAnswer());
     }
     /**
@@ -45,10 +45,10 @@ public class QuestionUnitTest {
      */
     @Test
     public void testModifyAnswerType() {
-        question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
+        question.setAnswer(AnswerFactory.createMultipleChoiceAnswer("Rome", null));
 
         List<String> possibleAnswers = Arrays.asList("Rome", "New York");
-        question.setAnswer(AnswerFactory.createAnswer("MultipleChoice", "Rome", possibleAnswers));
+        question.setAnswer(AnswerFactory.createMultipleChoiceAnswer("Rome", possibleAnswers));
 
         assertEquals("Rome", question.getAnswer().getCorrectAnswer());
         assertEquals(possibleAnswers, ((MultipleChoiceTextAnswer) question.getAnswer()).getOptions());
@@ -58,12 +58,12 @@ public class QuestionUnitTest {
      */
     @Test
     public void testValidateAnswer() {
-        question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
+        question.setAnswer(AnswerFactory.createFreeTextAnswer("Rome"));
         assertTrue(question.validateAnswer("Rome"));
     }
     @Test
     public void testValidateAnswerIgnoreCase() {
-        question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
+        question.setAnswer(AnswerFactory.createFreeTextAnswer("Rome"));
         assertTrue(question.validateAnswer("rome"));
     }
 }
