@@ -6,14 +6,12 @@ package project.study.app.service.interfaces;
  * @param <T> The type of the item.
  */
 public interface SingleItemCallback<T> {
-
     /**
      * Notifies the operation was successful.
      *
      * @param item The item.
      */
     void onSuccess(T item);
-
     /**
      * Notifies the operation failed.
      *

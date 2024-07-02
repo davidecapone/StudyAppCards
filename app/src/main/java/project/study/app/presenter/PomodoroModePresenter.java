@@ -8,25 +8,18 @@ import project.study.app.util.TimerCallback;
  * The presenter will manage the different timers and notify the view of changes.
  */
 public class PomodoroModePresenter implements TimerCallback {
-
     // Study duration is 30 minutes
     private static final long STUDY_DURATION = 30 * 1000L;
-
     // Break duration is 10 minutes
     private static final long BREAK_DURATION = 10 * 1000L;
-
     // Insert questions duration is 10 minutes
     private static final long INSERT_QUESTIONS_DURATION = 10 * 1000L;
-
     // Examination duration is 30 minutes
     private static final long EXAMINATION_DURATION = 30 * 1000L;
-
     // View to display the Pomodoro mode
     private final PomodoroModeView view;
-
     // Timer to manage the Pomodoro mode
     private final Timer timer;
-
     // Current session in the Pomodoro mode
     private Session currentSession;
 
@@ -40,7 +33,6 @@ public class PomodoroModePresenter implements TimerCallback {
         EXAMINATION,
         COMPLETED
     }
-
     /**
      * Constructor to create a new PomodoroModePresenter.
      *
@@ -52,16 +44,13 @@ public class PomodoroModePresenter implements TimerCallback {
         this.timer = timer;
         this.currentSession = Session.COMPLETED;
     }
-
     /**
      * Starts the Pomodoro mode by initiating the study session.
      * This method sets the current session to STUDY and begins the study timer.
      */
     public void startPomodoroMode() {
-        // Initiate the study session as the first session in the Pomodoro mode.
         startSession(Session.STUDY);
     }
-
     /**
      * Starts a timer for the specified duration.
      * The timer will tick every second (1000 milliseconds) and invoke the TimerCallback methods.
@@ -73,7 +62,6 @@ public class PomodoroModePresenter implements TimerCallback {
         // The current instance is passed as the TimerCallback.
         timer.start(duration, 1000L, this);
     }
-
     /**
      * Starts the specified session by updating the current session,
      * showing the appropriate session view, and starting the timer for the session's duration.
@@ -81,10 +69,7 @@ public class PomodoroModePresenter implements TimerCallback {
      * @param session The session to start (STUDY, BREAK, INSERT_QUESTIONS, EXAMINATION, or COMPLETED).
      */
     private void startSession(Session session) {
-
-        // Update the current session
         currentSession = session;
-
         switch (session) {
             case STUDY:
                 view.showStudySession();
@@ -107,13 +92,11 @@ public class PomodoroModePresenter implements TimerCallback {
                 break;
         }
     }
-
     /**
      * Moves to the next session based on the current session.
      * The order of sessions is: STUDY -> BREAK -> INSERT_QUESTIONS -> EXAMINATION -> COMPLETED.
      */
     private void moveToNextSession() {
-
         switch (currentSession) {
             case STUDY:
                 startSession(Session.BREAK); // Move from STUDY to BREAK session
@@ -131,7 +114,6 @@ public class PomodoroModePresenter implements TimerCallback {
                 break;
         }
     }
-
     /**
      * Called at regular intervals as the timer counts down.
      * Updates the view with the remaining time in seconds.
@@ -140,19 +122,15 @@ public class PomodoroModePresenter implements TimerCallback {
      */
     @Override
     public void onTick(long millisUntilFinished) {
-
-        // Convert the remaining time from milliseconds to seconds
         int secondsRemaining = (int) (millisUntilFinished / 1000);
         view.updateTimer(secondsRemaining);
     }
-
     /**
      * Called when the timer finishes.
      * Moves to the next session in the Pomodoro cycle.
      */
     @Override
     public void onFinish() {
-        // Move to the next session in the Pomodoro cycle
         moveToNextSession();
     }
 }

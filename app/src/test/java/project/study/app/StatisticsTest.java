@@ -1,18 +1,14 @@
 package project.study.app;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import project.study.app.model.Statistics;
 
 /**
  * Unit tests for the Statistics class.
  */
 public class StatisticsTest {
-
-    // Create a Statistics object to test
     private Statistics stats;
 
     @Before
@@ -28,7 +24,6 @@ public class StatisticsTest {
         stats.incrementCorrectAnswers();
         assertEquals(1, stats.getNumberOfCorrectAnswer());
     }
-
     /**
      * Test the getNumberOfIncorrectAnswers method.
      */
@@ -37,7 +32,6 @@ public class StatisticsTest {
         stats.incrementIncorrectAnswers();
         assertEquals(1, stats.getNumberOfIncorrectAnswers());
     }
-
     /**
      * Test the calculateProportionCorrect method.
      */

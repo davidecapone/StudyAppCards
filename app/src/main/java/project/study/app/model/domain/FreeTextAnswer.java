@@ -4,7 +4,6 @@ package project.study.app.model.domain;
  * A class to represent a free text answer
  */
 public class FreeTextAnswer extends Answer<String> {
-
     /**
      * Constructs a FreeTextAnswer with the specified correct answer.
      *
@@ -13,7 +12,6 @@ public class FreeTextAnswer extends Answer<String> {
     public FreeTextAnswer(String correctAnswer) {
         setCorrectAnswer(correctAnswer);
     }
-
     /**
      * Checks if the given answer is correct.
      *

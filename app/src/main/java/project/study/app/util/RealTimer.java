@@ -6,8 +6,6 @@ import android.os.CountDownTimer;
  * A real implementation of the Timer interface that uses the CountDownTimer class.
  */
 public class RealTimer implements Timer {
-
-    // The CountDownTimer object that will be used to implement the timer.
     private CountDownTimer countDownTimer;
 
     /**
@@ -19,14 +17,10 @@ public class RealTimer implements Timer {
      */
     @Override
     public void start(long durationInMillis, long intervalInMillis, TimerCallback callback) {
-
         if (countDownTimer != null) {
-
             countDownTimer.cancel();
         }
-
         countDownTimer = new CountDownTimer(durationInMillis, intervalInMillis) {
-
             /**
              * Called when the timer ticks.
              *
@@ -36,7 +30,6 @@ public class RealTimer implements Timer {
             public void onTick(long millisUntilFinished) {
                 callback.onTick(millisUntilFinished);
             }
-
             /**
              * Called when the timer finishes.
              */
@@ -45,7 +38,6 @@ public class RealTimer implements Timer {
                 callback.onFinish();
             }
         };
-
         countDownTimer.start();
     }
 }

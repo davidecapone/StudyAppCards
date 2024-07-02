@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-
 import project.study.app.databinding.FragmentSecondBinding;
-
 public class SecondFragment extends Fragment {
-
     /**
      * View binding
      */
@@ -37,7 +33,6 @@ public class SecondFragment extends Fragment {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
     /**
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has returned,
      * but before any saved state has been restored in to the view. It is safe to do operations
@@ -48,21 +43,17 @@ public class SecondFragment extends Fragment {
      * from a previous saved state as given here.
      */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-
         super.onViewCreated(view, savedInstanceState);
-
         binding.buttonSecond.setOnClickListener(v ->
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment)
         );
     }
-
     /**
      * Called when the view previously created by {@link #onCreateView} has been detached from the fragment.
      */
     @Override
     public void onDestroyView() {
-        
         super.onDestroyView();
         binding = null;
     }

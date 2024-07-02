@@ -15,8 +15,6 @@ import project.study.app.databinding.FragmentFirstBinding;
  * First fragment
  */
 public class FirstFragment extends Fragment {
-
-    // View binding
     private FragmentFirstBinding binding;
 
     /**
@@ -38,7 +36,6 @@ public class FirstFragment extends Fragment {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
     /**
      * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned,
      * but before any saved state has been restored in to the view. It is safe to do operations

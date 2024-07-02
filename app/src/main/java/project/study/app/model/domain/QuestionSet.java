@@ -7,7 +7,6 @@ import java.util.List;
  * A class to represent a set of questions
  */
 public class QuestionSet {
-
     private String questionSetName;
     private List<Question> questions;
 
@@ -20,7 +19,6 @@ public class QuestionSet {
         this.questionSetName = questionSetName;
         this.questions = new ArrayList<>();
     }
-
     /**
      * Adds a question to the question set.
      *
@@ -30,7 +28,6 @@ public class QuestionSet {
         if (newQuestion == null) throw new IllegalArgumentException("New question cannot be empty.");
         questions.add(newQuestion);
     }
-
     /**
      * Removes a question from the question set.
      *
@@ -39,7 +36,6 @@ public class QuestionSet {
     public void removeQuestion(Question question) {
         questions.remove(question);
     }
-
     /**
      * Gets all the questions in the question set.
      *
@@ -48,7 +44,6 @@ public class QuestionSet {
     public List<Question> getQuestions() {
         return questions;
     }
-
     /**
      * Sets the list of questions in the question set.
      *
@@ -57,7 +52,6 @@ public class QuestionSet {
     public void setQuestions(List<Question> newQuestions) {
         this.questions = newQuestions;
     }
-
     /**
      * Gets the name of the question set.
      *

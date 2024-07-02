@@ -1,10 +1,8 @@
 package project.study.app.repository;
 
 import androidx.lifecycle.LiveData;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.entity.QuestionSetEntity;
 import project.study.app.repository.interfaces.Repository;
@@ -15,11 +13,7 @@ import project.study.app.repository.interfaces.Repository;
  * It handles data operations using the DAO and serves as the single source of truth for QuestionSet data.
  */
 public class RepositoryImplementation implements Repository {
-
-    // DAO for QuestionSetEntity objects
     private final QuestionSetDao questionSetDao;
-
-    // ExecutorService for handling asynchronous tasks
     private final ExecutorService executorService;
 
     /**
@@ -32,7 +26,6 @@ public class RepositoryImplementation implements Repository {
         this.questionSetDao = questionSetDao;
         this.executorService = executorService;
     }
-
     /**
      * Insert a new QuestionSetEntity into the database.
      *
@@ -42,7 +35,6 @@ public class RepositoryImplementation implements Repository {
     public void insert(QuestionSetEntity newSet) {
         executorService.execute(() -> questionSetDao.insert(newSet));
     }
-
     /**
      * Delete a QuestionSetEntity from the database.
      *
@@ -52,7 +44,6 @@ public class RepositoryImplementation implements Repository {
     public void delete(QuestionSetEntity setToBeDeleted) {
         executorService.execute(() -> questionSetDao.delete(setToBeDeleted));
     }
-
     /**
      * Update an existing QuestionSetEntity in the database.
      *
@@ -62,7 +53,6 @@ public class RepositoryImplementation implements Repository {
     public void update(QuestionSetEntity questionSet) {
         executorService.execute(() -> questionSetDao.update(questionSet));
     }
-
     /**
      * Get all QuestionSetEntity objects from the database.
      *
@@ -72,7 +62,6 @@ public class RepositoryImplementation implements Repository {
     public LiveData<List<QuestionSetEntity>> getAllQuestionSets() {
         return questionSetDao.getAllQuestionSets();
     }
-
     /**
      * Get a QuestionSetEntity by its name.
      *
@@ -83,7 +72,6 @@ public class RepositoryImplementation implements Repository {
     public LiveData<QuestionSetEntity> getQuestionSetByName(String name) {
         return questionSetDao.getQuestionSetByName(name);
     }
-
     /**
      * Delete all QuestionSetEntity objects from the database.
      */

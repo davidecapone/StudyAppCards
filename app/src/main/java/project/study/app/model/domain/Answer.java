@@ -5,8 +5,6 @@ package project.study.app.model.domain;
  * @param <T> the type of the answer
  */
 public abstract class Answer<T> {
-
-    // The correct answer to the question
     private T correctAnswer;
 
     /**
@@ -17,7 +15,6 @@ public abstract class Answer<T> {
     public T getCorrectAnswer() {
         return correctAnswer;
     }
-
     /**
      * Method to set the correct answer to the question
      *
@@ -26,7 +23,6 @@ public abstract class Answer<T> {
     public void setCorrectAnswer(T correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
-
     /**
      * Method to check if the given answer is correct
      *

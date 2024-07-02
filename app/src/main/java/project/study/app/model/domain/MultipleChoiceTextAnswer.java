@@ -6,8 +6,6 @@ import java.util.List;
  * A class to represent a multiple choice answer composed of just text answers
  */
 public class MultipleChoiceTextAnswer extends Answer<String> {
-
-    // List of possible answers
     private List<String> possibleAnswers;
 
     /**
@@ -20,7 +18,6 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
         this.possibleAnswers = possibleAnswers;
         setCorrectAnswer(correctAnswer);
     }
-
     /**
      * Gets the list of possible answers.
      *
@@ -29,7 +26,6 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
     public List<String> getPossibleAnswers() {
         return possibleAnswers;
     }
-
     /**
      * Sets the list of possible answers.
      *
@@ -38,7 +34,6 @@ public class MultipleChoiceTextAnswer extends Answer<String> {
     public void setPossibleAnswers(List<String> possibleAnswers) {
         this.possibleAnswers = possibleAnswers;
     }
-
     /**
      * Checks if the given answer is correct.
      *

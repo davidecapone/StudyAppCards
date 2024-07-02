@@ -7,15 +7,9 @@ import androidx.room.PrimaryKey;
  * This class tracks the number of correct and incorrect answers for a given session.
  */
 public class Statistics {
-
-    // Primary key for the statistics entry
     @PrimaryKey(autoGenerate = true)
     private int id;
-
-    // Number of correct answers
     private int numberOfCorrectAnswers;
-
-    // Number of incorrect answers
     private int numberOfIncorrectAnswers;
 
     /**
@@ -26,7 +20,6 @@ public class Statistics {
     public Statistics() {
         numberOfCorrectAnswers = 0;
     }
-
     /**
      * Gets the number of correct answers for the session.
      *
@@ -35,7 +28,6 @@ public class Statistics {
     public int getNumberOfCorrectAnswer() {
         return numberOfCorrectAnswers;
     }
-
     /**
      * Gets the number of incorrect answers for the session.
      *
@@ -44,21 +36,18 @@ public class Statistics {
     public int getNumberOfIncorrectAnswers() {
         return numberOfIncorrectAnswers;
     }
-
     /**
      * Increments the number of correct answers by 1.
      */
     public void incrementCorrectAnswers() {
         numberOfCorrectAnswers++;
     }
-
     /**
      * Increments the number of incorrect answers by 1.
      */
     public void incrementIncorrectAnswers() {
         numberOfIncorrectAnswers++;
     }
-
     /**
      * Calculates the proportion of correct answers for the session.
      *

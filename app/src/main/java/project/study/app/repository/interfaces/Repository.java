@@ -1,9 +1,7 @@
 package project.study.app.repository.interfaces;
 
 import androidx.lifecycle.LiveData;
-
 import java.util.List;
-
 import project.study.app.model.entity.QuestionSetEntity;
 
 /**
@@ -12,14 +10,12 @@ import project.study.app.model.entity.QuestionSetEntity;
  * It serves as a mediator between different data sources (e.g., database, network) and the rest of the app.
  */
 public interface Repository {
-
     /**
      * Insert a new QuestionSetEntity into the database.
      *
      * @param newQuestionSetEntity The QuestionSetEntity to be inserted.
      */
     void insert( QuestionSetEntity newQuestionSetEntity );
-
     /**
      * Get a QuestionSetEntity by its name.
      *
@@ -27,7 +23,6 @@ public interface Repository {
      * @return The QuestionSetEntity with the given name.
      */
     LiveData<QuestionSetEntity> getQuestionSetByName(String name);
-
     /**
      * Get all QuestionSetEntity objects from the database.
      *
@@ -41,14 +36,12 @@ public interface Repository {
      * @param toBeUpdated The QuestionSetEntity to be updated.
      */
     void update( QuestionSetEntity toBeUpdated );
-
     /**
      * Delete a QuestionSetEntity from the database.
      *
      * @param toBeDeleted The QuestionSetEntity to be deleted.
      */
     void delete( QuestionSetEntity toBeDeleted );
-
     /**
      * Delete all QuestionSetEntity objects from the database.
      */

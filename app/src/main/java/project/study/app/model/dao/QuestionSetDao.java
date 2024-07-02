@@ -6,9 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import java.util.List;
-
 import project.study.app.model.entity.QuestionSetEntity;
 
 /**
@@ -18,7 +16,6 @@ import project.study.app.model.entity.QuestionSetEntity;
  */
 @Dao
 public interface QuestionSetDao {
-
     /**
      * Inserts a new QuestionSet into the database.
      *
@@ -26,7 +23,6 @@ public interface QuestionSetDao {
      */
     @Insert
     void insert(QuestionSetEntity questionSetEntity);
-
     /**
      * Deletes a QuestionSet from the database.
      *
@@ -34,7 +30,6 @@ public interface QuestionSetDao {
      */
     @Delete
     void delete(QuestionSetEntity questionSetEntity);
-
     /**
      * Updates a QuestionSet in the database.
      *
@@ -42,13 +37,11 @@ public interface QuestionSetDao {
      */
     @Update
     void update(QuestionSetEntity questionSetEntity);
-
     /**
      * Deletes all QuestionSet entities from the database.
      */
     @Query("DELETE FROM question_sets")
     void deleteAll();
-
     /**
      * Retrieves a QuestionSet by its name from the database.
      *
@@ -57,7 +50,6 @@ public interface QuestionSetDao {
      */
     @Query("SELECT * FROM question_sets WHERE name = :name LIMIT 1")
     LiveData<QuestionSetEntity> getQuestionSetByName(String name);
-
     /**
      * Retrieves all QuestionSet entities from the database.
      *

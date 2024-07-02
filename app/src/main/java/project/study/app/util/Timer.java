@@ -4,7 +4,6 @@ package project.study.app.util;
  * An interface for a timer that can be started with a duration, interval, and callback.
  */
 public interface Timer {
-
     /**
      * Start the timer with the given duration, interval, and callback.
      *

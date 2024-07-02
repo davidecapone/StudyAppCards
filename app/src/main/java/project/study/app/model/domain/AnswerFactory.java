@@ -6,7 +6,6 @@ import java.util.List;
  * Factory class for creating Answer objects.
  */
 public class AnswerFactory {
-
     /**
      * Creates an answer of a specified type.
      *
@@ -16,19 +15,12 @@ public class AnswerFactory {
      * @return an instance of Answer
      */
     public static Answer<?> createAnswer(String type, Object correctAnswer, List<String> possibleAnswers) {
-
         switch (type) {
-
             case "FreeText":
-
                 return new FreeTextAnswer((String) correctAnswer);
-
             case "MultipleChoice":
-
                 return new MultipleChoiceTextAnswer(possibleAnswers, (String) correctAnswer);
-
             default:
-
                 throw new IllegalArgumentException("Unknown answer type: " + type);
         }
     }

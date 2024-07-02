@@ -1,12 +1,10 @@
 package project.study.app.model.database;
 
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-
 import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.entity.QuestionSetEntity;
@@ -18,15 +16,12 @@ import project.study.app.model.entity.QuestionSetEntity;
 @Database(entities = {QuestionSetEntity.class}, version = 1, exportSchema = false)
 @TypeConverters({QuestionListConverter.class})
 public abstract class StudyAppDatabase extends RoomDatabase {
-
-    // Singleton instance of the database
     private static volatile StudyAppDatabase INSTANCE;
 
     /**
      * Here we define all the data access objects (DAO) for the database.
      */
     public abstract QuestionSetDao questionSetDao();
-
     /**
      * Method to get an instance of the database.
      *

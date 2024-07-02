@@ -1,16 +1,13 @@
 package project.study.app.service.interfaces;
 
 import androidx.lifecycle.LiveData;
-
 import java.util.List;
-
 import project.study.app.model.domain.QuestionSet;
 
 /**
  * A service interface to manage QuestionSets.
  */
 public interface QuestionSetService {
-
     /**
      * Inserts a new QuestionSet.
      *
@@ -19,7 +16,6 @@ public interface QuestionSetService {
      * @throws IllegalArgumentException if a QuestionSet with the same name already exists.
      */
     void insert(QuestionSet questionSet, Callback callback);
-
     /**
      * Deletes an existing QuestionSet.
      *
@@ -28,7 +24,6 @@ public interface QuestionSetService {
      * @throws IllegalArgumentException if the QuestionSet does not exist.
      */
     void delete(QuestionSet questionSet, Callback callback);
-
     /**
      * Updates an existing QuestionSet.
      *
@@ -37,14 +32,12 @@ public interface QuestionSetService {
      * @throws IllegalArgumentException if the QuestionSet does not exist.
      */
     void update(QuestionSet questionSet, Callback callback);
-
     /**
      * Retrieves all QuestionSets.
      *
      * @return A LiveData list of all QuestionSets.
      */
     LiveData<List<QuestionSet>> getAllQuestionSets();
-
     /**
      * Retrieves a QuestionSet by name.
      *

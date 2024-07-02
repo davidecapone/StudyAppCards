@@ -2,26 +2,21 @@ package project.study.app.domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import project.study.app.model.domain.AnswerFactory;
 import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 
 public class QuestionUnitTest {
-
     private Question question;
 
     @Before
     public void setUp() {
         question = new Question("The capital of Italy?", null);
     }
-
     /**
      * Tests setting the question text.
      */
@@ -29,7 +24,6 @@ public class QuestionUnitTest {
     public void testSetQuestionText() {
         assertEquals("The capital of Italy?", question.getText());
     }
-
     /**
      * Tests modifying the question text.
      */
@@ -38,7 +32,6 @@ public class QuestionUnitTest {
         question.setText("What is the Facebook first name?");
         assertEquals("What is the Facebook first name?", question.getText());
     }
-
     /**
      * Tests setting the answer to the question.
      */
@@ -47,7 +40,6 @@ public class QuestionUnitTest {
         question.setAnswer(AnswerFactory.createAnswer("FreeText", "Rome", null));
         assertEquals("Rome", question.getAnswer().getCorrectAnswer());
     }
-
     /**
      * Tests modifying the answer type for the question.
      */
@@ -61,7 +53,6 @@ public class QuestionUnitTest {
         assertEquals("Rome", question.getAnswer().getCorrectAnswer());
         assertEquals(possibleAnswers, ((MultipleChoiceTextAnswer) question.getAnswer()).getPossibleAnswers());
     }
-
     /**
      * Tests validating the correct answer for the question.
      */

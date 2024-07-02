@@ -3,9 +3,7 @@ package project.study.app.model.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
-
 import java.util.List;
-
 import project.study.app.model.converters.QuestionListConverter;
 import project.study.app.model.domain.Question;
 
@@ -17,15 +15,9 @@ import project.study.app.model.domain.Question;
  */
 @Entity(tableName = "question_sets")
 public class QuestionSetEntity {
-
-    // The primary key for the question set
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
-
-    // The name of the question set
     private String name;
-
-    // The list of questions in the set
     @TypeConverters(QuestionListConverter.class)
     private List<Question> questions;
 
@@ -40,7 +32,6 @@ public class QuestionSetEntity {
         this.name = name;
         this.questions = questions;
     }
-
     /**
      * Gets the ID of the question set.
      *
@@ -49,7 +40,6 @@ public class QuestionSetEntity {
     public int getId() {
         return id;
     }
-
     /**
      * Sets the ID of the question set.
      *
@@ -58,7 +48,6 @@ public class QuestionSetEntity {
     public void setId(int id) {
         this.id = id;
     }
-
     /**
      * Gets the name of the question set.
      *
@@ -67,7 +56,6 @@ public class QuestionSetEntity {
     public String getName() {
         return name;
     }
-
     /**
      * Sets the name of the question set.
      *
@@ -76,7 +64,6 @@ public class QuestionSetEntity {
     public void setName(String name) {
         this.name = name;
     }
-
     /**
      * Gets the list of questions in the set.
      *
@@ -85,7 +72,6 @@ public class QuestionSetEntity {
     public List<Question> getQuestions() {
         return questions;
     }
-
     /**
      * Sets the list of questions in the set.
      *
@@ -94,7 +80,6 @@ public class QuestionSetEntity {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-
     /**
      * Adds a question to the set.
      *

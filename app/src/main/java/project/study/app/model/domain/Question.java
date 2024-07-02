@@ -4,10 +4,8 @@ package project.study.app.model.domain;
  * A class to represent a question
  */
 public class Question {
-
     // The text of the question
     private String questionText;
-
     // The answer to the question
     private Answer<?> answer;
 
@@ -21,7 +19,6 @@ public class Question {
         this.questionText = questionText;
         this.answer = answer;
     }
-
     /**
      * Gets the text of the question.
      *
@@ -30,7 +27,6 @@ public class Question {
     public String getText() {
         return questionText;
     }
-
     /**
      * Sets the text of the question.
      *
@@ -39,7 +35,6 @@ public class Question {
     public void setText(String questionText) {
         this.questionText = questionText;
     }
-
     /**
      * Gets the answer to the question.
      *
@@ -48,7 +43,6 @@ public class Question {
     public Answer<?> getAnswer() {
         return answer;
     }
-
     /**
      * Sets the answer to the question.
      *
@@ -57,7 +51,6 @@ public class Question {
     public void setAnswer(Answer<?> answer) {
         this.answer = answer;
     }
-
     /**
      * Validates the given answer.
      *

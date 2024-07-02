@@ -1,20 +1,16 @@
 package project.study.app.model.converters;
 
 import androidx.room.TypeConverter;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import project.study.app.model.domain.Question;
-
 import java.util.List;
+import project.study.app.model.domain.Question;
 
 /**
  * This class provides methods to convert a list of Question objects to a JSON string and vice versa,
  * using the Gson library. It integrates with the Room persistence library through the use of @TypeConverter annotations.
  */
 public class QuestionListConverter {
-
     // Gson object to handle JSON serialization and deserialization
     private static final Gson gson = new GsonBuilder()
             .registerTypeHierarchyAdapter(Question.class, new QuestionTypeAdapter())
@@ -30,7 +26,6 @@ public class QuestionListConverter {
     public static String fromList(List<Question> questions) {
         return gson.toJson(questions);
     }
-
     /**
      * Converts a JSON string to a list of Question objects.
      *
