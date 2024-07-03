@@ -42,5 +42,7 @@ jobs:
         if: failure()
         run: echo "Tests failed. Please check the logs for details." && exit 1
 
-      - name: Gradle Dependency Submission
-        uses: mikepenz/gradle-dependency-submission@v1.0.0
+      - name: Run snapshot action
+        uses: mikepenz/gradle-dependency-submission@{latest}
+        with:
+          gradle-build-module: ":app"
