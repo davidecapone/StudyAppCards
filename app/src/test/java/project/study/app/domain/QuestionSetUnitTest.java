@@ -13,22 +13,28 @@ public class QuestionSetUnitTest {
 
     @Before
     public void setUp() {
+        // Initialize a QuestionSet instance before each test
         questionSet = new QuestionSet("Sample Question Set");
     }
+
     /**
      * Tests adding a question to the question set.
+     * Verifies that the question is added correctly.
      */
     @Test
     public void testAddQuestion() {
         Question question = new Question("The capital of Italy",
                 AnswerFactory.createMultipleChoiceAnswer("Rome", null));
+
         questionSet.addQuestion(question);
         List<Question> questions = questionSet.getQuestions();
         assertEquals(1, questions.size());
         assertEquals(question, questions.get(0));
     }
+
     /**
      * Tests adding multiple questions to the question set.
+     * Verifies that all questions are added correctly.
      */
     @Test
     public void testAddMultipleQuestions() {
@@ -43,8 +49,10 @@ public class QuestionSetUnitTest {
         assertEquals(question1, questions.get(0));
         assertEquals(question2, questions.get(1));
     }
+
     /**
      * Tests removing a question from the question set.
+     * Verifies that the question is removed correctly.
      */
     @Test
     public void testRemoveQuestion() {
@@ -55,12 +63,13 @@ public class QuestionSetUnitTest {
         List<Question> questions = questionSet.getQuestions();
         assertEquals(0, questions.size());
     }
+
     /**
      * Tests that adding a null question throws an IllegalArgumentException.
+     * Verifies that the exception is thrown as expected.
      */
     @Test(expected = IllegalArgumentException.class)
     public void testAddNullQuestion() {
         questionSet.addQuestion(null);
     }
-
 }

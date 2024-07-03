@@ -7,17 +7,21 @@ import project.study.app.model.Statistics;
 
 /**
  * Unit tests for the Statistics class.
+ * This class tests the functionality of incrementing correct and incorrect answers,
+ * as well as calculating the proportion of correct answers.
  */
 public class StatisticsTest {
     private Statistics stats;
 
     @Before
     public void set_up() {
+        // Initialize a Statistics instance before each test
         stats = new Statistics();
     }
 
     /**
-     * Test the getNumberOfCorrectAnswer method.
+     * Test the incrementCorrectAnswers method.
+     * Verifies that the number of correct answers is incremented correctly.
      */
     @Test
     public void testIncrementCorrectAnswers() {
@@ -25,15 +29,18 @@ public class StatisticsTest {
         assertEquals(1, stats.getNumberOfCorrectAnswer());
     }
     /**
-     * Test the getNumberOfIncorrectAnswers method.
+     * Test the incrementIncorrectAnswers method.
+     * Verifies that the number of incorrect answers is incremented correctly.
      */
     @Test
     public void testIncrementIncorrectAnswers() {
         stats.incrementIncorrectAnswers();
         assertEquals(1, stats.getNumberOfIncorrectAnswers());
     }
+
     /**
      * Test the calculateProportionCorrect method.
+     * Verifies that the proportion of correct answers is calculated correctly.
      */
     @Test
     public void testCalculateProportionCorrect() {

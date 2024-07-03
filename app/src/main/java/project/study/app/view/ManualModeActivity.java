@@ -47,7 +47,6 @@ public class ManualModeActivity extends BaseActivity implements ManualModeView{
         // Set up the presenter:
         presenter = new ManualModePresenter(super.getService(), this);
 
-
         editTextQuestionSetName = findViewById(R.id.editTextQuestionSetName);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -72,27 +71,27 @@ public class ManualModeActivity extends BaseActivity implements ManualModeView{
             }
         });
 
-        // Set the adapter
         recyclerView.setAdapter(adapter);
 
         // Initialize the add question set button
         Button buttonAddQuestionSet = findViewById(R.id.buttonAddQuestionSet);
 
         // Set the click listener for the add question set button
-        buttonAddQuestionSet.setOnClickListener(v -> {
-
-            // Get the question set name from the edit text
-            String questionSetName = editTextQuestionSetName.getText().toString().trim();
-
-            if (!questionSetName.isEmpty()) {
-                presenter.addNewQuestionSet(questionSetName);
-            } else {
-                showMessage("Please enter a question set name");
-            }
-        });
+        buttonAddQuestionSet.setOnClickListener(v -> onAddQuestionSetClicked());
 
         // Load all question sets from the presenter:
         presenter.loadAllQuestionSets();
+    }
+
+    private void onAddQuestionSetClicked() {
+        // Get the question set name from the edit text
+        String questionSetName = editTextQuestionSetName.getText().toString().trim();
+
+        if (!questionSetName.isEmpty()) {
+            presenter.addNewQuestionSet(questionSetName);
+        } else {
+            showMessage("Please enter a question set name");
+        }
     }
 
     /**
