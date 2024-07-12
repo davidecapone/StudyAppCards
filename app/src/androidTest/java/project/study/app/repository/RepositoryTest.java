@@ -44,7 +44,7 @@ public class RepositoryTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
     // Database and repository instances
     private StudyAppDatabase db;
-    private Repository repository;
+    private Repository<QuestionSetEntity, String> repository;
 
     /**
      * Create an in-memory database and a repository instance before each test.
@@ -111,7 +111,7 @@ public class RepositoryTest {
         // Insert the created question set into the repository and wait for the insertion to complete
         insertQuestionSetAndWait(questionSet);
         // Retrieve the inserted question set by its name "Sample" from the repository
-        QuestionSetEntity retrieved = getValue(repository.getQuestionSetByName("Sample"));
+        QuestionSetEntity retrieved = getValue(repository.getEntityByName("Sample"));
         // Ensure that the retrieved question set is not null
         assertNotNull("QuestionSetEntity retrieved is null", retrieved);
         // Verify that the retrieved question set has the expected name
@@ -129,7 +129,7 @@ public class RepositoryTest {
         // Insert sample question sets into the repository
         insertSampleQuestionSets();
         // Retrieve all question sets from the repository
-        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllQuestionSets());
+        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllEntities());
         // Ensure that the retrieved list of question sets is not null
         assertNotNull(allQuestionSets);
         // Verify that the size of the retrieved list is 2, indicating that both question sets were retrieved
@@ -147,7 +147,7 @@ public class RepositoryTest {
         // Insert the question set and wait for the operation to complete
         insertQuestionSetAndWait(questionSet);
         // Retrieve the inserted question set by its name "Sample"
-        QuestionSetEntity retrieved = getValue(repository.getQuestionSetByName("Sample"));
+        QuestionSetEntity retrieved = getValue(repository.getEntityByName("Sample"));
         // Ensure that the retrieved question set is not null
         assertNotNull(retrieved);
         // Update the name of the question set and add a new question
@@ -158,7 +158,7 @@ public class RepositoryTest {
         // Wait for the update operation to complete
         Thread.sleep(SLEEP_MILLISECONDS);
         // Retrieve the updated question set by its new name "UpdatedSample"
-        QuestionSetEntity updated = getValue(repository.getQuestionSetByName("UpdatedSample"));
+        QuestionSetEntity updated = getValue(repository.getEntityByName("UpdatedSample"));
         // Ensure that the updated question set is not null
         assertNotNull(updated);
         // Verify that the name of the updated question set is "UpdatedSample"
@@ -176,7 +176,7 @@ public class RepositoryTest {
         // Insert multiple question sets and then delete one
         insertSampleQuestionSets();
         // Retrieve all question sets from the repository
-        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllQuestionSets());
+        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllEntities());
         // Assert that there are 2 question sets in the repository
         assertEquals(2, allQuestionSets.size());
         // Get the second question set entity from the list
@@ -186,7 +186,7 @@ public class RepositoryTest {
         // Wait for the deletion to complete
         Thread.sleep(SLEEP_MILLISECONDS);
         // Retrieve all question sets from the repository again
-        allQuestionSets = getValue(repository.getAllQuestionSets());
+        allQuestionSets = getValue(repository.getAllEntities());
         // Assert that there is only 1 question set left in the repository
         assertEquals(1, allQuestionSets.size());
         // Assert that the remaining question set is the first one inserted with the name "Sample1"
