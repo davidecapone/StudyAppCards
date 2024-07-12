@@ -8,21 +8,24 @@
         android:id="@+id/editTextQuestionSetName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Question Set Name"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:hint="Enter Question Set Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:typeface="normal" />
 
     <Button
         android:id="@+id/buttonAddQuestionSet"
-        android:layout_width="369dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextQuestionSetName"
         android:layout_marginTop="14dp"
-        android:text="Add Question Set" />
+        android:text="Add Question Set"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="381dp"
+        android:layout_width="match_parent"
         android:layout_height="556dp"
         android:layout_below="@id/buttonAddQuestionSet"
         android:layout_marginTop="36dp" />
