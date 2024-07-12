@@ -19,14 +19,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextQuestionSetName"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="8dp"
         android:text="Add Question Set"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="556dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/buttonAddQuestionSet"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="20dp" />
 </RelativeLayout>

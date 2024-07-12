@@ -49,7 +49,8 @@
     <string name="modify">Modify</string>
     <string name="insert_the_question_text">Insert the question text</string>
     <string name="question_text">Question text</string>
-    <string name="insert_the_answer_and_the_type_of_the_answer">Insert the answer and the type of the answer</string>
+    <string name="insert_the_answer_and_the_type_of_the_answer">Choose the type of the answer and insert it</string>
+    <string name="correct_answer">Correct answer:</string>
     <string-array name="answer_types">
         <item>Free Text</item>
         <item>Multiple Choice</item>
