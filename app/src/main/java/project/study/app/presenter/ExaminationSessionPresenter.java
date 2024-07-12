@@ -64,6 +64,7 @@ public class ExaminationSessionPresenter {
                 view.displayQuestion(questions.get(currentQuestionIndex));
             } else {
                 view.showMessage(EMPTY_QUESTION_SET_MESSAGE);
+                view.navigateToManualMode();
             }
         }
         /**

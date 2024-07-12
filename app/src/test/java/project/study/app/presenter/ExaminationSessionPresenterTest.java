@@ -107,5 +107,23 @@ public class ExaminationSessionPresenterTest {
         verify(view).showCorrectAnswerFeedback();
         verify(view).navigateToManualMode();
     }
+    /**
+     * Test startExaminationSession with empty question set
+     */
+    @Test
+    public void testStartExaminationSession_EmptyQuestionSet() {
+        // Initialize an empty questionSet
+        String questionSetName = "Test Set";
+        QuestionSet questionSet = new QuestionSet(questionSetName);
+        // Start the examination session
+        presenter.startExamination(questionSetName);
+        // Verify that the service was called to get the question set
+        verify(service).getQuestionSetByName(eq(questionSetName), callbackCaptor.capture());
+        callbackCaptor.getValue().onSuccess(questionSet);
+        // Verify that the view was called to show the message
+        verify(view).showMessage(any());
+        // Verify that the view was called to navigate to the manual mode
+        verify(view).navigateToManualMode();
+    }
 }
 
