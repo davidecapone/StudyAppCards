@@ -11,27 +11,27 @@
         android:layout_height="wrap_content"
         android:text="@string/question_set_name"
         android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/insert_the_question_text"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp" />
 
     <EditText
         android:id="@+id/editTextQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/question_text" />
+        android:hint="@string/question_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/insert_the_answer_and_the_type_of_the_answer"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp" />
 
     <Spinner
@@ -66,13 +66,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Question"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_margin="8sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your questions for this set:"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="8dp" />
 
 
