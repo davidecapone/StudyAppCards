@@ -24,7 +24,6 @@ import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.entity.QuestionSetEntity;
 import project.study.app.repository.interfaces.Repository;
 import project.study.app.service.interfaces.Callback;
-import project.study.app.service.QuestionSetServiceImplementation;
 import project.study.app.service.interfaces.SingleItemCallback;
 
 /**
@@ -71,7 +70,7 @@ public class QuestionSetServiceTest {
         QuestionSet questionSet = new QuestionSet(name);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
@@ -95,7 +94,7 @@ public class QuestionSetServiceTest {
         QuestionSet questionSet = new QuestionSet(name);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(new QuestionSetEntity(name, null));
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
@@ -120,7 +119,7 @@ public class QuestionSetServiceTest {
         QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(existingEntity);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
@@ -144,7 +143,7 @@ public class QuestionSetServiceTest {
         QuestionSet questionSet = new QuestionSet(name);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
@@ -169,7 +168,7 @@ public class QuestionSetServiceTest {
         QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(existingEntity);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
@@ -193,7 +192,7 @@ public class QuestionSetServiceTest {
         QuestionSet questionSet = new QuestionSet(name);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
@@ -220,7 +219,7 @@ public class QuestionSetServiceTest {
         );
         liveData.setValue(entities);
 
-        when(repository.getAllQuestionSets()).thenReturn(liveData);
+        when(repository.getAllEntities()).thenReturn(liveData);
 
         // Act
         LiveData<List<QuestionSet>> result = service.getAllQuestionSets();
@@ -244,7 +243,7 @@ public class QuestionSetServiceTest {
         QuestionSetEntity entity = new QuestionSetEntity(name, null);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(entity);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         SingleItemCallback<QuestionSet> callback = mock(SingleItemCallback.class);
 
@@ -266,7 +265,7 @@ public class QuestionSetServiceTest {
         String name = "Test Set";
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getQuestionSetByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(name)).thenReturn(liveData);
 
         SingleItemCallback<QuestionSet> callback = mock(SingleItemCallback.class);
 

@@ -16,7 +16,7 @@ import project.study.app.service.interfaces.SingleItemCallback;
  * A service class to manage QuestionSets.
  */
 public class QuestionSetServiceImplementation implements QuestionSetService {
-    private final Repository repository;
+    private final Repository<QuestionSetEntity, String> repository;
     /**
      * Creates a new QuestionSetServiceImplementation.
      *
@@ -40,7 +40,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
      */
     private void handleQuestionSetOperation(String name, QuestionSetOperation operation) {
         // Observe the LiveData of the QuestionSetEntity with the given name.
-        LiveData<QuestionSetEntity> existingLiveData = repository.getQuestionSetByName(name);
+        LiveData<QuestionSetEntity> existingLiveData = repository.getEntityByName(name);
         // Perform the operation when the LiveData is updated.
         existingLiveData.observeForever(new Observer<QuestionSetEntity>() {
             /**
@@ -123,7 +123,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
     @Override
     public LiveData<List<QuestionSet>> getAllQuestionSets() {
         return Transformations.map(
-                repository.getAllQuestionSets(),
+                repository.getAllEntities(),
                 entities -> entities.stream().map(this::toDomain).collect(Collectors.toList())
         );
     }
