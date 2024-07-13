@@ -115,6 +115,6 @@ public class ManualModePresenterTest {
         // Act
         presenter.onStartExaminationSessionButtonClicked(questionSet);
         // Assert
-        verify(view).navigateToExaminationSession(questionSet);
+        verify(view).navigateToExaminationSessionActivity(questionSet);
     }
 }

@@ -105,7 +105,7 @@ public class ExaminationSessionPresenterTest {
         callbackCaptor.getValue().onSuccess(questionSet);
         presenter.validateAnswer("4");
         verify(view).showCorrectAnswerFeedback();
-        verify(view).navigateToManualMode();
+        verify(view).navigateToManualModeActivity();
     }
     /**
      * Test startExaminationSession with empty question set
@@ -123,7 +123,7 @@ public class ExaminationSessionPresenterTest {
         // Verify that the view was called to show the message
         verify(view).showMessage(any());
         // Verify that the view was called to navigate to the manual mode
-        verify(view).navigateToManualMode();
+        verify(view).navigateToManualModeActivity();
     }
 }
 

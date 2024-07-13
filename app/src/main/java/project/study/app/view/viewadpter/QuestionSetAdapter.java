@@ -1,4 +1,4 @@
-package project.study.app.view;
+package project.study.app.view.viewadpter;
 
 import android.view.LayoutInflater;
 import android.view.View;

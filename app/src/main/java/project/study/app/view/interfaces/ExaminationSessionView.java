@@ -29,5 +29,5 @@ public interface ExaminationSessionView {
     /**
      * Navigates to the manual mode view
      */
-    void navigateToManualMode();
+    void navigateToManualModeActivity();
 }

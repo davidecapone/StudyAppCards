@@ -22,32 +22,25 @@ import project.study.app.model.domain.MultipleChoiceTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.presenter.QuestionSetDetailsPresenter;
 import project.study.app.view.interfaces.QuestionSetDetailsView;
+import project.study.app.view.viewadpter.QuestionAdapter;
 
 /**
  * Activity for the question set details
  */
 public class QuestionSetDetailsActivity extends BaseActivity implements QuestionSetDetailsView {
 
-    // Presenter
     private QuestionSetDetailsPresenter presenter;
-
-    // Adapter
     private QuestionAdapter adapter;
-
-    // Views
     private EditText editTextQuestion;
     private Spinner spinnerAnswerType;
     private EditText editTextFreeTextAnswer;
     private EditText editTextMultipleChoiceOptions;
     private EditText editTextMultipleChoiceAnswer;
+    private TextView textViewQuestionSetName;
+    private RecyclerView recyclerView;
+    private Button buttonAddQuestion;
+    String currentQuestionSet;
 
-    /**
-     * Called when the activity is starting.
-     *
-     * @param savedInstanceState If the activity is being re-initialized after
-     *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
-     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -56,20 +49,15 @@ public class QuestionSetDetailsActivity extends BaseActivity implements Question
         setContentView(R.layout.activity_question_set_details);
 
         // Set up the presenter:
-        presenter = new QuestionSetDetailsPresenter(super.getService(), this);
+        presenter = new QuestionSetDetailsPresenter(
+                super.getService(),
+                this
+        );
 
         // Get the question set name from the intent:
-        String questionSetName = getIntent().getStringExtra("questionSetName");
+        currentQuestionSet = getIntent().getStringExtra("questionSetName");
 
-        // Initialize views
-        TextView textViewQuestionSetName = findViewById(R.id.textViewQuestionSetName);
-        textViewQuestionSetName.setText(questionSetName);
-
-        editTextQuestion = findViewById(R.id.editTextQuestion);
-        spinnerAnswerType = findViewById(R.id.spinnerAnswerType);
-        editTextFreeTextAnswer = findViewById(R.id.editTextFreeTextAnswer);
-        editTextMultipleChoiceOptions = findViewById(R.id.editTextMultipleChoiceOptions);
-        editTextMultipleChoiceAnswer = findViewById(R.id.editTextMultipleChoiceAnswer);
+        initializeViews();
 
         // Set up the Spinner to handle answer type selection
         spinnerAnswerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -117,16 +105,11 @@ public class QuestionSetDetailsActivity extends BaseActivity implements Question
             }
         });
 
-        // Initialize the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewQuestions);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         // Initialize the adapter
         adapter = new QuestionAdapter();
         recyclerView.setAdapter(adapter);
 
         // Set the click listener for the add question button
-        Button buttonAddQuestion = findViewById(R.id.buttonAddQuestion);
         buttonAddQuestion.setOnClickListener(v -> {
 
             String questionText = editTextQuestion.getText().toString().trim();
@@ -163,27 +146,34 @@ public class QuestionSetDetailsActivity extends BaseActivity implements Question
         });
 
         // Load questions for the specified question set
-        presenter.loadQuestionSet(questionSetName);
+        presenter.loadQuestionSet(currentQuestionSet);
     }
 
-    /**
-     * Display the questions.
-     *
-     * @param questions The questions to display
-     */
+    private void initializeViews() {
+        textViewQuestionSetName = findViewById(R.id.textViewQuestionSetName);
+        textViewQuestionSetName.setText(currentQuestionSet);
+        editTextQuestion = findViewById(R.id.editTextQuestion);
+        spinnerAnswerType = findViewById(R.id.spinnerAnswerType);
+        editTextFreeTextAnswer = findViewById(R.id.editTextFreeTextAnswer);
+        editTextMultipleChoiceOptions = findViewById(R.id.editTextMultipleChoiceOptions);
+        editTextMultipleChoiceAnswer = findViewById(R.id.editTextMultipleChoiceAnswer);
+        buttonAddQuestion = findViewById(R.id.buttonAddQuestion);
+        // Initialize the RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewQuestions);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
     @Override
     public void displayQuestions(List<Question> questions) {
         adapter.setQuestions(questions);
     }
 
-    /**
-     * Show a message.
-     *
-     * @param message The message to show
-     */
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        showToastMessage(message);
     }
 
+    private void showToastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

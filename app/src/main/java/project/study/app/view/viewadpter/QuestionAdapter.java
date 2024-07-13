@@ -1,4 +1,4 @@
-package project.study.app.view;
+package project.study.app.view.viewadpter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

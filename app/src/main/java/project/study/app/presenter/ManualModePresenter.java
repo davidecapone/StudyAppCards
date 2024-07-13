@@ -90,6 +90,6 @@ public class ManualModePresenter {
      * @param questionSet The question set for the examination session
      */
     public void onStartExaminationSessionButtonClicked(QuestionSet questionSet) {
-        view.navigateToExaminationSession(questionSet);
+        view.navigateToExaminationSessionActivity(questionSet);
     }
 }

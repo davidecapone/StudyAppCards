@@ -30,5 +30,5 @@ public interface ManualModeView {
      *
      * @param questionSet the question set on which to perform the examination
      */
-    void navigateToExaminationSession(QuestionSet questionSet);
+    void navigateToExaminationSessionActivity(QuestionSet questionSet);
 }
