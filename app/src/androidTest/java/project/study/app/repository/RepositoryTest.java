@@ -2,6 +2,9 @@ package project.study.app.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import android.content.Context;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
@@ -38,7 +41,7 @@ import project.study.app.repository.interfaces.Repository;
 public class RepositoryTest {
     // Constants for waiting times
     private static final int TIMEOUT_SECONDS = 2;
-    private static final int SLEEP_MILLISECONDS = 500;
+    private static final int SLEEP_MILLISECONDS = 600;
     // Rule to execute LiveData operations synchronously
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -46,51 +49,42 @@ public class RepositoryTest {
     private StudyAppDatabase db;
     private Repository<QuestionSetEntity, String> repository;
 
-    /**
-     * Create an in-memory database and a repository instance before each test.
-     */
     @Before
-    public void createDb() {
+    public void createInMemoryDB() {
         // Set up the in-memory database for testing
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, StudyAppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        // Create the repository using the in-memory database and an executor service
-        repository = new RepositoryImplementation(db.questionSetDao(), Executors.newSingleThreadExecutor());
-    }
 
-    /**
-     * Clear the repository before each test.
-     */
+        repository = new RepositoryImplementation(
+                db.questionSetDao(),
+                Executors.newSingleThreadExecutor()
+        );
+    }
+    @After
+    public void closeInMemoryDB() throws IOException {
+        db.close(); // Close DB after each test
+    }
     @Before
-    public void clear() throws InterruptedException {
-        // Clear the repository before each test
+    public void clearDataFromInMemoryDB() throws InterruptedException {
         this.repository.deleteAll();
     }
 
     /**
-     * Close the database after each test.
+     * Helper method to create a QuestionSetEntity with the given name and list of questions.
+     * @param name The name of the question set.
+     * @return Sample QuestionSetEntity.
      */
-    @After
-    public void closeDb() throws IOException {
-        // Close the database after each test
-        db.close();
+    private QuestionSetEntity createSampleQuestionSetEntity(String name) {
+        return new QuestionSetEntity(
+                name,
+                createSampleQuestions()
+        );
     }
 
     /**
-     * Helper method to create a QuestionSetEntity with the given name and list of questions.
-     *
-     * @param name The name of the question set.
-     * @param questions The list of questions in the question set.
-     * @return The created QuestionSetEntity.
-     */
-    private QuestionSetEntity createQuestionSetEntity(String name, List<Question> questions) {
-        return new QuestionSetEntity(name, questions);
-    }
-    /**
      * Helper method to create a list of sample questions.
-     *
      * @return The list of sample questions.
      */
     private List<Question> createSampleQuestions() {
@@ -99,133 +93,115 @@ public class RepositoryTest {
                 new Question("What is the capital of Germany?", new FreeTextAnswer("Berlin"))
         );
     }
+
     /**
-     * Test the insertion of a QuestionSetEntity into the repository.
-     *
-     * @throws InterruptedException
-     */
-    @Test
-    public void testGetQuestionSetByName() throws InterruptedException {
-        // Create a QuestionSetEntity with the name "Sample" and sample questions
-        QuestionSetEntity questionSet = createQuestionSetEntity("Sample", createSampleQuestions());
-        // Insert the created question set into the repository and wait for the insertion to complete
-        insertQuestionSetAndWait(questionSet);
-        // Retrieve the inserted question set by its name "Sample" from the repository
-        QuestionSetEntity retrieved = getValue(repository.getEntityByName("Sample"));
-        // Ensure that the retrieved question set is not null
-        assertNotNull("QuestionSetEntity retrieved is null", retrieved);
-        // Verify that the retrieved question set has the expected name
-        assertEquals("Sample", retrieved.getName());
-        // Verify that the retrieved question set has the expected number of questions
-        assertEquals(2, retrieved.getQuestions().size());
-    }
-    /**
-     * Test the retrieval of all QuestionSetEntities from the repository.
-     *
-     * @throws InterruptedException
-     */
-    @Test
-    public void getAllQuestionSets() throws InterruptedException {
-        // Insert sample question sets into the repository
-        insertSampleQuestionSets();
-        // Retrieve all question sets from the repository
-        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllEntities());
-        // Ensure that the retrieved list of question sets is not null
-        assertNotNull(allQuestionSets);
-        // Verify that the size of the retrieved list is 2, indicating that both question sets were retrieved
-        assertEquals(2, allQuestionSets.size());
-    }
-    /**
-     * Test the update operation on a QuestionSetEntity in the repository.
-     *
-     * @throws InterruptedException
-     */
-    @Test
-    public void testUpdateQuestionSet() throws InterruptedException {
-        // Create a new QuestionSetEntity with the name "Sample" and sample questions
-        QuestionSetEntity questionSet = new QuestionSetEntity("Sample", createSampleQuestions());
-        // Insert the question set and wait for the operation to complete
-        insertQuestionSetAndWait(questionSet);
-        // Retrieve the inserted question set by its name "Sample"
-        QuestionSetEntity retrieved = getValue(repository.getEntityByName("Sample"));
-        // Ensure that the retrieved question set is not null
-        assertNotNull(retrieved);
-        // Update the name of the question set and add a new question
-        retrieved.setName("UpdatedSample");
-        retrieved.addQuestion(new Question("What is the capital of Portugal?", new MultipleChoiceTextAnswer(Arrays.asList("Lisbon", "Rome"), "Lisbon")));
-        // Update the question set in the repository
-        repository.update(retrieved);
-        // Wait for the update operation to complete
-        Thread.sleep(SLEEP_MILLISECONDS);
-        // Retrieve the updated question set by its new name "UpdatedSample"
-        QuestionSetEntity updated = getValue(repository.getEntityByName("UpdatedSample"));
-        // Ensure that the updated question set is not null
-        assertNotNull(updated);
-        // Verify that the name of the updated question set is "UpdatedSample"
-        assertEquals("UpdatedSample", updated.getName());
-        // Verify that the updated question set contains 3 questions
-        assertEquals(3, updated.getQuestions().size());
-    }
-    /**
-     * Test the deletion of a QuestionSetEntity from the repository.
-     *
-     * @throws InterruptedException
-     */
-    @Test
-    public void testDeleteQuestionSet() throws InterruptedException {
-        // Insert multiple question sets and then delete one
-        insertSampleQuestionSets();
-        // Retrieve all question sets from the repository
-        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllEntities());
-        // Assert that there are 2 question sets in the repository
-        assertEquals(2, allQuestionSets.size());
-        // Get the second question set entity from the list
-        QuestionSetEntity retrievedSet2 = allQuestionSets.get(1);
-        // Delete the second question set entity from the repository
-        repository.delete(retrievedSet2);
-        // Wait for the deletion to complete
-        Thread.sleep(SLEEP_MILLISECONDS);
-        // Retrieve all question sets from the repository again
-        allQuestionSets = getValue(repository.getAllEntities());
-        // Assert that there is only 1 question set left in the repository
-        assertEquals(1, allQuestionSets.size());
-        // Assert that the remaining question set is the first one inserted with the name "Sample1"
-        assertEquals("Sample1", allQuestionSets.get(0).getName());
-    }
-    /**
-     * Inserts sample QuestionSetEntities into the repository and waits for each insertion to complete.
-     *
-     * @throws InterruptedException If the current thread is interrupted while waiting.
-     */
-    private void insertSampleQuestionSets() throws InterruptedException {
-        // Create a sample QuestionSetEntity with the name "Sample1" and a list of sample questions
-        QuestionSetEntity questionSet1 = createQuestionSetEntity("Sample1", createSampleQuestions());
-        // Create another sample QuestionSetEntity with the name "Sample2" and a list of sample questions
-        QuestionSetEntity questionSet2 = createQuestionSetEntity("Sample2", createSampleQuestions());
-        // Insert the first sample QuestionSetEntity and wait for the insertion to complete
-        insertQuestionSetAndWait(questionSet1);
-        // Insert the second sample QuestionSetEntity and wait for the insertion to complete
-        insertQuestionSetAndWait(questionSet2);
-    }
-    /**
-     * Inserts a QuestionSetEntity into the repository and waits for the insertion to complete.
-     *
+     * Helper method that inserts a QuestionSetEntity into the repository and waits for the insertion to complete.
+     * It will be used many times in different test functions...
      * @param questionSet The QuestionSetEntity to be inserted.
      * @throws InterruptedException If the current thread is interrupted while waiting.
      */
     private void insertQuestionSetAndWait(QuestionSetEntity questionSet) throws InterruptedException {
-        // Insert the QuestionSetEntity into the repository
         repository.insert(questionSet);
-        // Sleep for a specified amount of time to ensure the insertion is completed
-        Thread.sleep(SLEEP_MILLISECONDS);
+        Thread.sleep(SLEEP_MILLISECONDS); // Sleep for a specified amount of time
     }
+
+    /**
+     * Test the insertion of a QuestionSetEntity into the repository.
+     */
+    @Test
+    public void testGetQuestionSetByName() throws InterruptedException {
+
+        insertQuestionSetAndWait( // Insert a Sample QuestionSetEntity
+                createSampleQuestionSetEntity("Sample")
+        );
+
+        // Retrieve the inserted question set by its name "Sample" from the repository
+        QuestionSetEntity retrieved = getValue(repository.getEntityByName("Sample"));
+
+        // Assertions:
+        assertNotNull("QuestionSetEntity retrieved is null", retrieved);
+        assertEquals("Sample", retrieved.getName()); // The name should be "Sample"
+        assertEquals(2, retrieved.getQuestions().size()); // The questions should be 2
+    }
+
+    /**
+     * Test the retrieval of all QuestionSetEntities from the repository.
+     */
+    @Test
+    public void getAllQuestionSets() throws InterruptedException {
+
+        insertQuestionSetAndWait( // Insert a Sample QuestionSetEntity1
+                createSampleQuestionSetEntity("Sample1")
+        );
+
+        insertQuestionSetAndWait( // Insert a Sample QuestionSetEntity2
+                createSampleQuestionSetEntity("Sample2")
+        );
+
+        // Retrieve all the question sets from the repository
+        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllEntities());
+
+        // Assertions:
+        assertNotNull(allQuestionSets);
+        assertEquals(2, allQuestionSets.size()); // The question Sets retrieved should be 2
+    }
+
+    /**
+     * Test the update operation on a QuestionSetEntity in the repository.
+     */
+    @Test
+    public void testUpdateQuestionSet() throws InterruptedException {
+
+        insertQuestionSetAndWait( // Insert a Sample QuestionSetEntity1
+                createSampleQuestionSetEntity("Sample")
+        );
+
+        // Retrieve the inserted question set by its name "Sample":
+        QuestionSetEntity retrieved = getValue(repository.getEntityByName("Sample"));
+        assertNotNull(retrieved); // The question set should be exists
+
+        // Update the name and add a question:
+        retrieved.setName("UpdatedSample");
+        retrieved.addQuestion(new Question("What is the capital of Portugal?", new MultipleChoiceTextAnswer(Arrays.asList("Lisbon", "Rome"), "Lisbon")));
+        repository.update(retrieved);
+        Thread.sleep(SLEEP_MILLISECONDS);
+
+        // Retrieve the updated question set by its new name "UpdatedSample"
+        QuestionSetEntity updated = getValue(repository.getEntityByName("UpdatedSample"));
+
+
+        // Assertions:
+        assertNotNull(updated);
+        assertEquals("UpdatedSample", updated.getName()); // The name should be changed
+        assertEquals(3, updated.getQuestions().size()); // The questions should be 3 now
+    }
+
+    /**
+     * Test the deletion of a QuestionSetEntity from the repository.
+     */
+    @Test
+    public void testDeleteQuestionSet() throws InterruptedException {
+
+        QuestionSetEntity sample = createSampleQuestionSetEntity("Sample");
+        insertQuestionSetAndWait(sample);
+
+        // Delete the sample Question set:
+        this.repository.delete(sample);
+        Thread.sleep(SLEEP_MILLISECONDS);
+
+        // Retrieve all question sets from the repository
+        List<QuestionSetEntity> allQuestionSets = getValue(repository.getAllEntities());
+
+        // Assertions:
+        assertEquals(allQuestionSets.size(), 1); // Then no question sets should be retrieved
+    }
+
+
     /**
      * Helper method to synchronously retrieve the value from LiveData.
-     *
      * @param liveData The LiveData from which the value needs to be retrieved.
      * @param <T> The type of data held by the LiveData.
      * @return The value held by the LiveData.
-     * @throws InterruptedException If the current thread is interrupted while waiting.
      */
     private <T> T getValue(final LiveData<T> liveData) throws InterruptedException {
         // Array to hold the data retrieved from LiveData
