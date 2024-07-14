@@ -8,10 +8,6 @@ import project.study.app.util.TimerCallback;
  * The presenter will manage the different timers and notify the view of changes.
  */
 public class PomodoroModePresenter extends PomodoroSessions implements TimerCallback {
-    private static final long STUDY_DURATION = 30 * 1000L;
-    private static final long BREAK_DURATION = 10 * 1000L;
-    private static final long INSERT_QUESTIONS_DURATION = 10 * 1000L;
-    private static final long EXAMINATION_DURATION = 30 * 1000L;
     private final PomodoroModeView view;
     private final Timer timer;
     private Session currentSession;

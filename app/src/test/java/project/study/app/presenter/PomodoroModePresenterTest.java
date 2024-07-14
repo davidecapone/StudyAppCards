@@ -4,6 +4,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.verify;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -62,5 +64,26 @@ public class PomodoroModePresenterTest {
 
         // Verify that the completion message is shown after all sessions are completed
         inOrder.verify(view).showCompletionMessage();
+    }
+
+
+    /**
+     * Test that the presenter correctly updates the timer
+     */
+    @Test
+    public void testOnTick() {
+        presenter.onTick(5000L); // 5 seconds remaining
+        verify(view).updateTimer(5);
+    }
+
+    /**
+     * Test that the presenter correctly handles the completion of the study session
+     */
+    @Test
+    public void testOnFinishStudySession() {
+        presenter.startPomodoroMode();
+        presenter.onFinish();
+        verify(view).showSession(PomodoroSessions.Session.BREAK);
+        verify(timer).start(PomodoroSessions.BREAK_DURATION, 1000L, presenter);
     }
 }
