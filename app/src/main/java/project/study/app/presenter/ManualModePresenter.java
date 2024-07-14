@@ -19,10 +19,6 @@ public class ManualModePresenter {
         this.view = view;
     }
 
-    /**
-     * Loads all question sets from the database and displays them in the view.
-     * Observes the data source and updates the view accordingly.
-     */
     public void loadAllQuestionSets() {
         LiveData<List<QuestionSet>> questionSets = service.getAllQuestionSets();
         questionSets.observeForever(view::displayQuestionSets);
@@ -86,6 +82,5 @@ public class ManualModePresenter {
      */
     private void handleError(String message) {
         view.showMessage(message);
-
     }
 }
