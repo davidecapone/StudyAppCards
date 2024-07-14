@@ -12,7 +12,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.service.interfaces.Callback;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.view.interfaces.ManualModeView;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 @Config(manifest = Config.NONE)
 public class ManualModePresenterTest {
     @Mock
-    private QuestionSetService service;
+    private Service service;
     @Mock
     private ManualModeView view;
     @InjectMocks

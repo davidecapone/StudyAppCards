@@ -31,187 +31,162 @@ import project.study.app.service.interfaces.SingleItemCallback;
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class QuestionSetServiceTest {
-
-    // Mock the QuestionSetRepository.
+public class ServiceTest {
+    private final String SAMPLE_QUESTION_SET_NAME;
     @Mock
-    private Repository repository;
+    private Repository<QuestionSetEntity, String> repository;
 
     // Inject the QuestionSetServiceImplementation.
     @InjectMocks
-    private QuestionSetServiceImplementation service;
+    private ServiceImplementation service;
 
     // Create a rule to execute LiveData tasks synchronously.
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    public ServiceTest () {
+        SAMPLE_QUESTION_SET_NAME = "Test Set";
+    }
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
-    /**
-     * Triggers the observer of a LiveData.
-     *
-     * @param liveData The LiveData to trigger.
-     */
     private void triggerObserver(LiveData<?> liveData) {
         liveData.observeForever(o -> {}); // Dummy observer to trigger LiveData
     }
 
     /**
-     * Tests the insert method of the QuestionSetServiceImplementation.
+     * Tests the insertion of a new QuestionSet.
      */
     @Test
     public void testInsertQuestionSetSuccess() {
-
-        // Arrange
-        String name = "Test Set";
-        QuestionSet questionSet = new QuestionSet(name);
+        QuestionSet questionSet = new QuestionSet(SAMPLE_QUESTION_SET_NAME);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
-        // Act
         service.insert(questionSet, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(repository).insert(any(QuestionSetEntity.class));
         verify(callback).onSuccess();
     }
 
     /**
-     * Tests the insert method of the QuestionSetServiceImplementation when the QuestionSet already exists.
+     * Tests the insertion when the QuestionSet already exists.
+     * The Service should throws an IllegalArgumentException
      */
     @Test
     public void testInsertQuestionSetAlreadyExists() {
+        QuestionSet questionSet = new QuestionSet(SAMPLE_QUESTION_SET_NAME);
+        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(
+                new QuestionSetEntity(SAMPLE_QUESTION_SET_NAME, null)
+        );
 
-        // Arrange
-        String name = "Test Set";
-        QuestionSet questionSet = new QuestionSet(name);
-        MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(new QuestionSetEntity(name, null));
-
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
-        // Act
         service.insert(questionSet, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(repository, never()).insert(any(QuestionSetEntity.class));
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 
     /**
-     * Tests the delete method of the QuestionSetServiceImplementation.
+     * Tests the deletion of a QuestionSet.
      */
     @Test
     public void testDeleteQuestionSetSuccess() {
-
-        // Arrange
-        String name = "Test Set";
-        QuestionSet questionSet = new QuestionSet(name);
-        QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
+        QuestionSet questionSet = new QuestionSet(SAMPLE_QUESTION_SET_NAME);
+        QuestionSetEntity existingEntity = new QuestionSetEntity(SAMPLE_QUESTION_SET_NAME, null);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(existingEntity);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
-        // Act
         service.delete(questionSet, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(repository).delete(existingEntity);
         verify(callback).onSuccess();
     }
 
     /**
-     * Tests the delete method of the QuestionSetServiceImplementation when the QuestionSet does not exist.
+     * Tests the deletion of a QuestionSet when that QuestionSet does not exist.
+     * The Service should throws an IllegalArgumentException
      */
     @Test
     public void testDeleteQuestionSetDoesNotExist() {
-
-        // Arrange
-        String name = "Test Set";
-        QuestionSet questionSet = new QuestionSet(name);
+        QuestionSet questionSet = new QuestionSet(SAMPLE_QUESTION_SET_NAME);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
-
-        // Act
         service.delete(questionSet, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(repository, never()).delete(any(QuestionSetEntity.class));
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 
     /**
-     * Tests the update method of the QuestionSetServiceImplementation.
+     * Tests the update of a QuestionSet.
      */
     @Test
     public void testUpdateQuestionSetSuccess() {
-
-        // Arrange
-        String name = "Test Set";
-        QuestionSet questionSet = new QuestionSet(name);
-        QuestionSetEntity existingEntity = new QuestionSetEntity(name, null);
+        QuestionSet questionSet = new QuestionSet(SAMPLE_QUESTION_SET_NAME);
+        QuestionSetEntity existingEntity = new QuestionSetEntity(SAMPLE_QUESTION_SET_NAME, null);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(existingEntity);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
-
-        // Act
         service.update(questionSet, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(repository).update(existingEntity);
         verify(callback).onSuccess();
     }
 
     /**
-     * Tests the update method of the QuestionSetServiceImplementation when the QuestionSet does not exist.
+     * Tests the update of a QuestionSet when that QuestionSet does not exist.
+     * The Service should throws an IllegalArgumentException
      */
     @Test
     public void testUpdateQuestionSetDoesNotExist() {
-
-        // Arrange
-        String name = "Test Set";
-        QuestionSet questionSet = new QuestionSet(name);
+        QuestionSet questionSet = new QuestionSet(SAMPLE_QUESTION_SET_NAME);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         Callback callback = mock(Callback.class);
 
-        // Act
         service.update(questionSet, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(repository, never()).update(any(QuestionSetEntity.class));
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 
     /**
-     * Tests the getAllQuestionSets method of the QuestionSetServiceImplementation.
+     * Tests the retrieving of all QuestionSet from the repository.
      */
     @Test
     public void testGetAllQuestionSets() {
-
-        // Arrange
         MutableLiveData<List<QuestionSetEntity>> liveData = new MutableLiveData<>();
         List<QuestionSetEntity> entities = Arrays.asList(
                 new QuestionSetEntity("1", null),
@@ -221,10 +196,9 @@ public class QuestionSetServiceTest {
 
         when(repository.getAllEntities()).thenReturn(liveData);
 
-        // Act
         LiveData<List<QuestionSet>> result = service.getAllQuestionSets();
 
-        // Assert
+        // Assertions:
         result.observeForever(questionSets -> {
             assertEquals(2, questionSets.size());
             assertEquals("1", questionSets.get(0).getQuestionSetName());
@@ -233,47 +207,38 @@ public class QuestionSetServiceTest {
     }
 
     /**
-     * Tests the getQuestionSetByName method of the QuestionSetServiceImplementation.
+     * Tests the retrieving of a QuestionSet from the repository by name.
      */
     @Test
     public void testGetQuestionSetByNameSuccess() {
-
-        // Arrange
-        String name = "Test Set";
-        QuestionSetEntity entity = new QuestionSetEntity(name, null);
+        QuestionSetEntity entity = new QuestionSetEntity(SAMPLE_QUESTION_SET_NAME, null);
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(entity);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         SingleItemCallback<QuestionSet> callback = mock(SingleItemCallback.class);
-
-        // Act
-        service.getQuestionSetByName(name, callback);
+        service.getQuestionSetByName(SAMPLE_QUESTION_SET_NAME, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(callback).onSuccess(any(QuestionSet.class));
     }
 
     /**
-     * Tests the getQuestionSetByName method of the QuestionSetServiceImplementation when the QuestionSet does not exist.
+     * Tests the retrieving of a QuestionSet by its name when there are no Question Sets with that name.
+     * The Service should throws an IllegalArgumentException
      */
     @Test
     public void testGetQuestionSetByNameDoesNotExist() {
-        
-        // Arrange
-        String name = "Test Set";
         MutableLiveData<QuestionSetEntity> liveData = new MutableLiveData<>(null);
 
-        when(repository.getEntityByName(name)).thenReturn(liveData);
+        when(repository.getEntityByName(SAMPLE_QUESTION_SET_NAME)).thenReturn(liveData);
 
         SingleItemCallback<QuestionSet> callback = mock(SingleItemCallback.class);
-
-        // Act
-        service.getQuestionSetByName(name, callback);
+        service.getQuestionSetByName(SAMPLE_QUESTION_SET_NAME, callback);
         triggerObserver(liveData);
 
-        // Assert
+        // Assertions:
         verify(callback).onError(any(IllegalArgumentException.class));
     }
 }

@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import project.study.app.model.dao.QuestionSetDao;
 import project.study.app.model.database.StudyAppDatabase;
+import project.study.app.model.entity.QuestionSetEntity;
 import project.study.app.repository.interfaces.Repository;
 
 /**
@@ -12,19 +13,17 @@ import project.study.app.repository.interfaces.Repository;
  * This class is needed to provide a clean API for creating instances of the repository.
  */
 public class RepositoryFactory {
+
     /**
      * Create a new instance of the QuestionSetRepository.
-     *
-     * @param context
-     * @return
      */
-    public static Repository create(Context context) {
+    public static Repository<QuestionSetEntity, String> create(Context context) {
+
         // Get an instance of the StudyAppDatabase using the provided context
         StudyAppDatabase db = StudyAppDatabase.getDatabase(context);
-        // Obtain the QuestionSetDao from the database instance
-        QuestionSetDao questionSetDao = db.questionSetDao();
-        // Create a cached thread pool ExecutorService to handle asynchronous tasks
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        return new RepositoryImplementation(questionSetDao, executorService);
+        return new RepositoryImplementation(
+                db.questionSetDao(), // Obtain the QuestionSetDao from the database instance
+                Executors.newCachedThreadPool() // Create a cached thread pool ExecutorService
+        );                                      // to handle asynchronous tasks
     }
 }

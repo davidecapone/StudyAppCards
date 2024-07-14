@@ -2,7 +2,7 @@ package project.study.app.presenter;
 
 import project.study.app.model.Statistics;
 import project.study.app.model.domain.Question;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.service.interfaces.SingleItemCallback;
 import project.study.app.view.interfaces.ExaminationSessionView;
 import project.study.app.model.domain.QuestionSet;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ExaminationSessionPresenter {
     // Service to fetch the question set
-    private final QuestionSetService service;
+    private final Service service;
     // View to display the questions and statistics
     private final ExaminationSessionView view;
     // Statistics object to track correct and incorrect answers
@@ -34,7 +34,7 @@ public class ExaminationSessionPresenter {
      * @param service The service to fetch the question set.
      * @param view The view to display the questions and statistics.
      */
-    public ExaminationSessionPresenter(QuestionSetService service, ExaminationSessionView view) {
+    public ExaminationSessionPresenter(Service service, ExaminationSessionView view) {
         this.service = service;
         this.view = view;
     }

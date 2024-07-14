@@ -3,12 +3,12 @@ package project.study.app.presenter;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.service.interfaces.Callback;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.service.interfaces.SingleItemCallback;
 import project.study.app.view.interfaces.QuestionSetDetailsView;
 
 public class QuestionSetDetailsPresenter {
-    private final QuestionSetService service;
+    private final Service service;
     private final QuestionSetDetailsView view;
     private QuestionSet currentQuestionSet;
 
@@ -18,7 +18,7 @@ public class QuestionSetDetailsPresenter {
      * @param service The service to fetch the question set
      * @param view The view to display the question set details
      */
-    public QuestionSetDetailsPresenter(QuestionSetService service, QuestionSetDetailsView view) {
+    public QuestionSetDetailsPresenter(Service service, QuestionSetDetailsView view) {
         this.service = service;
         this.view = view;
     }

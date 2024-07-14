@@ -17,7 +17,7 @@ import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.service.interfaces.Callback;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.service.interfaces.SingleItemCallback;
 import project.study.app.view.interfaces.QuestionSetDetailsView;
 
@@ -26,7 +26,7 @@ import project.study.app.view.interfaces.QuestionSetDetailsView;
  */
 public class QuestionSetDetailsPresenterTest {
     @Mock
-    private QuestionSetService service;
+    private Service service;
     @Mock
     private QuestionSetDetailsView view;
     @InjectMocks

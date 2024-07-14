@@ -3,7 +3,7 @@ package project.study.app.presenter;
 import androidx.lifecycle.LiveData;
 import project.study.app.model.domain.QuestionSet;
 import project.study.app.service.interfaces.Callback;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.view.interfaces.ManualModeView;
 import java.util.List;
 
@@ -11,17 +11,17 @@ import java.util.List;
  * Presenter for manual mode view
  */
 public class ManualModePresenter {
-    private final QuestionSetService service;
+    private final Service service;
     private final ManualModeView view;
 
     /**
      * Constructor to create a new ManualModePresenter.
      *
-     * @param questionSetService The service to fetch the question sets
+     * @param service The service to fetch the question sets
      * @param view The view to display the question sets
      */
-    public ManualModePresenter(QuestionSetService questionSetService, ManualModeView view) {
-        this.service = questionSetService;
+    public ManualModePresenter(Service service, ManualModeView view) {
+        this.service = service;
         this.view = view;
     }
     /**

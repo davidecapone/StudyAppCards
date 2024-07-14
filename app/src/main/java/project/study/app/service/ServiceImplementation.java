@@ -9,22 +9,25 @@ import project.study.app.model.domain.QuestionSet;
 import project.study.app.model.entity.QuestionSetEntity;
 import project.study.app.repository.interfaces.Repository;
 import project.study.app.service.interfaces.Callback;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.service.interfaces.SingleItemCallback;
 
 /**
  * A service class to manage QuestionSets.
  */
-public class QuestionSetServiceImplementation implements QuestionSetService {
+public class ServiceImplementation implements Service {
+
     private final Repository<QuestionSetEntity, String> repository;
+
     /**
      * Creates a new QuestionSetServiceImplementation.
      *
      * @param repository The repository to manage QuestionSetEntities.
      */
-    public QuestionSetServiceImplementation(Repository repository) {
+    public ServiceImplementation(Repository<QuestionSetEntity, String> repository) {
         this.repository = repository;
     }
+
     /**
      * A functional interface to perform an operation on a QuestionSetEntity.
      */
@@ -32,6 +35,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
     private interface QuestionSetOperation {
         void perform(QuestionSetEntity existingEntity);
     }
+
     /**
      * Handles an operation on a QuestionSetEntity.
      *
@@ -39,24 +43,19 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
      * @param operation The operation to perform.
      */
     private void handleQuestionSetOperation(String name, QuestionSetOperation operation) {
-        // Observe the LiveData of the QuestionSetEntity with the given name.
+
         LiveData<QuestionSetEntity> existingLiveData = repository.getEntityByName(name);
-        // Perform the operation when the LiveData is updated.
         existingLiveData.observeForever(new Observer<QuestionSetEntity>() {
-            /**
-             * Performs the operation on the existing entity and removes the observer.
-             *
-             * @param existingEntity The existing entity.
-             */
             @Override
-            public void onChanged(QuestionSetEntity existingEntity) {
+            public void onChanged(QuestionSetEntity existingEntity) { // Performs operation when LiveData is updated
                 operation.perform(existingEntity);
                 existingLiveData.removeObserver(this);
             }
         });
     }
+
     /**
-     * Inserts a new QuestionSet.
+     * Inserts a new QuestionSet into repository.
      *
      * @param questionSet The QuestionSet to insert.
      * @param callback The callback to notify the result.
@@ -75,8 +74,9 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
             }
         );
     }
+
     /**
-     * Deletes an existing QuestionSet.
+     * Deletes an existing QuestionSet from the repository.
      *
      * @param questionSet The QuestionSet to delete.
      * @param callback The callback to notify the result.
@@ -94,6 +94,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
             }
         );
     }
+
     /**
      * Updates an existing QuestionSet.
      *
@@ -115,20 +116,22 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
             }
         );
     }
+
     /**
-     * Retrieves all QuestionSets.
+     * Retrieves all QuestionSets from the repository.
      *
      * @return A LiveData list of all QuestionSets.
      */
     @Override
     public LiveData<List<QuestionSet>> getAllQuestionSets() {
-        return Transformations.map(
+        return Transformations.map(  // Transform all the retrieved entities to domain objects
                 repository.getAllEntities(),
                 entities -> entities.stream().map(this::toDomain).collect(Collectors.toList())
         );
     }
+
     /**
-     * Retrieves a QuestionSet by name.
+     * Retrieves a QuestionSet by name from the repository.
      *
      * @param name The name of the QuestionSet.
      * @param callback The callback to notify the result.
@@ -145,6 +148,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
             }
         );
     }
+
     /**
      * Converts a QuestionSetEntity to a QuestionSet domain object.
      *
@@ -156,6 +160,7 @@ public class QuestionSetServiceImplementation implements QuestionSetService {
         domainQuestionSet.setQuestions(entity.getQuestions());
         return domainQuestionSet;
     }
+
     /**
      * Converts a QuestionSet domain object to a QuestionSetEntity.
      *

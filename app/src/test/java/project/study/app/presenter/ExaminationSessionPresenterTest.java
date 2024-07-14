@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
-import project.study.app.service.interfaces.QuestionSetService;
+import project.study.app.service.interfaces.Service;
 import project.study.app.service.interfaces.SingleItemCallback;
 import project.study.app.view.interfaces.ExaminationSessionView;
 import project.study.app.model.domain.QuestionSet;
@@ -21,7 +21,7 @@ import project.study.app.model.domain.FreeTextAnswer;
  */
 public class ExaminationSessionPresenterTest {
     @Mock
-    private QuestionSetService service;
+    private Service service;
     @Mock
     private ExaminationSessionView view;
     @Captor
