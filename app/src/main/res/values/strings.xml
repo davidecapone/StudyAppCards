@@ -43,14 +43,18 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="question_set_name">Question Set Name</string>
+    <string name="question_set_name">Name</string>
     <string name="start_examination">Play</string>
     <string name="delete">Delete</string>
     <string name="modify">Modify</string>
     <string name="insert_the_question_text">Insert the question text</string>
-    <string name="question_text">Question text</string>
+    <string name="question_text">Type the question text here</string>
     <string name="insert_the_answer_and_the_type_of_the_answer">Choose the type of the answer and insert it</string>
     <string name="correct_answer">Correct answer:</string>
+    <string name="add_question">Add</string>
+    <string name="type_answer">Answer type</string>
+    <string name="answer_type_fill">FreeText</string>
+
     <string-array name="answer_types">
         <item>Free Text</item>
         <item>Multiple Choice</item>

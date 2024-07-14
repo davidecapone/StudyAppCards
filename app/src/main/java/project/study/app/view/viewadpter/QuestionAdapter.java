@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import project.study.app.R;
+import project.study.app.model.domain.FreeTextAnswer;
 import project.study.app.model.domain.Question;
 
 /**
@@ -81,6 +82,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         // TextView for the question
         private final TextView textViewQuestion;
+        private final TextView answerType;
 
         /**
          * Constructor
@@ -91,6 +93,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
             super(itemView);
             textViewQuestion = itemView.findViewById(R.id.textViewQuestion);
+            answerType = itemView.findViewById(R.id.textViewAnswerType);
         }
 
         /**
@@ -100,6 +103,10 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
          */
         public void bind(final Question question) {
             textViewQuestion.setText(question.getText());
+            if (question.getAnswer() instanceof FreeTextAnswer)
+                answerType.setText("Free Text");
+            else
+                answerType.setText("Multiple Choice");
         }
     }
 }

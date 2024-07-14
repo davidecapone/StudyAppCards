@@ -7,38 +7,42 @@
 
     <TextView
         android:id="@+id/textViewQuestionSetName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/question_set_name"
         android:textStyle="bold"
         android:textSize="25sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/color_primary"
+        android:layout_marginTop="0dp"/>
+    <!--<TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/insert_the_question_text"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginTop="20dp"/>-->
 
     <EditText
         android:id="@+id/editTextQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/question_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_marginTop="20dp"
+        />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/insert_the_answer_and_the_type_of_the_answer"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="8dp" />
+        />
 
     <Spinner
         android:id="@+id/spinnerAnswerType"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/answer_types"/>
+        android:entries="@array/answer_types"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/editTextFreeTextAnswer"
@@ -65,22 +69,22 @@
         android:id="@+id/buttonAddQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Question"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_margin="8sp"/>
+        android:text="@string/add_question"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_marginTop="5dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/color_primary"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginTop="2dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your questions for this set:"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="10dp" />
 
 
     <androidx.recyclerview.widget.RecyclerView
